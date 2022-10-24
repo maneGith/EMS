@@ -1,0 +1,181 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete.html.twig') }}
+    
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                <div class="titre lien-menu" id="titre">
+                    Paramètres de la vacation             
+                </div> 
+
+                <div class="content" id="content">       
+                    
+                    {{ form_start(edit_form) }}
+                    <table class="table table-condensed">
+                        <tbody>
+
+                        <tr>
+                            <th>Journée du</th>
+                            <td>{{ vacation.journee }}
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Début de vacation</th>
+                            <td>{{ debutheure ~ 'H ' ~ debutminute }}  <span class="rs-e">Modifier</span>
+                                <div class="De-e">
+                                    <label>Heure</label>
+                                    <div class="form-group" style="max-width: 400px">
+                                        <select class="form-control" name="debutheure">
+                                            <option value="00">00</option>
+                                            {% for i in 01..23 %}
+
+                                                {% if(i<10) %}
+                                                    {% if( i==debutheure) %}
+                                                        <option value="0{{ i }}" selected>0{{ i }}</option>
+                                                    {% else %}
+                                                        <option value="0{{ i }}">0{{ i }}</option>
+                                                    {% endif %}
+                                                {% else %}
+                                                    {% if( i==debutheure) %}
+                                                        <option value="{{ i }}" selected>0{{ i }}</option>
+                                                    {% else %}
+                                                        <option value="{{ i }}">{{ i }}</option>
+                                                    {% endif %}
+                                                {% endif %}
+
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <label>Minute</label>
+                                    <div class="form-group" style="max-width: 400px">
+                                        <select class="form-control" name="debutminute">
+                                            <option value="00">00</option>
+                                            {% for i in 1..59 %}
+
+                                                {% if(i<10) %}
+                                                    {% if( i==debutminute) %}
+                                                        <option value="0{{ i }}" selected>0{{ i }}</option>
+                                                    {% else %}
+                                                        <option value="0{{ i }}">0{{ i }}</option>
+                                                    {% endif %}
+                                                {% else %}
+                                                    {% if( i==debutminute) %}
+                                                        <option value="{{ i }}" selected>0{{ i }}</option>
+                                                    {% else %}
+                                                        <option value="{{ i }}">{{ i }}</option>
+                                                    {% endif %}
+                                                {% endif %}
+
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+
+                                    <span>
+                                        <input type="submit" value="Modifier" class="btn btn-ems" />
+                                        <a href="{{ path('vacation_edit', { 'id': vacation.id }) }}" class="btn btn-ems">Annuler</a>
+                                    </span>
+                                </div>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <th>Fin de vacation</th>
+                            <td>{{ finheure ~ 'H ' ~ finminute }}   <span class="rs-e">Modifier</span>
+                                <div class="De-e">
+                                    <label>Heure</label>
+                                    <div class="form-group" style="max-width: 400px">
+                                        <select class="form-control" name="finheure">
+                                            <option value="00">00</option>
+                                            {% for i in 01..23 %}
+
+                                                {% if(i<10) %}
+                                                        {% if( i==finheure) %}
+                                                            <option value="0{{ i }}" selected>0{{ i }}</option>
+                                                        {% else %}
+                                                            <option value="0{{ i }}">0{{ i }}</option>
+                                                        {% endif %}
+                                                {% else %}
+                                                    {% if( i==finheure) %}
+                                                        <option value="{{ i }}" selected>0{{ i }}</option>
+                                                    {% else %}
+                                                        <option value="{{ i }}">{{ i }}</option>
+                                                    {% endif %}
+                                                {% endif %}
+
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <label>Minute</label>
+                                    <div class="form-group" style="max-width: 400px">
+                                        <select class="form-control" name="finminute">
+                                            <option value="00">00</option>
+                                            {% for i in 01..59 %}
+
+                                                {% if(i<10) %}
+                                                    {% if( i==finminute) %}
+                                                        <option value="0{{ i }}" selected>0{{ i }}</option>
+                                                    {% else %}
+                                                        <option value="0{{ i }}">0{{ i }}</option>
+                                                    {% endif %}
+                                                {% else %}
+                                                    {% if( i==finminute) %}
+                                                        <option value="{{ i }}" selected>0{{ i }}</option>
+                                                    {% else %}
+                                                        <option value="{{ i }}">{{ i }}</option>
+                                                    {% endif %}
+                                                {% endif %}
+
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                   <span>
+                                        <input type="submit" value="Modifier" class="btn btn-ems" />
+                                        <a href="{{ path('vacation_edit', { 'id': vacation.id }) }}" class="btn btn-ems">Annuler</a>
+                                   </span>
+                                </div>
+                            </td>
+                        </tr>
+
+
+
+
+                        {{ form_end(edit_form) }}
+                        <tr>
+                            <td colspan="3">
+            <span  style="float: right">
+                    <ul>
+                        <li style="float:left;">
+                            <a href="{{ path('vacation_index') }}"><input type="button" value="Lister" class="btn  btn-ems" style="margin-right: 15px;"/></a>
+                        </li>
+
+                        <li style="float:left;">
+                            {{ form_start(delete_form) }}
+                            <a href="#"> <input type="submit" value="Supprimer" class="btn  btn-ems" ></a>
+                            {{ form_end(delete_form) }}
+                        </li>
+                    </ul>
+            </span></td></tr>
+                        </tbody>
+                    </table>
+
+                </div> 
+            </div>
+        </div>
+     </div>
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,125 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/header.html.twig') }}
+
+    <div id="container" style="border: solid 1px #d2d2d2;overflow-x: hidden;">
+        <div class="row">
+
+            <div class="column column-left menu">
+                {{ include('includes/admin.html.twig') }}
+            </div>
+
+            <div class="column column-middle" style="background: #8E998F">
+                {{ form_start(form) }}
+                <div style="border: solid 1px #d2d2d2;background: #fff">
+                    <div>
+                        <span style="color:#337ab7;font-weight: bold">Création d'une zone de tarification</span>
+                        <span style="float: right;font-size: 12px;font-weight: bold">
+                            <a href="{{ path('zone_index') }}">
+                                Fermer
+                            </a>
+                        </span>
+                    </div>
+                    <div style="max-width: 500px;">
+                        <div class="form-group">
+                            {{ form_label(form.name)}}
+                            {{ form_widget(form.name,{'attr':{'class':'form-control',
+                                'style':'border:solid 1px #337ab7'}}) }}
+                            {{ form_errors(form.name) }}
+                        </div>
+
+
+                        <div class="form-group">
+                            {{ form_label(form.domaine)}}
+                            {{ form_widget(form.domaine,{'attr':{'class':'form-control',
+                                'style':'border:solid 1px #337ab7'}}) }}
+                            {{ form_errors(form.domaine) }}
+                        </div>
+
+
+
+                        <div style="height: 30px"> <input type="submit" value="Ajouter" class="btn  btn-ems  r-ems" /></div>
+                    </div>
+                </div>
+                {{ form_end(form) }}
+
+
+
+
+                <div style="background: #fff;margin-top: 8px">
+                    <table class="table table-bordered">
+
+                        <tbody>
+                        <tr>
+                            <td ><a href="{{ path('bareme_national') }}"  style="color:#777;font-size: 12px;font-weight: bold;">
+                                    <img  src="{{ asset('img/tarif-ems-bareme.jpg') }}" />
+                                     ENVOIS NATIONAUX
+                                </a>
+
+                            </td>
+                            <td><a href="{{ path('bareme_index') }}"  style="color:#777;font-size: 12px;font-weight: bold;">
+                                    <img  src="{{ asset('img/tarif-ems-bareme.jpg') }}" />
+                                    CLIENTS OCCASIONNELS
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>  <a href="{{ path('bareme_index') }}"  style="color:#777;font-size: 12px;font-weight: bold;">
+                                    <img  src="{{ asset('img/tarif-ems-bareme.jpg') }}" />
+                                   CLIENTS ABONNES
+                                </a>
+                            </td>
+                            <td>
+
+                                <div style="background: #fff">
+                                    <table class="table table-condensed">
+                                        <thead>
+                                        <tr>
+                                            <th colspan="4"><span style="color:#337ab7;font-weight: bold">Zones de tarification</span></th>
+                                        </tr>
+                                        <tr>
+
+                                            <th>Name</th>
+                                            <th>Domaine</th>
+                                            <th>
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for zone in zones %}
+                                            <tr>
+
+                                                <td>{{ zone.name }}</td>
+                                                <td>{{ zone.domaine }}</td>
+                                                <td>
+                                                    <ul style="list-style-type:none;padding-left:0;float: right">
+                                                        <li>
+                                                            <a href="{{ path('zone_edit', { 'id': zone.id }) }}" style="float: right;font-weight: bold">
+                                                                <i class="glyphicon glyphicon-cog" style="color:#1b6d85"></i>
+                                                                <span class="rs-e">Paramètres</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+{% endblock %}
+

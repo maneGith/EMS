@@ -1,0 +1,797 @@
+<table width="100%">
+    <tbody>
+    <tr>
+        <td width="50%" style="border-left: solid 14px #FFAF44;border-top: solid 10px #FFAF44;border-bottom: solid 10px #FFAF44;border-right: solid 7px #FFAF44;">
+
+            <div style="height: 165mm;width: 100%">
+                <div>
+                    <div style="height: 20mm;" class="border-color-lrt">
+                        <img src="{{ asset('img/logo-ems.jpg') }}" width="100%" height="70px">
+                    </div>
+                    <div style="height: 23mm;" class="border-color-lrtb">
+                        <table width="100%">
+                            <tbody>
+                            <tr>
+                                <td width="33.5%">
+                                    <div style="position: relative;height: 82px;" class="border-color-r">
+                                        <div style="position: absolute; top: -5px; left: 0px;">
+                                            <span style="font-size: 12px">1 Bureau d'origine</span>
+                                            <div style="position: absolute; top: 12px; left: 0px;">
+                                                <span style="font-size: 9px">&nbsp;&nbsp;&nbsp;&nbsp;Origine office</span>
+                                                <div style="position: relative;">
+                                                    <div style="position: absolute; top: -9px; left: 0px;width: 145px;">
+                                                        <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;{{ envoi.bordereau.vacation.agence.nom }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td width="33%">
+
+                                    <div style="position: relative;height: 80px;" class="border-color-r">
+                                        <div style="position: absolute; top: -5px; left: 0px;">
+                                            <span style="font-size: 12px">2 Date de dépot</span>
+                                            <div style="position: absolute; top: 12px; left: 0px;">
+                                                <span style="font-size: 9px">&nbsp;&nbsp;&nbsp;&nbsp;Date of posting</span>
+                                                <div style="position: relative;">
+                                                    <div style="position: absolute; top: -9px; left: 0px;">
+                                                        <span style="font-weight: bold">&nbsp;&nbsp;&nbsp;{{ envoi.date }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td width="33.5%">
+
+                                    <div style="position: relative;height: 80px;">
+                                        <div style="position: absolute; top: -5px; left: 0px;">
+                                            <span style="font-size: 12px">3 Heure de dépot</span>
+                                            <div style="position: absolute; top: 12px; left: 0px;">
+                                                <span style="font-size: 9px">&nbsp;&nbsp;&nbsp;&nbsp;Time of posting</span>
+                                                <div style="position: relative;">
+                                                    <div style="position: absolute; top: -9px; left: 0px;">
+                                                        <span style="font-weight: bold">&nbsp;&nbsp;&nbsp;{{ envoi.heure }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                  <div style="margin-top: -5px">
+                        <img src="{{ asset('img/p3p4.png') }}"  height="15" width="100%">
+                  </div>                                     
+                <div style="position: relative;">
+                    <div style="position: absolute; top: -24px; left: 0px;">
+                        <span style="font-size: 13px">4 Expéditeur</span> <span style="font-size: 11px"> / Shipper</span>
+                    </div>
+                </div>
+                   
+
+                <div style="height: 10mm;margin-top: -3px" class="border-color-ltr">
+                    <table width="100%">
+                        <tbody>
+                        <tr>
+                            <td width="49%">
+
+                                <div style="position: relative;height: 30px;padding-top: 5px">
+                                    <div style="position: absolute; top: -2px; left: 0px;line-height: 15px">
+                                        <span style="font-size: 12px">N° Compte :</span> <span style="font-weight: bold;font-size: 12px">
+
+                                                                        {% if envoi.expediteur.numcompte==0 %}
+                                                                            ---
+                                                                        {% else %}
+                                                                            {{ envoi.expediteur.numcompte }}
+                                                                        {% endif %}
+                                                                    </span>
+                                        <div style="position: absolute; top: 10px; left: 0px;">
+                                            <span style="font-size: 9px">Account n°</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td width="51%">
+                                <div style="position: relative;height: 30px;padding-top: 5px">
+                                    <div style="position: absolute; top: -2px; left: -4px;line-height: 15px">
+                                        <span style="font-size: 11px">N° Téléphone :</span>
+                                        <div style="position: absolute; top: 1px; left: 72px;line-height: 15px;width: 150px">
+                                            <span style="font-weight: bold;font-size: 12px">
+                                                {{ envoi.expediteur.usager.telephone|striptags|slice(0, 16)|raw }}
+                                            </span>
+                                        </div>
+                                        <div style="position: absolute; top: 10px; left: 0px;">
+                                            <span style="font-size: 9px">Phone number</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="margin-top: -10px;height: 10mm;padding-top: 1px" class="border-color-ltr">
+                    <table width="100%">
+                        <tbody>
+                        <tr>
+                            <td width="32%">
+                                <div style="position: relative;height: 35px;padding-top: 5px">
+                                    <div style="position: absolute; top: -2px; left: 0px;">
+                                        <span style="font-size: 13px">Nom et adresse :</span>
+                                        <div style="position: absolute; top: 10px; left: 0px;">
+                                            <span style="font-size: 9px">Name and address</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td width="68%">
+                                <div style="position: relative;height: 35px;padding-top: 5px">
+                                    <div style="position: absolute; top: 0px; left: -5px;line-height:14px;">
+                                        <span style="font-weight: bold">{{ envoi.expediteur.usager.nom|striptags|slice(0, 80)|raw }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="height: 20mm;" class="border-color-lr">
+                    <table width="100%">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div style="height: 65px;line-height:17px;padding-top: 5px;">
+                                    <span style="font-weight: bold">
+                                        {{ envoi.expediteur.usager.adresse|striptags|slice(0, 160)|raw }}
+                                        </span>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="height: 10mm;" class="border-color-lr">
+                    <table width="100%">
+                        <tbody>
+                        <tr>
+                            <td width="50%">
+                                <div style="height: 32px;padding-top: 10px">
+
+                                </div>
+                            </td>
+                            <td width="50%">
+                                <div style="position: relative;height: 32px;padding-top: 10px;">
+                                    <div style="position: absolute; top: 4px; left: 0px;">
+                                        <span style="font-size: 13px">N° Code Postal :</span> <span style="font-weight: bold">{{ envoi.expediteur.usager.codepostal }}</span></br>
+                                        <div style="position: absolute; top: 10px; left: 0px;">
+                                            <span style="font-size: 9px">Zip postal code</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="height: 10mm;" class="border-color-lrb">
+                    <table width="100%">
+                        <tbody>
+                        <tr>
+                            <td width="50%">
+                                <div style="position: relative;height: 35px;">
+                                    <div style="position: absolute; top: 4px; left: 0px;">
+                                        <span style="font-size: 13px">Ville :</span> <span style="font-weight: bold">{{ envoi.expediteur.usager.ville }}</span></br>
+                                        <div style="position: absolute; top: 10px; left: 0px;">
+                                            <span style="font-size: 9px">City</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td width="50%">
+                                <div style="position: relative;height: 35px;">
+                                    <div style="position: absolute; top: 4px; left: 0px;">
+                                        <span style="font-size: 13px">Pays :</span> <span style="font-weight: bold">{{ envoi.expediteur.usager.pays.name }}</span></br>
+                                        <div style="position: absolute; top: 10px; left: 0px;">
+                                            <span style="font-size: 9px">Country</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+ 
+                <div style="margin-top: -6px">
+                        <img src="{{ asset('img/p3p4.png') }}"  height="15" width="100%">
+                </div>                                     
+                <div style="position: relative;">
+                    <div style="position: absolute; top: -24px; left: 0px;">
+                        <span style="font-size: 13px">6 Déclaration en douane</span> <span style="font-size: 11px"> / clearance</span>
+                    </div>
+                </div>
+                    
+
+                <div style="margin-top: -2px;height: 20mm;position: relative" class="border-color-lrtb">
+                    <div style="position: absolute; top: -2px; left: 0px;">
+                        <span style="font-size: 13px">Description de contenu</span> <span style="font-size: 9px"> / Content description</span>
+                    </div>
+                    <div style="position: absolute; top: 15px; left: 0px;">
+                        <span style="font-weight: bold">{{ envoi.description }}</span></br>
+
+                    </div>
+                </div>
+
+                <div class="border-color-lrb" style="height: 20mm;">
+                    <table width="100%">
+                        <tbody>
+                        <tr>
+                            <td width="44%">
+                                <div class="border-color-r">
+                                    <table width="100%">
+                                        <tbody>
+                                        <tr>
+                                            <td width="60%">
+                                                <div style="margin-top: 15px;height: 23px;position: relative">
+                                                    <div style="position: absolute; top: -15px; left: 0px;">
+                                                        {% if envoi.nature=='Cadeau' %}
+                                                            <img src="{{ asset('img/radios.jpg') }}" />
+                                                        {% else %}
+                                                            <img src="{{ asset('img/radion.jpg') }}" />
+                                                        {% endif %}
+                                                        <span style="font-size: 12px">Cadeau</span>
+                                                        <div style="position: absolute; top: 10px; left: 0px;">
+                                                            <span style="font-size: 9px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gift</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td width="40%">
+                                                <div style="margin-top: 15px;height: 15px;position: relative">
+                                                    <div style="position: absolute; top: -15px; left: 0px;">
+                                                        {% if envoi.nature=='Autre' %}
+                                                            <img src="{{ asset('img/radios.jpg') }}" />
+                                                        {% else %}
+                                                            <img src="{{ asset('img/radion.jpg') }}" />
+                                                        {% endif %}
+                                                        <span style="font-size: 12px">Autre</span>
+                                                        <div style="position: absolute; top: 10px; left: 0px;">
+                                                            <span style="font-size: 9px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Other</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" width="100%">
+                                                <div style="margin-top: 15px;height: 15px;position: relative">
+                                                    <div style="position: absolute; top: -12px; left: 0px;">
+                                                        {% if envoi.nature=='Marchandise' %}
+                                                            <img src="{{ asset('img/radios.jpg') }}" />
+                                                        {% else %}
+                                                            <img src="{{ asset('img/radion.jpg') }}" />
+                                                        {% endif %}
+                                                        <span style="font-size: 13px">Marchandise</span>
+                                                        <div style="position: absolute; top: 10px; left: 0px;">
+                                                            <span style="font-size: 9px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Merchandise</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </td>
+                            <td width="31%">
+                                <div class="border-color-r" style="width: 100%;height: 75px;">
+                                    <div style="position: relative">
+                                        <span style="font-size: 13px">Valeur(Euro)</span>
+                                        <div style="position: absolute; top: 15px; left: 0px;">
+                                            <span style="font-size: 9px">Value</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight: bold">{{ envoi.valeur }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td width="25%">
+
+                                <div style="width: 100%;height: 66px;">
+                                    <div style="position: relative">
+                                        <span style="font-size: 13px">Poids(Kg)</span>
+                                        <div style="position: absolute; top: 15px; left: 0px;">
+                                            <span style="font-size: 9px">Weight</span>&nbsp;&nbsp;
+                                                                        <span style="font-weight: bold">
+
+                                                                            {% if envoi.poids|slice(envoi.poids|length-3, 3)==000 %}
+
+                                                                                {{ envoi.poids|striptags|slice(0, envoi.poids|length-4)|raw }}
+                                                                                &nbsp;&nbsp;&nbsp;
+
+
+                                                                            {% else %}
+                                                                                {{ envoi.poids }}
+                                                                            {% endif %}
+
+                                                                        </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="position: relative;height:17mm;padding-top: 10px;" class="border-color-lrtb">
+                    <div style="position: absolute; top: 4px; left: 0px;">
+                        <span style="font-size: 13px">8. Signature du déposant</span></br>
+                        <div style="position: absolute; top: 10px; left: 0px;">
+                            <span style="font-size: 9px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Signature of sender</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </td>
+        <td width="50%" style="border-right: solid 14px #FFAF44;border-top: solid 10px #FFAF44;border-bottom: solid 10px #FFAF44;border-left: solid 7px #FFAF44;">
+            <div style="height: 165mm;width: 100%">
+                <div style="height: 22mm;">
+                    <div style="height: 43px;" class="border-color-ltr">
+                        <table width="100%">
+                            <tbody>
+                            <tr>
+                                <td width="18%">
+                                    <div style="position: relative;padding-top: 5px">
+                                        <div style="position: absolute; top: -2px; left: 0px;">
+                                            <span style="font-size: 13px"> N° Local</span>
+                                            <div style="position: absolute; top: 10px; left: 0px;">
+                                                
+                                                <span style="font-size: 9px">Local&nbsp;number</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td width="82%">
+                                    <div style="position: relative;height: 38px;padding-top: 5px">
+
+{#                                        {% if envoi.echelle=="National" %}#}
+                                            <div style="position: absolute; left: 0px;">
+                                                
+                                               
+                                                <img alt="{{ envoi.codeenvoi|upper }}" src="{{asset('code.php?codetype=Code39&size=40&text='~ envoi.codeenvoi|upper ~ '&print=true')}}" />
+{#                                                <img alt="{{ envoi.codeenvoi|upper }}" src="http://softsolutionsarl.com/codebar/barcode.php?codetype=Code39&size=40&text={{ envoi.codeenvoi|upper }}&print=true" />#}
+{#                                           {{ envoi.codeenvoi|upper }}#}
+                                            </div>
+                                       {# {% else %}
+                                            {% if envoi.agence.id==43 %}
+                                                <div style="position: absolute; left: 0px;">
+                                                    <img alt="emscb" src="http://softsolutionsarl.com/codebar/barcode.php?codetype=Code39&size=40&text={{ envoi.codeenvoi|upper }}&print=true" />
+                                                </div>
+                                            {% else %}
+                                                <div style="position: absolute; top: -2px; left: 0px;">
+                                                    <span style="font-weight: bold">{{ envoi.codeenvoi|upper }}</span>
+                                                </div>
+                                            {% endif %}
+                                        {% endif %}#}
+
+
+
+
+
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="height: 45px;" class="border-color-lrb">
+                        <table width="100%">
+                            <tbody>
+                            <tr>
+                                <td width="22%">
+                                    <div style="position: relative;height: 42px;padding-top: 5px">
+
+                                    </div>
+                                </td>
+                                <td width="78%">
+                                    <div style="">
+                                        <div style="position: relative;height: 42px;padding-top: 5px">
+                                            <div style="position: absolute; top: -2px; left: 0px;">
+                                               {# {% if envoi.echelle=="National" %}
+                                                {% else %}
+                                                    {% if envoi.agence.id==43 %}
+                                                    {% else %}
+                                                        <span style="font-size: 13px">Numéro de référence de l'envoi</span>
+                                                        <div style="position: absolute; top: 10px; left: 0px;">
+                                                            <span style="font-size: 11px">Item number</span>
+                                                        </div>
+                                                    {% endif %}
+
+
+                                                {% endif %}#}
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                     
+                <div>
+                        <img src="{{ asset('img/p3p4.png') }}"  height="15" width="100%">
+                </div>                                     
+                <div style="position: relative;">
+                    <div style="position: absolute; top: -24px; left: 0px;">
+                        <span style="font-size: 13px">7 Destinataire</span> <span style="font-size: 11px"> / Adressee</span>
+                    </div>
+                </div>
+                  
+                    
+                <div style="height: 10mm;margin-top: -2px" class="border-color-lrtb">
+                    <table width="100%">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div style="position: relative;padding-top: 5px">
+                                    <div style="position: absolute; top: -2px; left: 0px;">
+                                        <span style="font-size: 13px">N° Téléphone :</span> <span style="font-weight: bold">
+                                             {{ envoi.destinataire.usager.telephone|striptags|slice(0, 20)|raw }}</span>
+                                        <div style="position: absolute; top: 10px; left: 0px;">
+                                            <span style="font-size: 9px">Phone number</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="height: 10mm;" class="border-color-ltr">
+                    <table width="100%">
+                        <tbody>
+                        <tr>
+                            <td width="32%">
+                                <div style="position: relative;height: 35px;padding-top: 5px">
+                                    <div style="position: absolute; top: -2px; left: 0px;">
+                                        <span style="font-size: 13px">Nom et adresse :</span>
+                                        <div style="position: absolute; top: 10px; left: 0px;">
+                                            <span style="font-size: 9px">Name and address</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td width="68%">
+                                <div style="position: relative;height: 35px;padding-top: 5px">
+                                    <div style="position: absolute; top: 0px; left: -5px;line-height:14px;">
+                                        <span style="font-weight: bold">
+                                            {{ envoi.destinataire.usager.nom|striptags|slice(0, 80)|raw }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="height: 20mm;" class="border-color-lr">
+                    <table width="100%">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div style="height: 65px;line-height:17px;padding-top: 5px;">
+                                    <span style="font-weight: bold">
+                                        {{ envoi.destinataire.usager.adresse|striptags|slice(0, 160)|raw }}
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="height: 10mm;" class="border-color-lr">
+                    <table width="100%">
+                        <tbody>
+                        <tr>
+                            <td width="50%">
+                            </td>
+                            <td width="50%">
+                                <div style="position: relative;height: 28px;padding-top: 10px;">
+                                    <div style="position: absolute; top: 4px; left: 0px;">
+                                        <span style="font-size: 13px">N° Code Postal :</span> <span style="font-weight: bold">{{ envoi.destinataire.usager.codepostal }}</span></br>
+                                        <div style="position: absolute; top: 10px; left: 0px;">
+                                            <span style="font-size: 9px">Zip postal code</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="height: 10mm;" class="border-color-lrb">
+                    <table width="100%">
+                        <tbody>
+                        <tr>
+                            <td width="50%">
+                                <div style="position: relative;height: 35px;" >
+                                    <div style="position: absolute; top: 4px; left: 0px;">
+                                        <span style="font-size: 13px">Ville :</span> <span style="font-weight: bold">{{ envoi.destinataire.usager.ville }}</span></br>
+                                        <div style="position: absolute; top: 10px; left: 0px;">
+                                            <span style="font-size: 9px">City</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td width="50%">
+                                <div style="position: relative;height: 35px;">
+                                    <div style="position: absolute; top: 4px; left: 0px;">
+                                        <span style="font-size: 13px">Pays :</span> <span style="font-weight: bold">{{ envoi.destinataire.usager.pays.name }}</span></br>
+                                        <div style="position: absolute; top: 10px; left: 0px;">
+                                            <span style="font-size: 9px">Country</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="margin-top: -5px">
+                        <img src="{{ asset('img/p3p4.png') }}"  height="15" width="100%">
+                </div>                                     
+                <div style="position: relative;">
+                    <div style="position: absolute; top: -24px; left: 0px;">
+                       <span style="font-size: 13px">9. Informations de service</span> <span style="font-size: 11px"> / Operational information</span>
+                    </div>
+                </div>                      
+                                        
+ 
+
+                <div style="position: relative;height: 15mm;margin-top: -2px" class="border-color-lrtb">
+                    <div style="position: absolute; top: -2px; left: 0px;">
+                        <span style="font-size: 13px">5 Mode de paiement</span> <span style="font-size: 11px"> / Payment</span>
+                    </div>
+                    <div>
+                        <table width="100%">
+                            <tbody>
+                            <tr>
+                                <td width="25%">
+                                    <div style="position: relative">
+
+                                        <div style="position: absolute; top: 14px; left: 0px;">
+                                            {% if envoi.modepaie=='Espèces' %}
+                                                <img src="{{ asset('img/radios.jpg') }}" />
+                                            {% else %}
+                                                <img src="{{ asset('img/radion.jpg') }}" />
+                                            {% endif %}
+                                            <span style="font-size: 12px">Espèces</span>
+                                            <div style="position: absolute; top: 10px; left: 0px;">
+                                                <span style="font-size: 11px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cash</span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </td>
+                                <td width="30%">
+                                    <div style="position: relative">
+                                        <div style="position: absolute; top: 14px; left: 0px;">
+                                            {% if  envoi.modepaie=='Bon prépayé' %}
+                                                <img src="{{ asset('img/radios.jpg') }}" />
+                                            {% else %}
+                                                <img src="{{ asset('img/radion.jpg') }}" />
+                                            {% endif %}
+                                            <span style="font-size: 12px">Bon prepayé</span>
+                                            <div style="position: absolute; top: 10px; left: 0px;">
+                                                <span style="font-size: 11px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Prepayed</span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </td>
+                                <td width="25%">
+                                    <div style="position: relative">
+                                        <div style="position: absolute; top: 14px; left: 0px;">
+                                            {% if envoi.modepaie=='Facture' %}
+                                                <img src="{{ asset('img/radios.jpg') }}" />
+                                            {% else %}
+                                                <img src="{{ asset('img/radion.jpg') }}" />
+                                            {% endif %}
+                                            <span style="font-size: 12px">Facture</span>
+                                            <div style="position: absolute; top: 10px; left: 0px;">
+                                                <span style="font-size: 11px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Invoice</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td width="20%">
+                                    <div style="position: relative;">
+                                        <div style="position: absolute; top: 14px; left: 0px;">
+                                            {% if envoi.modepaie=='Autres' %}
+                                                <img src="{{ asset('img/radios.jpg') }}" />
+                                            {% else %}
+                                                <img src="{{ asset('img/radion.jpg') }}" />
+                                            {% endif %}
+                                            <span style="font-size: 12px">Autres</span>
+                                            <div style="position: absolute; top: 10px; left: 0px;">
+                                                <span style="font-size: 11px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Others</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div style="height: 35mm;" class="border-color-lrtb">
+                    <table width="100%" style="height: 35mm;">
+                        <tbody>
+                        <tr>
+                            <td width="55%" style="border-right: solid 2px #337ab7;" height="100%">
+                                <div>
+                                    <div style="padding-left:5px;padding-right: 5px;margin-top: 10px">
+                                        <table style="width: 100%">
+                                            <tbody>
+                                            <tr>
+                                                <td style="width: 40%">
+                                                    <div style="position: relative;">
+                                                        <div style="position: absolute; top: -33px; left: 0px;">
+                                                            <span style="font-size: 13px">Tarif HT :</span>
+                                                            <div style="position: absolute; top: 10px; left: 0px;">
+                                                                <span style="font-size: 11px">Free&nbspof&nbsp;tax</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td style="width: 60%">
+
+                                                    <div style="position: relative;">
+                                                        <div style="position: absolute; top: -40px; left: 0px;">
+
+                                                            <div style=" border-bottom: solid 2px #337ab7;">
+                                                                <div style="width:100px;text-align: right">
+                                                                                        <span style="font-weight: bold">
+                                                                                        {% if envoi.tarif|length > 3 %}
+
+                                                                                            {{ envoi.tarif|striptags|slice(0, envoi.tarif|length-3)|raw }}
+                                                                                            &nbsp
+                                                                                            {{ envoi.tarif|striptags|slice(envoi.tarif|length-3, 3)|raw }}
+
+                                                                                        {% else %}
+                                                                                            {{ envoi.tarif }}
+                                                                                        {% endif %}
+                                                                                            F</span>
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div style="padding-left:5px;padding-right: 5px;margin-top: 10px">
+                                        <table style="width: 100%">
+                                            <tbody>
+                                            <tr>
+                                                <td style="width: 40%">
+                                                    <div style="position: relative;">
+                                                        <div style="position: absolute; top: -12px; left: 0px;">
+                                                            <span style="font-size: 13px">TVA :</span>
+                                                            <div style="position: absolute; top: 10px; left: 0px;">
+                                                                <span style="font-size: 11px">Added&nbsp;value&nbsp;tax</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td style="width: 60%">
+
+                                                    <div style="position: relative;">
+                                                        <div style="position: absolute; top: -20px; left: 0px;">
+
+                                                            <div style=" border-bottom: solid 2px #337ab7;">
+                                                                <div style="width:100px;text-align: right">
+                                                                                                <span style="font-weight: bold">
+                                                                                                {% if envoi.tva|length > 3 %}
+
+                                                                                                    {{ envoi.tva|striptags|slice(0, envoi.tva|length-3)|raw }}
+                                                                                                    &nbsp
+                                                                                                    {{ envoi.tva|striptags|slice(envoi.tva|length-3, 3)|raw }}
+
+                                                                                                {% else %}
+                                                                                                    {{ envoi.tva }}
+                                                                                                {% endif %}
+                                                                                                    F</span>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div style="padding-left:5px;padding-right: 5px;margin-top: 10px">
+                                        <table style="width: 100%">
+                                            <tbody>
+                                            <tr>
+                                                <td style="width: 40%">
+                                                    <div style="position: relative;">
+                                                        <div style="position: absolute; top: 8px; left: 0px;">
+                                                            <span style="font-size: 13px">Tarif TTC :</span>
+                                                            <div style="position: absolute; top: 10px; left: 0px;">
+                                                                <span style="font-size: 11px">All&nbsp;tax&nbsp;included</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td style="width: 60%">
+
+
+
+                                                    <div style="position: relative;">
+                                                        <div style="position: absolute; top: 0; left: 0px;">
+
+                                                            <div style=" border-bottom: solid 2px #337ab7;">
+                                                                <div style="width:100px;text-align: right">
+                                                                                         <span style="font-weight: bold;">
+                                                                                        {% if envoi.ttc|length > 3 %}
+
+                                                                                            {{ envoi.ttc|striptags|slice(0, envoi.ttc|length-3)|raw }}
+                                                                                            &nbsp
+                                                                                            {{ envoi.ttc|striptags|slice(envoi.ttc|length-3, 3)|raw }}
+
+                                                                                        {% else %}
+                                                                                            {{ envoi.ttc }}
+                                                                                        {% endif %}
+                                                                                             F</span></div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </td>
+                            <td width="45%">
+                                <div>
+
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="position: relative;height: 23.5mm;padding-top: 10px;" class="border-color-lrtb">
+                    <div style="position: absolute; top: 4px; left: 0px;">
+                        <span style="font-size: 13px">10. Signature de l'agent</span>
+                        <div style="position: absolute; top: 10px; left: 0px;">
+                            <span style="font-size: 9px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Signature of the agent</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>

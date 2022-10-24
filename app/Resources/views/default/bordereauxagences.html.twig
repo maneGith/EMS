@@ -1,0 +1,291 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete.html.twig') }}
+    
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                <div class="titre lien-titre" id="titre">
+                   <div class="container">
+                        <table width="100%">       
+                            <tbody> 
+                                <tr>
+                                    <td>
+                                        
+                                         <span style="font-weight: bold">Les bordereaux de dépots des  </span> - 
+                                      
+                                             <span style="color: red;font-weight: bold">
+                                            {% if (agence=='ems') %}
+                                                 agences de EMS
+                                            {% elseif(agence=='pdk') %}
+                                                postes de Dakar
+                                            {% elseif(agence=='prg') %}
+                                                postes des règions
+                                            {% else %}
+                                            {% endif %}
+                                            
+                                            </span> - 
+                                         <span style="color: red;font-weight: bold">{{ mois }}</span> 
+
+                                          
+                        
+                                    </td>
+                                    <td width="10%">
+                                        
+                                        <!-- Small button groups (default and split) -->
+                                        <div class="btn-group">
+                                          <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Périodes
+                                          </button>
+                                          <div class="dropdown-menu">
+                                                                                         
+                                           
+                                            <a class="dropdown-item" href="{{ path('agences_vacations', {'agence': agence,  'mois':'01/' ~ annee_cours })}}">
+                                                  Janvier {{ annee_cours }}
+                                            </a>
+                                                <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="{{ path('agences_vacations', {'agence': agence,  'mois':'02/' ~ annee_cours })}}">
+                                                  Fèvrier {{ annee_cours }}
+                                            </a>
+                                                   
+                                       
+
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{ path('agences_vacations', {'agence': agence,  'mois':'03/' ~ annee_cours })}}">
+                                                  Mars {{ annee_cours }}
+                                        </a>
+
+                                         
+
+                                       <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{ path('agences_vacations', {'agence': agence,  'mois':'04/' ~ annee_cours })}}">
+                                                  Avril {{ annee_cours }}
+                                        </a>
+
+
+                                       <div class="dropdown-divider"></div>
+                                       
+                                       <a class="dropdown-item" href="{{ path('agences_vacations', {'agence': agence,  'mois':'05/' ~ annee_cours })}}">
+                                                  Mai {{ annee_cours }}
+                                        </a>
+
+                                           
+                                       <div class="dropdown-divider"></div>
+
+                                       <a class="dropdown-item" href="{{ path('agences_vacations', {'agence': agence,  'mois':'06/' ~ annee_cours })}}">
+                                                  Juin {{ annee_cours }}
+                                        </a>
+
+                                            
+                                                <div class="dropdown-divider"></div>
+
+                                            <a class="dropdown-item" href="{{ path('agences_vacations', {'agence': agence,  'mois':'07/' ~ annee_cours })}}">
+                                                  Juillet {{ annee_cours }} 
+                                        </a>
+
+
+                                       <div class="dropdown-divider"></div>
+                                          <a class="dropdown-item" href="{{ path('agences_vacations', {'agence': agence,  'mois':'08/' ~ annee_cours })}}">
+                                                  Août {{ annee_cours }} 
+                                        </a>
+
+
+                                      <div class="dropdown-divider"></div>
+
+                                       <a class="dropdown-item" href="{{ path('agences_vacations', {'agence': agence,  'mois':'09/' ~ annee_cours })}}">
+                                                  Septembre {{ annee_cours }} 
+                                        </a>
+                                           
+                                        <div class="dropdown-divider"></div>
+                                        
+                                        <a class="dropdown-item" href="{{ path('agences_vacations', {'agence': agence,  'mois':'10/' ~ annee_cours })}}">
+                                                  Octobre {{ annee_cours }} 
+                                        </a>
+                                            
+
+                                        <div class="dropdown-divider"></div>
+
+                                         <a class="dropdown-item" href="{{ path('agences_vacations', {'agence': agence,  'mois':'11/' ~ annee_cours })}}">
+                                                  Novembre {{ annee_cours }} 
+                                        </a>
+                                            
+
+                                       
+
+                                        <div class="dropdown-divider"></div>
+                                        
+                                          <a class="dropdown-item" href="{{ path('agences_vacations', {'agence': agence,  'mois':'12/' ~ annee_cours })}}">
+                                                  Décembre {{ annee_cours }} 
+                                        </a>
+
+                                            
+                                                
+                                           
+                                          </div>
+                                            
+                                        </div>
+                                    </td>    
+                                </tr>
+                            </tbody>
+                        </table>
+                    
+
+                     </div>              
+                </div> 
+
+                <div class="content" id="content">       
+                    
+                    <div style="position: relative;" >
+                            <div class="sous-titre">
+                                <table style="width: 100%" class="table table-bordered">
+                                    <tbody>
+                                    <tr>
+                                        <td style="border-right: 2px solid #d2d2d2;width: 20%">
+                                            <div>
+                                                    
+                                                <div class="btn-group">
+                                          <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Emplacements
+                                          
+                                          </button>
+                                          <div class="dropdown-menu">
+                                                                                   
+                                            <a class="dropdown-item" href="{{ path('agences_vacations', { 'agence':'ems', 'mois':mois }) }}">
+                                                 <span style="color: black"> Agences EMS</span>
+                                            </a>
+                                            <div class="dropdown-divider"></div>
+                                            
+                                             
+                                             <a class="dropdown-item" href="{{ path('agences_vacations', { 'agence':'pdk', 'mois':mois }) }}">
+                                                  <span style="color: black"> Postes Dakar</span>
+                                              </a>
+                                            <div class="dropdown-divider"></div>
+                                            
+                                            <a class="dropdown-item" href="{{ path('agences_vacations', { 'agence':'prg', 'mois':mois }) }}">
+                                                <span style="color: black">Postes Règions</span>
+                                            </a>
+                                          </div>
+                                            
+                                        </div>
+                                            </div>
+                                        </td>
+                                        <td  style="border-right: 2px solid #d2d2d2;width: 240px">
+
+                                            <table style="width: 100%">
+                                                <tbody>
+                                                <tr>
+                                                    <td style="width: 240px">
+
+                                                             <span style="font-size: 12px;font-weight: bold">Type</span>
+
+                                                    </td>
+                                                    <td style="width: 90px">
+                                                        <div>
+                                                            <span style="font-size: 12px;font-weight: bold">Numéro</span>
+                                                        </div>
+
+                                                    </td>
+                                                    <td style="width: 90px">
+                                                        <div>
+                                                            <span style="font-size: 12px;font-weight: bold">Date</span>
+                                                        </div>
+                                                    </td>
+                                                    <td style="width: 240px">
+
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </td>
+
+
+
+
+
+
+
+
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                                                
+                        <div style="padding-top: 42px">
+                        </div>
+                        
+                                                {% for agence in agences %}
+
+                            {% if agence.bordereaux|length > 0 %}
+
+                                <div style="border-bottom: 1px solid #337ab7;">
+                                    <table style="width: 100%" class="table table-bordered">
+                                        <tbody>
+                                        <tr>
+                                            <td style="border-right: 2px solid #d2d2d2;width: 20%">
+                                                <div>
+                                                    <span style="font-size: 12px;font-weight: bold;color: red">
+                                                      {{ agence.agence }}
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td  style="border-right: 2px solid #d2d2d2;width: 240px">
+
+                                                <table style="width: 100%">
+                                                    <tbody>
+                                                    {% for bordereau in agence.bordereaux %}
+                                                        <tr>
+                                                            <td style="width: 240px">
+
+                                                                {{ bordereau.typeenvoi }}
+                                                            </td>
+                                                            <td style="width: 90px">
+                                                                {{ bordereau.numbdr }}
+                                                            </td>
+                                                            <td style="width: 90px">
+                                                                {{ bordereau.date }}
+                                                            </td>
+
+                                                            <td style="width: 240px">
+                                            <span style="float: right">
+                                                <a href="{{ path('envoi_index', { 'id': bordereau.id }) }}">
+                                                    <img src="{{ asset('img/bliste.jpg') }}" width="40" height="15">
+                                                </a>
+                                            </span>
+                                                            </td>
+
+                                                        </tr>
+                                                    {% endfor %}
+
+
+                                                    </tbody>
+                                                </table>
+
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            {% endif %}
+
+
+                        {% endfor %}
+                </div> 
+            </div>
+        </div>
+     </div>
+
+
+
+
+
+{% endblock %}

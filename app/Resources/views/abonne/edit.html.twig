@@ -1,0 +1,258 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete.html.twig') }}
+    
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                <div class="titre lien-titre" id="titre">
+                   <span style="font-weight: bold">Paramètres généraux d'un abonné</span>                
+                </div> 
+
+                <div class="content" id="content">       
+                  <table class="table table-condensed">
+                            <tbody>
+                            {{ form_start(edit_form) }}
+
+                            <tr>
+                                <th>Nom</th>
+                                <td>{{ abonne.nom }} <span class="rs-e">Modifier</span>
+                                    <div class="De-e">
+                                        <div class="form-group" style="max-width: 400px">
+                                            {{ form_widget(edit_form.nom,{'attr':{'class':'form-control'}}) }}
+                                            {{ form_errors(edit_form.nom) }}
+                                        </div>
+                                       <span>
+                                            <input type="submit" value="Valider" class="btn btn-ems" />
+                                            <a href="{{ path('abonne_edit', { 'id': abonne.id }) }}" class="btn btn-ems">Annuler</a>
+                                       </span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Civilité</th>
+                                <td>{{ abonne.civilite }} <span class="rs-e">Modifier</span>
+                                    <div class="De-e">
+                                        <div class="form-group" style="max-width: 400px">
+                                            <div id="{{ edit_form.civilite.vars.id }}">
+                                                <table style="width: 100%">
+                                                    <tbody>
+                                                    <tr>
+
+                                                        {% for civilite in edit_form.civilite.children %}
+                                                            <td>
+                                                                <div class="radio">
+                                                                    <label class="required">
+
+                                                                        {% if(civilite.vars.value==abonne.civilite) %}
+                                                                            <input id="{{ civilite.vars.id }}" name="{{ civilite.vars.full_name }}" required="required" value="{{ civilite.vars.value }}" type="radio" checked/>
+                                                                        {% else %}
+                                                                            <input id="{{ civilite.vars.id }}" name="{{ civilite.vars.full_name }}" required="required" value="{{ civilite.vars.value }}" type="radio"/>
+                                                                        {% endif %}
+
+
+                                                                        <span> {{ civilite.vars.label }}</span>
+                                                                    </label>
+                                                                </div>
+                                                            </td>
+
+                                                        {% endfor %}
+
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            {% do edit_form.civilite.setRendered %}
+                                        </div>
+                                       <span>
+                                            <input type="submit" value="Valider" class="btn btn-ems" />
+                                            <a href="{{ path('abonne_edit', { 'id': abonne.id }) }}" class="btn btn-ems">Annuler</a>
+                                       </span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Téléphone</th>
+                                <td>{{ abonne.telephone }} <span class="rs-e">Modifier</span>
+                                    <div class="De-e">
+                                        <div class="form-group" style="max-width: 400px">
+                                            {{ form_widget(edit_form.telephone,{'attr':{'class':'form-control'}}) }}
+                                            {{ form_errors(edit_form.telephone) }}
+                                        </div>
+                                       <span>
+                                            <input type="submit" value="Valider" class="btn btn-ems" />
+                                            <a href="{{ path('abonne_edit', { 'id': abonne.id }) }}" class="btn btn-ems">Annuler</a>
+                                       </span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Compte</th>
+                                <td>{{ abonne.numcompte }} <span class="rs-e">Modifier</span>
+                                    <div class="De-e">
+                                        <div class="form-group" style="max-width: 400px">
+                                            {{ form_widget(edit_form.numcompte,{'attr':{'class':'form-control'}}) }}
+                                            {{ form_errors(edit_form.numcompte) }}
+                                        </div>
+                                       <span>
+                                            <input type="submit" value="Valider" class="btn btn-ems" />
+                                            <a href="{{ path('abonne_edit', { 'id': abonne.id }) }}" class="btn btn-ems">Annuler</a>
+                                       </span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Email</th>
+                                <td>{{ abonne.email }} <span class="rs-e">Modifier</span>
+                                    <div class="De-e">
+                                        <div class="form-group" style="max-width: 400px">
+                                            {{ form_widget(edit_form.email,{'attr':{'class':'form-control'}}) }}
+                                            {{ form_errors(edit_form.email) }}
+                                        </div>
+                                       <span>
+                                            <input type="submit" value="Valider" class="btn btn-ems" />
+                                            <a href="{{ path('abonne_edit', { 'id': abonne.id }) }}" class="btn btn-ems">Annuler</a>
+                                       </span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Adresse</th>
+                                <td>{{ abonne.adresse }} <span class="rs-e">Modifier</span>
+                                    <div class="De-e">
+                                        <div class="form-group" style="max-width: 400px">
+                                            {{ form_widget(edit_form.adresse,{'attr':{'class':'form-control'}}) }}
+                                            {{ form_errors(edit_form.adresse) }}
+                                        </div>
+                                       <span>
+                                            <input type="submit" value="Valider" class="btn btn-ems" />
+                                            <a href="{{ path('abonne_edit', { 'id': abonne.id }) }}" class="btn btn-ems">Annuler</a>
+                                       </span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Code postal</th>
+                                <td>{{ abonne.codepostal }} <span class="rs-e">Modifier</span>
+                                    <div class="De-e">
+                                        <div class="form-group" style="max-width: 400px">
+                                            {{ form_widget(edit_form.codepostal,{'attr':{'class':'form-control'}}) }}
+                                            {{ form_errors(edit_form.codepostal) }}
+                                        </div>
+                                       <span>
+                                            <input type="submit" value="Valider" class="btn btn-ems" />
+                                            <a href="{{ path('abonne_edit', { 'id': abonne.id }) }}" class="btn btn-ems">Annuler</a>
+                                       </span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Ville</th>
+                                <td>{{ abonne.ville }} <span class="rs-e">Modifier</span>
+                                    <div class="De-e">
+                                        <div class="form-group" style="max-width: 400px">
+                                            {{ form_widget(edit_form.ville,{'attr':{'class':'form-control'}}) }}
+                                            {{ form_errors(edit_form.ville) }}
+                                        </div>
+                                       <span>
+                                            <input type="submit" value="Valider" class="btn btn-ems" />
+                                            <a href="{{ path('abonne_edit', { 'id': abonne.id }) }}" class="btn btn-ems">Annuler</a>
+                                       </span>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>Etat</th>
+                                <td>{{ abonne.etat }} <span class="rs-e">Modifier</span>
+                                    <div class="De-e">
+                                        <div class="form-group" style="max-width: 400px">
+                                            <div id="{{ edit_form.etat.vars.id }}">
+                                                <table style="width: 100%">
+                                                    <tbody>
+                                                    <tr>
+
+                                                        {% for etat in edit_form.etat.children %}
+                                                            <td>
+                                                                <div class="radio">
+                                                                    <label class="required">
+
+                                                                        {% if(etat.vars.value==abonne.etat) %}
+                                                                            <input id="{{ etat.vars.id }}" name="{{ etat.vars.full_name }}" required="required" value="{{ etat.vars.value }}" type="radio" checked/>
+                                                                        {% else %}
+                                                                            <input id="{{ etat.vars.id }}" name="{{ etat.vars.full_name }}" required="required" value="{{ etat.vars.value }}" type="radio"/>
+                                                                        {% endif %}
+
+
+                                                                        <span> {{ etat.vars.label }}</span>
+                                                                    </label>
+                                                                </div>
+                                                            </td>
+
+                                                        {% endfor %}
+
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            {% do edit_form.etat.setRendered %}
+                                        </div>
+                                       <span>
+                                            <input type="submit" value="Valider" class="btn btn-ems" />
+                                            <a href="{{ path('abonne_edit', { 'id': abonne.id }) }}" class="btn btn-ems">Annuler</a>
+                                       </span>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>Type client</th>
+                                <td>{{ abonne.type }} <span class="rs-e">Modifier</span>
+                                    <div class="De-e">
+                                        <div class="form-group" style="max-width: 400px">
+                                            {{ form_widget(edit_form.type,{'attr':{'class':'form-control'}}) }}
+                                            {{ form_errors(edit_form.type) }}
+                                        </div>
+                                        <span>
+                                            <input type="submit" value="Valider" class="btn btn-ems" />
+                                            <a href="{{ path('abonne_edit', { 'id': abonne.id }) }}" class="btn btn-ems">Annuler</a>
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2">
+                                    <span  style="float: right">
+                                            <ul>
+                                                <li style="float:left;">
+                                                    <a href="{{ path('abonne_index') }}"><input type="button" value="Lister" class="btn  btn-ems" style="margin-right: 15px;"/></a>
+                                                </li>
+                                                <li style="float:left;">
+                                                    <a href="{{ path('abonne_delete',{ 'id': abonne.id }) }}"><input type="button" value="Supprimer" class="btn  btn-ems" style="margin-right: 15px;"/></a>
+                                                </li>
+                                            </ul>
+                                    </span>
+                                </td>
+                            </tr>
+
+                            {{ form_end(edit_form) }}
+                            </tbody>
+                        </table>
+                </div> 
+            </div>
+        </div>
+     </div>
+
+
+
+
+
+{% endblock %}

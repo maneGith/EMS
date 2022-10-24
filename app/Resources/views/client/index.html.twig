@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/header.html.twig') }}
+
+<div id="container" style="border: solid 1px #d2d2d2;overflow-x: hidden;overflow-y:hidden">
+    <div class="row">
+
+        <div class="column column-left menu">
+            {{ include('includes/assistant.html.twig') }}
+        </div>
+
+        <div class="column column-middle" style="background: #8E998F">
+
+            <div style="background: #fff">
+
+
+                <table class="table table-condensed">
+                    <thead>
+                    <tr>
+                        <th colspan="3"><span style="color:#337ab7;font-weight: bold">Liste des abonnés</span></th>
+                    </tr>
+
+                        <tr>
+
+                            <th colspan="2">Nom ou raison sociale</th>
+
+                            <th>
+                                 <span style="float: right">
+                                   <a href="{{ path('expediteur_new') }}" class="btn  btn-ems  r-ems">
+                                       Créer
+                                   </a>
+                                </span>
+
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for expediteur in abonnes %}
+                        <tr>
+
+                            <td colspan="2">{{ expediteur.usager.prenom }}</td>
+
+                            <td>
+                                <ul>
+                                    <li>
+                                        <a href="{{ path('expediteur_edit', { 'id': expediteur.id }) }}" style="float: right;font-weight: bold">
+                                            <i class="glyphicon glyphicon-cog" style="color:#1b6d85"></i>
+                                            <span class="rs-e">Paramètres</span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

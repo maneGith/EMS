@@ -1,0 +1,542 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete.html.twig') }}
+    
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                <div class="titre lien-titre" id="titre">
+                    <span style="font-weight: bold">Dépôt 
+                        <span style="color: red;font-weight: bold">
+                                      {{ echelle|lower }}
+                        </span>
+                        d'un client 
+                        <span style="color: red;font-weight: bold">
+                                 {{ client|lower }}
+                        </span>
+                        </span>
+                         <span style="font-weight: bold;">- vacation du :
+                            <span style="color: red">
+                                {{ journnee }}
+                            </span>
+                        </span>       
+                </div> 
+
+                <div class="content" id="content">    
+                    
+                   <!--Partie des réguliers-->
+                        {% if   depot=='ren' or depot=='rei' %}
+                        <div style="padding: 5px">
+                            <form id="EnvoiTaxe" action="{{ path('abonneenvoi_new', { 'depot': depot}) }}" method="post">
+
+                                    
+
+                                    {% if depot=='ren' %}
+
+                                        <div>
+                                            <table style="width: 100%">
+                                                <tbody>
+                                                <tr>
+                                                    <td style="width: 100px">
+                                                       <span style="font-weight: bold">
+                                                            Destination :
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span style="color: red;font-weight: bold"> {{ nom_paysdes }}</span>
+                                                        <select class="form-control" name="pays" style="display: none">
+                                                            <option value="{{ id_paysdes }}" selected>{{ nom_paysdes }}</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 100px">
+                                                       <span style="font-weight: bold">
+                                                            Type :
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <select class="form-control" name="typeenvoi" style="max-width: 350px;border:solid 1px #337ab7;">
+
+                                                            {% if app.session.get('envoi') =='0' %}
+                                                                <option value="0" selected >Choisir...</option>
+                                                            {% else %}
+                                                                <option value="0">Choisir...</option>
+                                                            {% endif %}
+
+                                                            {% if app.session.get('envoi') =='Document' %}
+                                                                <option value="Document" selected>Document</option>
+                                                            {% else %}
+                                                                <option value="Document">Document</option>
+                                                            {% endif %}
+
+                                                            {% if app.session.get('envoi') =='Non document' %}
+                                                                <option value="Non document" selected>Non document</option>
+                                                            {% else %}
+                                                                <option value="Non document">Non document</option>
+                                                            {% endif %}
+
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 100px">
+                                                        <div style="padding-top: 5px;padding-right: 5px;padding-left: 5px;">
+                                                            <span style="font-weight: bold;">Client :</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div style="padding-top: 5px;padding-right: 5px;" class="autocomplete">
+                                                            
+                                                             {% if msg=='1'  %}
+                                                                <input type="text"  value="{{app.session.get('nomabonne')}}" id="code_abonne"  name="code_abonne" class="form-control" style="max-width: 350px;border:solid 1px #337ab7;" autocomplete="off" placeholder="Nom de l'abonné"/>
+                                                                
+                                                           {% else %}
+                                                                <input type="text"  id="code_abonne"  name="code_abonne" class="form-control" style="max-width: 350px;border:solid 1px #337ab7;" autocomplete="off" placeholder="Nom de l'abonné"/>
+                                                            {% endif %}
+
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    {% else %}
+                                        <div>
+                                            <table style="width: 100%">
+                                                <tbody>
+                                                <tr>
+                                                    <td style="width: 100px">
+                                                       <span style="font-weight: bold">
+                                                            Destination :
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <select class="form-control" name="pays" style="max-width: 350px;border:solid 1px #337ab7">
+                                                            <option value="0" selected>Choisir le pays</option>
+                                                            {% for pay in pays %}
+
+                                                                {% if app.session.get('paysdes') == pay.id  %}
+                                                                    <option value="{{ pay.id }}" selected>{{ pay.name }}</option>
+                                                                {% else %}
+                                                                    <option value="{{ pay.id }}">{{ pay.name }}</option>
+                                                                {% endif %}
+
+                                                            {% endfor %}
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 100px">
+                                                       <span style="font-weight: bold">
+                                                            Type :
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <select class="form-control" name="typeenvoi" style="max-width: 350px;border:solid 1px #337ab7">
+                                                            {% if app.session.get('envoi') =='0' %}
+                                                                <option value="0" selected >Choisir...</option>
+                                                            {% else %}
+                                                                <option value="0">Choisir...</option>
+                                                            {% endif %}
+
+                                                            {% if app.session.get('envoi') =='Document' %}
+                                                                <option value="Document" selected>Document</option>
+                                                            {% else %}
+                                                                <option value="Document">Document</option>
+                                                            {% endif %}
+
+                                                            {% if app.session.get('envoi') =='Non document' %}
+                                                                <option value="Non document" selected>Non document</option>
+                                                            {% else %}
+                                                                <option value="Non document">Non document</option>
+                                                            {% endif %}
+
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 100px">
+                                                        <div style="padding-top: 15px;padding-right: 5px;padding-left: 5px;">
+                                                            <span style="font-weight: bold">Id interna...:</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div style="padding-top: 5px;padding-right: 5px;">
+                                                            
+                                                            {% if msg=='1'  %}
+                                                               
+                                                                <input type="text"   value="{{app.session.get('codeinter')}}" name="code_inter" class="form-control" style="max-width: 350px;border:solid 1px #337ab7;" autocomplete="off" placeholder="Identifiant international de l'envoi"/>
+                                                           {% else %}
+                                                             
+                                                            <input type="text"   name="code_inter" class="form-control" style="max-width: 350px;border:solid 1px #337ab7;" autocomplete="off" placeholder="Identifiant international de l'envoi"/>
+                                                           {% endif %}
+
+                                                            
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 100px">
+                                                        <div style="padding-top: 5px;padding-right: 5px;padding-left: 5px;">
+                                                            <span style="font-weight: bold;">Client :</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div style="padding-top: 5px;padding-right: 5px;" class="autocomplete">
+                                                            {# {% if app.session.get('envoi') =='Non document' %}
+                                                                <option value="Non document" selected>Non document</option>
+                                                            {% else %}
+                                                                <option value="Non document">Non document</option>
+                                                            {% endif %}#}
+                                                            
+                                                            {% if msg=='1'  %}
+                                                                <input type="text"  value="{{app.session.get('nomabonne')}}" id="code_abonne"  name="code_abonne" class="form-control" style="max-width: 350px;border:solid 1px #337ab7;" autocomplete="off" placeholder="Nom de l'abonné"/>
+                                                                
+                                                           {% else %}
+                                                                <input type="text"  id="code_abonne"  name="code_abonne" class="form-control" style="max-width: 350px;border:solid 1px #337ab7;" autocomplete="off" placeholder="Nom de l'abonné"/>
+                                                            {% endif %}
+
+                                                            
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    {% endif %}
+
+                                <div style="margin-top: 5px">
+                                    <table style="width: 100%">
+                                        <tbody>
+                                        <tr>
+                                            <td style="width: 100px">
+                                                        <span style="font-weight: bold">
+                                                            Poids (Kg)  &nbsp;&nbsp;:
+                                                        </span>
+                                            </td>
+                                            <td>
+                                                         <span>
+                                                            {% if app.session.get('poids') >0  and app.session.get('poids')<=30 %}
+                                                                <input type="text"  name="poids" class="form-control" style="border:solid 1px #337ab7;max-width: 100px;height: 30px"  autocomplete="off" value="{{app.session.get('poids')  }}" placeholder="Poids (Kg)"/>
+                                                            {% else %}
+                                                                <input type="text"  name="poids" class="form-control" style="border:solid 1px #337ab7;max-width: 100px;height: 30px"  autocomplete="off" placeholder="Poids (Kg)"/>
+                                                            {% endif %}
+                                                        </span>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 100px">
+                                                        <span style="font-weight: bold">
+                                                            Heure :
+                                                        </span>
+                                            </td>
+                                            <td>
+                                                <input type="hidden"  name="date"  value="{{ journnee }}"/>
+                                                <input type="hidden"  name="heure"  value=" {{ heure }}"/>
+                                                         <span style="color: red;font-weight: bold">
+                                                           {{ heure }}
+                                                        </span>
+                                            </td>
+
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+                                <div style="margin-top: 5px">
+                                    <table style="width: 100%">
+                                        <tbody>
+                                        <tr>
+                                            <td style="width: 100px">
+                                            </td>
+                                            <td>
+                                                         <span>
+                                                             <input type="submit" value="Suivant" class="btn btn-ems" />
+                                                            <a href="{{ path('homepage') }}" class="btn btn-ems">Annuler</a>
+                                                         </span>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </form>
+                        </div>
+
+
+
+
+
+                        <!--Partie des occasionnels-->
+                         {% else %}
+
+                          <div style="padding: 5px">
+                            <form action="{{ path('envoi_new', { 'depot': depot}) }}" method="post">
+
+                                      
+
+                                    {% if depot=='oen'%}
+
+                                        <div>
+                                            <table style="width: 100%">
+                                                <tbody>
+                                                <tr>
+                                                    <td style="width: 100px">
+                                                       <span style="font-weight: bold">
+                                                            Destination :
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span style="color: red;font-weight: bold"> {{ nom_paysdes }}</span>
+                                                        <select class="form-control" name="pays" style="display: none">
+                                                            <option value="{{ id_paysdes }}" selected>{{ nom_paysdes }}</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 100px">
+                                                       <span style="font-weight: bold">
+                                                            Type :
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <select class="form-control" name="typeenvoi" style="max-width: 350px;border:solid 1px #337ab7">
+                                                            {% if app.session.get('envoi') =='0' %}
+                                                                <option value="0" selected >Choisir...</option>
+                                                            {% else %}
+                                                                <option value="0">Choisir...</option>
+                                                            {% endif %}
+
+                                                            {% if app.session.get('envoi') =='Document' %}
+                                                                <option value="Document" selected>Document</option>
+                                                            {% else %}
+                                                                <option value="Document">Document</option>
+                                                            {% endif %}
+
+                                                            {% if app.session.get('envoi') =='Non document' %}
+                                                                <option value="Non document" selected>Non document</option>
+                                                            {% else %}
+                                                                <option value="Non document">Non document</option>
+                                                            {% endif %}
+
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    {% else %}
+
+                                        <div>
+                                            <table style="width: 100%">
+                                                <tbody>
+                                                <tr>
+                                                    <td style="width: 100px">
+                                                       <span style="font-weight: bold">
+                                                            Destination :
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <select class="form-control" name="pays" style="max-width:350px;border:solid 1px #337ab7">
+                                                            <option value="0" selected>Choisir le pays</option>
+                                                            {% for pay in pays %}
+
+                                                                {% if app.session.get('paysdes') == pay.id  %}
+                                                                    <option value="{{ pay.id }}" selected>{{ pay.name }}</option>
+                                                                {% else %}
+                                                                    <option value="{{ pay.id }}">{{ pay.name }}</option>
+                                                                {% endif %}
+
+                                                            {% endfor %}
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 100px">
+                                                       <span style="font-weight: bold">
+                                                            Type :
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <select class="form-control" name="typeenvoi" style="max-width: 350px;border:solid 1px #337ab7">
+                                                            {% if app.session.get('envoi') =='0' %}
+                                                                <option value="0" selected >Choisir...</option>
+                                                            {% else %}
+                                                                <option value="0">Choisir...</option>
+                                                            {% endif %}
+
+                                                            {% if app.session.get('envoi') =='Document' %}
+                                                                <option value="Document" selected>Document</option>
+                                                            {% else %}
+                                                                <option value="Document">Document</option>
+                                                            {% endif %}
+
+                                                            {% if app.session.get('envoi') =='Non document' %}
+                                                                <option value="Non document" selected>Non document</option>
+                                                            {% else %}
+                                                                <option value="Non document">Non document</option>
+                                                            {% endif %}
+
+                                                        </select>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td style="width: 100px">
+                                                        <div style="padding-top: 15px;padding-right: 5px;padding-left: 5px;">
+                                                            <span style="font-weight: bold">Id interna...:</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div style="padding-top: 5px;padding-right: 5px;">
+                                                            {% if msg=='1'  %}
+                                                               
+                                                                <input type="text"   value="{{app.session.get('codeinter')}}" name="code_inter" class="form-control" style="max-width: 350px;border:solid 1px #337ab7;" autocomplete="off" placeholder="Identifiant international de l'envoi"/>
+                                                           {% else %}
+                                                             
+                                                            <input type="text"   name="code_inter" class="form-control" style="max-width: 350px;border:solid 1px #337ab7;" autocomplete="off" placeholder="Identifiant international de l'envoi"/>
+                                                           {% endif %}
+                                                            
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    {% endif %}
+
+
+
+                                        <div style="margin-top: 5px">
+                                            <table style="width: 100%">
+                                                <tbody>
+                                                <tr>
+                                                    <td style="width: 100px">
+                                                        <span style="font-weight: bold">
+                                                            Poids (Kg)  &nbsp;&nbsp;:
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                         <span>
+                                                            {% if app.session.get('poids') >0  and app.session.get('poids')<=30 %}
+                                                                    <input type="text"  name="poids" class="form-control" style="border:solid 1px #337ab7;max-width: 100px;height: 30px"  autocomplete="off" value="{{app.session.get('poids')  }}" placeholder="Poids (Kg)"/>
+                                                            {% else %}
+                                                                    <input type="text"  name="poids" class="form-control" style="border:solid 1px #337ab7;max-width: 100px;height: 30px"  autocomplete="off" placeholder="Poids (Kg)"/>
+                                                            {% endif %}
+                                                        </span>
+                                                    </td>
+
+                                                </tr>
+
+                                                <tr>
+                                                    <td style="width: 100px">
+                                                        <span style="font-weight: bold">
+                                                            Heure :
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <input type="hidden"  name="date"  value="{{ journnee }}"/>
+                                                        <input type="hidden"  name="heure"  value=" {{ heure }}"/>
+                                                         <span style="color: red;font-weight: bold">
+                                                            {{ heure }}
+                                                        </span>
+                                                    </td>
+
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                <div style="margin-top: 5px">
+                                    <table style="width: 100%">
+                                        <tbody>
+                                        <tr>
+                                            <td style="width: 100px">
+                                            </td>
+                                            <td>
+                                                         <span>
+                                                             <input type="submit" value="Suivant" class="btn btn-ems" />
+                                                            <a href="{{ path('homepage') }}" class="btn btn-ems">Annuler</a>
+                                                         </span>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </form>
+                          </div>
+                         {% endif %}
+
+
+
+                        <script>
+                            $( function() {
+                                var availableTags = [
+                                    {% for abonne in abonnes %}
+                                    "{{ abonne.nom }}",
+                                    {% endfor %}
+                                ];
+                                
+                                $( "#code_abonne" ).autocomplete({
+                                    source: availableTags
+                                });
+                            } );
+
+
+                        </script>
+                    
+                </div> 
+                                
+                                
+                                
+                                
+                    
+                                
+
+                    {% if msg=='1'  %}
+                     <div id="myModal" class="modal" style="display: block">
+                      <!-- Modal content -->
+                        <div class="modal-content" style="width:500px">
+                        <div><span class="close">&times;</span></div>
+                        <h1 class="mt-4">Message d'erreurs</h1>
+                        <div id="taxemsg" class="alert-danger">
+                             {{ app.session.get('msg') }}
+                        </div>
+                        </div>
+                    </div>
+                    {% else %}
+                     <div id="myModal" class="modal">
+                      <!-- Modal content -->
+                        <div class="modal-content" style="width:500px">
+                        <div><span class="close">&times;</span></div>
+                        <h1 class="mt-4">Message d'erreurs</h1>
+                        <div id="taxemsg" class="alert-danger">
+                        </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                                                       
+                                
+            </div>
+        </div>
+     </div>
+
+
+
+
+
+{% endblock %}

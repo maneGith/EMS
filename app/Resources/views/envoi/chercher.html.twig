@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete.html.twig') }}
+    
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                <div class="titre lien-titre" id="titre">
+                    Recherche d'un envoi          
+                </div> 
+
+                <div class="content container" id="content">       
+                   
+                    <form action="{{ path('envoi_chercher') }}" method="post">
+                            <table class="table">
+
+                                <tbody>
+                                <tr>
+                                    <td colspan="2">
+                                        <div class="alert-danger">
+                                            <span style="font-weight: bold">
+                                             
+                                             
+                                             {% if msg is defined %}
+                                    {{msg}}
+                                        {% endif %}
+                                           </span>
+                                        </div>
+                                    </td>                                  
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="active-pink-3 active-pink-4 mb-4">
+                                            <input class="form-control" type="text" placeholder="Entrez le code de l'envoi à chercher" aria-label="Search" name="codeenvoi" >
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <input type="submit" value="Chercher" class="btn btn-ems" />
+                                    </td>
+
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </form>
+                </div> 
+            </div>
+        </div>
+     </div>
+
+
+
+
+
+{% endblock %}

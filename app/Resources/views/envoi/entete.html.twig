@@ -1,0 +1,122 @@
+<!-- Entete Bordereau 1er page -->
+<tr>
+    <td style="width: 15%;" colspan="2">
+        <div style="height: 45px;">
+            <img src="{{ asset('img/logo-ems.jpg') }}" width="100%" height="25px">
+        </div>
+    </td>
+    <td style="width: 40%;" colspan="3">
+        <div style="height: 25px;text-align: center">
+            <span style="font-weight: bold">Bordereau de dépôts des {{ bordereau.typeenvoi }}</span>
+        </div>
+    </td>
+    <td style="width: 45%;" colspan="3">
+        <div style="height: 25px;">
+            <span style="font-weight: bold">Agence/Bureau : </span>
+            {{bordereau.vacation.agence.nom }}
+        </div>
+    </td>
+</tr>
+
+<tr>
+    <td style="width: 15%;">
+        <div style="height: 25px;">
+
+        </div>
+    </td>
+    <td style="width: 65%;" colspan="5">
+        <div style="height: 25px;text-align: center">
+            <span style="font-weight: bold">JOURNEE DU :</span> {{bordereau.vacation.journee }}
+        </div>
+    </td>
+    <td style="width: 15%;">
+        <div style="height: 25px;">
+                                                                        <span style="float: right">
+                                                                            <span style="font-weight: bold">N°</span>
+                                                                            {{ bordereau.numbdr }}
+                                                                        </span>
+        </div>
+    </td>
+</tr>
+
+<tr>
+    <td style="width: 50%;" colspan="3">
+        <div style="height: 25px;">
+            <span style="font-weight: bold">VACATION DE :</span> {{  bordereau.vacation.debut | replace({':': 'h'}) }}&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="font-weight: bold">A</span>&nbsp;&nbsp;&nbsp;&nbsp;{{  bordereau.vacation.fin | replace({':': 'h'}) }}
+        </div>
+    </td>
+    <td style="width: 35%;" colspan="3">
+        <div style="height: 25px;">
+            <span style="font-weight: bold">NOM AGENT :</span> {{  bordereau.vacation.utilisateur.nom }}
+        </div>
+    </td>
+</tr>
+
+
+<tr>
+    <td style="width: 15%">
+        <div style="position: relative;border:solid 1px;height: 40px;">
+            <img src="{{ asset('img/bl.jpg') }}" width="100%" height="100%" />
+            <div style="position: absolute; top: 0px; left: 0px;text-align:center;padding-left: 6px;padding-top: 6px;">
+                <span style="font-weight: bold">NUMERO</span>
+                <div style="position: absolute; top: 5px; left: 70px;">
+                    <span style="font-weight: bold;font-size: 10px">(ENVOI)</span>
+                </div>
+            </div>
+        </div>
+
+
+    </td>
+    <td style="width: 20%;">
+        <div style="position: relative;border:solid 1px;height: 40px;">
+            <img src="{{ asset('img/blx.jpg') }}" width="100%" height="100%">
+            <div style="position: absolute; top: 0px; left: 0px;text-align:center;padding-left: 45px;padding-top: 6px;">
+                <span style="font-weight: bold">EXPEDITEUR</span>
+            </div>
+        </div>
+    </td>
+    <td style="width: 20%;">
+        <div style="position: relative;border:solid 1px;height: 40px;">
+            <img src="{{ asset('img/blx.jpg') }}" width="100%" height="100%">
+            <div style="position: absolute; top: 0px; left: 0px;text-align:center;padding-left: 45px;padding-top: 6px;">
+                <span style="font-weight: bold">DESTINATAIRE</span>
+            </div>
+        </div>
+    </td>
+    <td style="width: 10%;">
+        <div style="position: relative;border:solid 1px;height: 40px;">
+            <img src="{{ asset('img/bl.jpg') }}" width="100%" height="100%">
+            <div style="position: absolute; top: 0px; left: 7px;padding-top: 6px;">
+                <span style="font-weight: bold">POIDS(KG)</span>
+            </div>
+        </div>
+    </td>
+    <td style="width: 15%;">
+        <div style="position: relative;border:solid 1px;height: 40px;">
+            <img src="{{ asset('img/bl.jpg') }}" width="100%" height="100%">
+            <div style="position: absolute; top: 0px; left: 0px;text-align:center;padding-left: 45px;padding-top: 6px;">
+                <span style="font-weight: bold">TAXE</span>
+            </div>
+        </div>
+    </td>
+    <td style="width: 10%;">
+        <div style="position: relative;border:solid 1px;height: 40px;">
+            <img src="{{ asset('img/bl.jpg') }}" width="100%" height="100%">
+            <div style="position: absolute; top: 0px; left: 33px;padding-top: 6px;">
+                <span style="font-weight: bold">TVA</span>
+            </div>
+        </div>
+    </td>
+    <td style="width: 10%;">
+        <div style="position: relative;border:solid 1px;height: 40px;">
+            <img src="{{ asset('img/bl.jpg') }}" width="100%" height="100%">
+            <div style="position: absolute; top: 0px; left: 0px;padding-top: 1px;">
+                <span style="font-weight: bold">RECEPTION</span>
+                <div style="position: absolute; top: 12px; left: 20px;">
+                    <span style="font-weight: bold;font-size: 10px">(HEURE)</span>
+                </div>
+            </div>
+        </div>
+    </td>
+</tr>

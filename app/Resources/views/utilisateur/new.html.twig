@@ -1,0 +1,164 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete.html.twig') }}
+    
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                <div class="titre lien-titre" id="titre">
+                   <span style="font-weight: bold">Création d'un utilisateur</span>         
+                </div> 
+
+                <div class="content" id="content">       
+                    {{ form_start(form) }}
+                    <div style="max-width: 800px">
+                        {% set class='' %}
+                        {% if error is defined %}
+                            <div class="alert-danger" >
+                                {{ error }}
+                            </div>
+                        {% endif %}
+
+
+                        <table style="width: 100%">
+                            <tbody>
+
+                            <tr>
+                                <td style="width: 15%;">
+                                    <span style="font-weight: bold">
+                                      Nom :
+                                    </span>
+                                </td>
+                                <td style="width: 85%;">
+                                    <div style="padding-top: 15px;padding-right: 5px;max-width: 400px">
+                                        {{ form_widget(form.nom,{'attr':{'class':'form-control',
+                                            'style':'font-weight: bold;border:solid 1px #337ab7'}}) }}
+                                        {{ form_errors(form.nom) }}
+                                    </div>
+                                </td>
+
+                            </tr>
+
+                            <tr>
+                                <td style="width: 15%;">
+                                    <span style="font-weight: bold">
+                                      Email :
+                                    </span>
+                                </td>
+                                <td style="width: 85%;">
+                                    <div style="padding-top: 15px;padding-right: 5px;max-width: 400px">
+                                        {{ form_widget(form.email,{'attr':{'class':'form-control',
+                                            'style':'font-weight: bold;border:solid 1px #337ab7'}}) }}
+                                        {{ form_errors(form.email) }}
+                                    </div>
+                                </td>
+
+                            </tr>
+
+                            <tr>
+                                <td style="width: 15%;">
+                                    <span style="font-weight: bold">
+                                      Profil :
+                                    </span>
+                                </td>
+                                <td style="width: 85%;">
+                                    <div style="padding-top: 15px;padding-right: 5px;max-width: 400px">
+                                        {{ form_widget(form.profil,{'attr':{'class':'form-control',
+                                            'style':'font-weight: bold;border:solid 1px #337ab7'}}) }}
+                                        {{ form_errors(form.profil) }}
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="width: 15%;">
+                                </td>
+                                <td style="width: 85%;">
+                                    <div style="padding-top: 15px;padding-right: 5px;max-width: 400px;display: none" >
+                                        {{ form_widget(form.agence,{'attr':{'class':'form-control',
+                                            'style':'font-weight: bold;border:solid 1px #337ab7'}}) }}
+                                        {{ form_errors(form.agence) }}
+                                    </div>
+
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="width: 15%;">
+                                    <span style="font-weight: bold">
+                                      Username :
+                                    </span>
+                                </td>
+                                <td style="width: 85%;">
+                                    <div style="padding-top: 15px;padding-right: 5px;max-width: 400px">
+                                        {{ form_widget(form.username,{'attr':{'class':'form-control',
+                                            'style':'font-weight: bold;border:solid 1px #337ab7'}}) }}
+                                        {{ form_errors(form.username) }}
+                                    </div>
+
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="width: 15%;">
+                                    <span style="font-weight: bold">
+                                      Mot de passe :
+                                    </span>
+                                </td>
+                                <td style="width: 85%;">
+                                    <div style="padding-top: 15px;padding-right: 5px;max-width: 400px">
+                                        <input type="password"  name="password" id="password" class="form-control" style="border:solid 1px #337ab7;font-weight: bold;"/>
+                                    </div>
+                                </td>
+
+                            </tr>
+
+                            <tr>
+                                <td style="width: 15%;">
+                                    <span style="font-weight: bold">
+                                      Confirmation :
+                                    </span>
+                                </td>
+                                <td style="width: 85%;">
+                                    <div style="padding-top: 15px;padding-right: 5px;max-width: 400px">
+                                        <input type="password" name="passwordrepeated" id="passwordrepeated" class="form-control" style="border:solid 1px #337ab7;font-weight: bold"/>
+                                    </div>
+                                </td>
+
+                            </tr>
+
+                            <tr>
+                                <td style="width: 15%;">
+                                </td>
+                                <td style="width: 85%;">
+                                    <div style="padding: 5px">
+                                        <input type="submit" value="Ajouter" class="btn  btn-ems" />
+                                        <a href="{{ path('user_index') }}" class="btn  btn-ems">Annuler</a>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            </tbody>
+
+                        </table>
+
+
+                    </div>
+                                     {{ form_end(form) }}
+                </div> 
+            </div>
+        </div>
+     </div>
+
+
+
+
+
+{% endblock %}

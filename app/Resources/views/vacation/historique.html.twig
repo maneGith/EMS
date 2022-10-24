@@ -1,0 +1,152 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete.html.twig') }}
+    
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+    
+                
+                <div class="titre titre-action" id="titre">
+                    <div class="container">
+                        <table width="100%">       
+                            <tbody> 
+                                <tr>
+                                    <td>
+                                       Historiques des dépôts : 
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    
+
+                     </div>  
+                
+
+                </div> 
+
+                <div class="content" id="content">
+                    <div>
+                        <form  action="{{ path('vacation_index') }}" method="post">
+                            <table class="table">
+                                <tbody>   
+                                    <tr>
+                                    <th>
+                                        Année
+                                    </th>
+                                     <th>
+                                        Mois
+                                    </th>
+                                    <th>
+                                        
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="active-pink-3 active-pink-4 mb-4">
+                                           
+                                            <span style="color: red;font-weight: bold">
+                                                {{anneeprec}}
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <select class="form-control" name="mois" >
+                                             <option value="00" selected>Choisir le mois...</option>
+                                             <option value="01/{{anneeprec}}">Janvier</option>   
+                                             <option value="02/{{anneeprec}}">Février</option>   
+                                             <option value="03/{{anneeprec}}">Mars</option>  
+                                             <option value="04/{{anneeprec}}">Avril</option>  
+                                             <option value="05/{{anneeprec}}">Mai</option> 
+                                             <option value="06/{{anneeprec}}">Juin</option>  
+                                             <option value="07/{{anneeprec}}">Juillet</option> 
+                                             <option value="08/{{anneeprec}}">Août</option> 
+                                             <option value="09/{{anneeprec}}">Septembre</option>
+                                             <option value="10/{{anneeprec}}">Octobre</option> 
+                                             <option value="11/{{anneeprec}}">Novembre</option> 
+                                             <option value="12/{{anneeprec}}">Décembre</option> 
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="submit" value="Vacations" class="btn btn-ems" />
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </form>
+                    </div> 
+                    
+                    
+                    <div>
+                        <form  action="{{ path('vacation_index') }}" method="post">
+                            <table class="table">
+                                <tbody>  
+                                    <tr>
+                                    <th>
+                                        Année
+                                    </th>
+                                     <th>
+                                        Mois
+                                    </th>
+                                    <th>
+                                        
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="active-pink-3 active-pink-4 mb-4">
+                                            <span style="color: red;font-weight: bold">
+                                                {{ anneepreprec}}
+                                            </span>
+                                        </div>
+                                    </td>
+                                     <td>
+                                        <select class="form-control" name="mois" >
+                                             <option value="00" selected>Choisir le mois...</option>
+                                             <option value="01/{{ anneepreprec}}">Janvier</option>   
+                                             <option value="02/{{ anneepreprec}}">Février</option>   
+                                             <option value="03/{{ anneepreprec}}">Mars</option>  
+                                             <option value="04/{{ anneepreprec}}">Avril</option>  
+                                             <option value="05/{{ anneepreprec}}">Mai</option> 
+                                             <option value="06/{{ anneepreprec}}">Juin</option>  
+                                             <option value="07/{{ anneepreprec}}">Juillet</option> 
+                                             <option value="08/{{ anneepreprec}}">Août</option> 
+                                             <option value="09/{{ anneepreprec}}">Septembre</option>
+                                             <option value="10/{{ anneepreprec}}">Octobre</option> 
+                                             <option value="11/{{ anneepreprec}}">Novembre</option> 
+                                             <option value="12/{{ anneepreprec}}">Décembre</option> 
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="submit" value="Vacations" class="btn btn-ems" />
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                                        
+                                        
+                                        
+                                        
+{#<iframe frameborder="0" id="gttframe" src="http://ptt.ptc.post/ptt.web/Search.aspx?style=1&Token" width="500px" height="250px"/>#}
+
+                </div> 
+                
+            </div>
+        </div>
+     </div>
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,148 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/header.html.twig') }}
+
+
+
+<div id="container" style="border: solid 1px #d2d2d2;overflow-x: hidden;overflow-y:hidden">
+    <div class="row">
+
+        <div class="column column-left menu">
+            {{ include('includes/assistant.html.twig') }}
+        </div>
+
+        <div class="column column-middle" style="background: #8E998F">
+
+            <div style="background: #fff">
+            <div>
+                <span style="color:#337ab7;font-weight: bold">Paramètres généraux abonné</span>
+            </div><br>
+    {{ form_start(edit_form) }}
+
+<table class="table table-condensed">
+    <tbody>
+
+
+
+    <tr>
+        <th>Nom ou raison sociale</th>
+        <td>{{ expediteur.usager.prenom }} <span class="rs-e">Modifier</span>
+            <div class="De-e">
+                <div class="form-group" style="max-width: 400px">
+                    {{ form_widget(edit_form.usager.prenom,{'attr':{'class':'form-control'}}) }}
+                    {{ form_errors(edit_form.usager.prenom) }}
+                </div>
+               <span>
+                    <input type="submit" value="Valider" class="btn btn-ems" />
+                    <a href="{{ path('expediteur_edit', { 'id': expediteur.id }) }}" class="btn btn-ems">Annuler</a>
+               </span>
+            </div>
+        </td>
+    </tr>
+
+
+    <tr>
+        <th>Téléphone</th>
+        <td> {{ expediteur.usager.telephone }} <span class="rs-e">Modifier</span>
+            <div class="De-e">
+                <div class="form-group" style="max-width: 400px">
+                    {{ form_widget(edit_form.usager.telephone,{'attr':{'class':'form-control'}}) }}
+                    {{ form_errors(edit_form.usager.telephone) }}
+                </div>
+               <span>
+                    <input type="submit" value="Valider" class="btn btn-ems" />
+                    <a href="{{ path('expediteur_edit', { 'id': expediteur.id }) }}" class="btn btn-ems">Annuler</a>
+               </span>
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <th>Email</th>
+        <td> {{ expediteur.usager.email }} <span class="rs-e">Modifier</span>
+            <div class="De-e">
+                <div class="form-group" style="max-width: 400px">
+                    {{ form_widget(edit_form.usager.email,{'attr':{'class':'form-control'}}) }}
+                    {{ form_errors(edit_form.usager.email) }}
+                </div>
+               <span>
+                    <input type="submit" value="Valider" class="btn btn-ems" />
+                    <a href="{{ path('expediteur_edit', { 'id': expediteur.id }) }}" class="btn btn-ems">Annuler</a>
+               </span>
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <th>Pays</th>
+        <td> {{ expediteur.usager.adresse.pays.name }} <span class="rs-e">Modifier</span>
+            <div class="De-e">
+                <div class="form-group" style="max-width: 400px">
+                    {{ form_widget(edit_form.usager.adresse.pays,{'attr':{'class':'form-control'}}) }}
+                    {{ form_errors(edit_form.usager.adresse.pays) }}
+                </div>
+               <span>
+                    <input type="submit" value="Valider" class="btn btn-ems" />
+                    <a href="{{ path('expediteur_edit', { 'id': expediteur.id }) }}" class="btn btn-ems">Annuler</a>
+               </span>
+            </div>
+        </td>
+    </tr>
+
+
+    <tr>
+        <th>Adresse</th>
+        <td> {{ expediteur.usager.adresse.libelle }} <span class="rs-e">Modifier</span>
+            <div class="De-e">
+                <div class="form-group" style="max-width: 400px">
+                    {{ form_widget(edit_form.usager.adresse.libelle,{'attr':{'class':'form-control'}}) }}
+                    {{ form_errors(edit_form.usager.adresse.libelle) }}
+                </div>
+               <span>
+                    <input type="submit" value="Valider" class="btn btn-ems" />
+                    <a href="{{ path('expediteur_edit', { 'id': expediteur.id }) }}" class="btn btn-ems">Annuler</a>
+               </span>
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="2">
+            <span  style="float: right">
+                    <ul>
+                        <li style="float:left;">
+                            <a href="{{ path('expediteur_index') }}"><input type="button" value="Lister" class="btn  btn-ems" style="margin-right: 15px;"/></a>
+                        </li>
+
+                        <li style="float:left;">
+                            <a href="{{ path('expediteur_delete',{ 'id': expediteur.id }) }}"><input type="button" value="Suppr" class="btn  btn-ems" style="margin-right: 15px;"/></a>
+
+                        </li>
+
+                    </ul>
+            </span>
+
+
+        </td>
+
+    </tr>
+
+    {{ form_end(edit_form) }}
+
+    <ul>
+
+        <li>
+
+        </li>
+    </ul>
+
+    </tbody>
+</table>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,61 @@
+{#<div style="position: relative">
+    <div class="header">
+        <div class="logo">
+                <span class="logo-text" style="color: white;font-style: oblique;font-size: large;font-weight: 100;">
+                   <img  src="{{ asset('img/logo.PNG') }}" height="30"/>
+                </span>
+
+            
+
+                <span style="float: right;margin-left: 15px">
+{#                   <a href="{{ path('logout') }}">Déconnexion</a>#}
+               {# </span>
+             <span style="float: right;margin-left: 15px">
+{#                   <a href="{{ path('password') }}">Compte</a>#}
+               {# </span>
+            <span style="float: right">
+                <a href="{{ path('homepage') }}">Accueil</a>
+            </span>
+        </div>
+    </div>
+</div>#}
+
+
+            
+<div class="preview-bar bg-white fixed-top py-2 border-bottom-primary">
+    <div class="logo">
+        <span class="logo-text" style="color: white;font-style: oblique;font-size: large;font-weight: 100;">
+            <img  src="{{ asset('img/logo.PNG') }}" height="30"/>
+        </span>
+        
+        
+        {% if(is_granted('ROLE_CONTROLE')) %}
+                {{ app.user.nom }} / Controle et Suivi
+            {% elseif(is_granted('ROLE_RECOUVREMENT')) %}
+                {{ app.user.nom }} / Recouvrement
+            {% elseif(is_granted('ROLE_DEXEMS')) %}
+                {{ app.user.nom }} / DEX EMS
+            {% elseif(is_granted('ROLE_DGEMS')) %}
+                {{ app.user.nom }} / DG EMS
+            {% elseif(is_granted('ROLE_DAFCEMS')) %}
+                {{ app.user.nom }} / DAFC EMS
+            {% else %}
+
+                   {{ app.user.nom }} / {{ app.user.agence.nom }}
+
+            {% endif %}
+
+        
+        <span style="float: right;margin-left: 15px">
+{#            <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>#}
+              <a href="{{ path('logout') }}">Déconnexion</a>
+        </span>
+        <span style="float: right;margin-left: 15px">
+           <a href="{{ path('password') }}">Compte</a>
+        </span>
+        <span style="float: right">
+            <a href="{{ path('homepage') }}">Accueil</a>
+        </span>
+    </div>
+</div>
+

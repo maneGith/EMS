@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/header.html.twig') }}
+
+
+    <div id="container" style="border: solid 1px #d2d2d2;overflow-x: hidden;">
+        <div class="row">
+
+
+            <div class="column column-left menu">
+                {{ include('includes/agent.html.twig') }}
+            </div>
+            <div class="column column-middle" style="background:#8E998F;">
+
+                <div style="background: #fff">
+                    <table class="table table-bordered">
+                        <tbody>
+
+                        <tr>
+                            <td width="50%">
+                                <a href="#">
+
+                                    <div style="color:#337ab7;font-size: 11px;width: 120px">
+                                        Statistiques du courrier express
+                                    </div>
+                                </a>
+                            </td>
+                            <td  width="50%">
+                                <a href="#">
+
+                                    <div style="color:#337ab7;font-size: 11px;width: 120px">
+                                        Abonnement au courrier express
+                                    </div>
+                                </a>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+{% endblock %}

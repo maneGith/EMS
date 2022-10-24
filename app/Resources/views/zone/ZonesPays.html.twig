@@ -1,0 +1,259 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete.html.twig') }}
+    
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                <div class="titre lien-titre" id="titre">
+                    
+                    {% if bareme == 'abonnes' %}
+                        <span style="font-weight: bold">Tarif international des clients abonnés </span>
+                    {% else %}
+                        <span style="font-weight: bold">Tarif international des clients occasionnels</span>
+                    {% endif %}   
+                    
+                     <span style="float: right;float: right">
+                                  <a href="{{ path('zone_index') }}" class="btn  btn-ems  r-ems">
+                                      Retour
+                                  </a>
+                     </span>
+                </div> 
+
+                <div class="content" id="content">       
+                   
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th style="text-align: center">
+                                    Zone</th>
+                                <th style="text-align: center" colspan="4">
+                                    Pays</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td>
+
+                                    <table style="width: 100%">
+                                        <tbody>
+                                        <tr>
+                                            <th width="50%">
+                                                    <span style="font-weight: bold">
+                                                     {% if bareme == 'abonnes' %}
+                                                         <a href="{{ path('bareme_abonne', { 'zone':'Zone 1' }) }}"> Tarifs Zone 1</a>
+                                                     {% else %}
+                                                         <a href="{{ path('bareme_occasionnel', { 'zone':'Zone 1' }) }}">Tarifs Zone 1</a>
+                                                     {% endif %}
+                                                    </span>
+                                            </th>
+                                            <td width="50%">
+                                                UEMOA
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+
+                                </td>
+                                           <td>
+                                    {% for pays in payszone1 %}
+
+                                        {{ pays.name }}<br>
+
+                                        {% if loop.index == 3 %}
+                                            </td>
+                                            <td>
+                                        {% endif %}
+
+                                         {% if loop.index == 6 %}
+                                            </td>
+                                             <td>
+                                        {% endif %}
+                                        {% if loop.index == 9 %}
+                                             </td>
+                                              <td>
+                                        {% endif %}
+
+                                    {% endfor %}
+                                           </td>
+
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table style="width: 100%">
+                                        <tbody>
+                                        <tr>
+                                            <th width="50%">
+                                                    <span style="font-weight: bold">
+                                                        {% if bareme == 'abonnes' %}
+                                                          <a href="{{ path('bareme_abonne', { 'zone':'Zone 2' }) }}"> Tarifs Zone 2</a>
+                                                        {% else %}
+                                                          <a href="{{ path('bareme_occasionnel', { 'zone':'Zone 2' }) }}"> Tarifs Zone 2</a>
+                                                        {% endif %}
+
+                                                    </span>
+                                            </th>
+                                            <td width="50%">
+                                                FRANCE
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td colspan="4">
+
+                                    {% for pays in payszone2 %}
+                                    {{ pays.name }}
+                                    {% endfor %}
+                                    (Sauf Départements et Territoires d'outre mer - DOM et TOM)
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table style="width: 100%">
+                                        <tbody>
+                                        <tr>
+                                            <th width="50%">
+                                                    <span style="font-weight: bold">
+                                                        {% if bareme == 'abonnes' %}
+                                                            <a href="{{ path('bareme_abonne', { 'zone':'Zone 3' }) }}">Tarifs Zone 3</a>
+                                                        {% else %}
+                                                            <a href="{{ path('bareme_occasionnel', { 'zone':'Zone 3' }) }}"> Tarifs Zone 3</a>
+                                                        {% endif %}
+
+                                                    </span>
+                                            </th>
+                                            <td width="50%">
+                                                EUROPE
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td>
+                                    {% for pays in payszone3 %}
+
+                                    {{ pays.name }}<br>
+
+                                    {% if loop.index == 22 %}
+                                </td>
+                                <td>
+                                    {% endif %}
+
+                                    {% if loop.index == 44 %}
+                                </td>
+                                <td>
+                                    {% endif %}
+                                    {% if loop.index == 66 %}
+                                </td>
+                                <td>
+                                    {% endif %}
+
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+
+                                    <table style="width: 100%">
+                                        <tbody>
+                                        <tr>
+                                            <th width="50%">
+                                                    <span style="font-weight: bold">
+                                                         {% if bareme == 'abonnes' %}
+                                                             <a href="{{ path('bareme_abonne', { 'zone':'Zone 4' }) }}"> Tarifs Zone 4</a>
+                                                             {% else %}
+                                                             <a href="{{ path('bareme_occasionnel', { 'zone':'Zone 4' }) }}"> Tarifs Zone 4</a>
+                                                         {% endif %}
+
+
+                                                    </span>
+                                            </th>
+                                            <td width="50%">
+                                                USA-CANADA
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td colspan="4">
+                                {% for pays in payszone4 %}
+                                    {{ pays.name }}<br>
+                                {% endfor %}
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span style="font-weight: bold">
+
+
+                                     </span>
+                                    <table style="width: 100%">
+                                        <tbody>
+                                        <tr>
+                                            <th width="50%">
+                                                    <span style="font-weight: bold">
+                                                         {% if bareme == 'abonnes' %}
+                                                             <a href="{{ path('bareme_abonne', { 'zone':'Zone 5' }) }}"> Tarifs Zone 5</a>
+                                                         {% else %}
+                                                             <a href="{{ path('bareme_occasionnel', { 'zone':'Zone 5' }) }}"> Tarifs Zone 5</a>
+                                                         {% endif %}
+
+
+                                                    </span>
+                                            </th>
+                                            <td width="50%">
+                                               RESTE DU MONDE
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td>
+                                    {% for pays in payszone5 %}
+
+                                    {{ pays.name }}<br>
+
+                                    {% if loop.index == 43 %}
+                                </td>
+                                <td>
+                                    {% endif %}
+
+                                    {% if loop.index == 86 %}
+                                </td>
+                                <td>
+                                    {% endif %}
+                                    {% if loop.index == 129 %}
+                                </td>
+                                <td>
+                                    {% endif %}
+
+                                    {% endfor %}
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    
+                </div> 
+            </div>
+        </div>
+     </div>
+
+
+
+
+
+{% endblock %}

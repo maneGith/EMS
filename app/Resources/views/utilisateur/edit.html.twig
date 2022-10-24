@@ -1,0 +1,250 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete.html.twig') }}
+    
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                <div class="titre lien-titre" id="titre">
+                   <span style="font-weight: bold">Paramètres généraux d'un utilisateur</span>
+                   
+                   <span style="float: right">
+                        <a id="myBtn" href="#" class="btn btn-ems r-ems">
+                            Mot de passe
+                        </a>
+                   </span>
+                    {% if( etatpwd ==1) %}
+                                   <span style="font-weight: bold;color: #2ca02c;float: right;margin-right:  15px">La modification s'est effectuée avec succès !</span> 
+                             {% elseif( etatpwd ==2) %} 
+                                  <span style="font-weight: bold;color: red;float: right;margin-right:  15px">Le mot de passe ne peut-être null   !</span> 
+                            {% elseif( etatpwd ==3) %} 
+                                  <span style="font-weight: bold;color: red;float: right;margin-right:  15px"> Les mots de passe ne sont pas conformes  !</span> 
+                                 
+                             {% endif %}
+                </div> 
+
+                <div class="content" id="content">       
+                   <div class="alert-danger" >
+                       {{ app.session.get('error') }}
+                    </div>
+                {{ form_start(edit_form) }}
+                <table class="table table-condensed">
+                    <tbody>
+                    <tr>
+                        <th>Nom</th>
+                        <td>{{ user.nom }}     <span class="rs-e">Modifier</span>
+                            <div class="De-e">
+                                <div class="form-group" style="max-width: 400px">
+                                        {{ form_widget(edit_form.nom,{'attr':{'class':'form-control'}}) }}
+                                        {{ form_errors(edit_form.nom) }}
+                                </div>
+                                <span>
+                                        <input type="submit" value="Valider" class="btn btn-ems" />
+                                        <a href="{{ path('user_edit', { 'id': user.id }) }}" class="btn btn-ems">Annuler</a>
+                                </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td>{{ user.email }}   <span class="rs-e">Modifier</span>
+                            <div class="De-e">
+                                <div class="form-group" style="max-width: 400px">
+                                    {{ form_widget(edit_form.email,{'attr':{'class':'form-control'}}) }}
+                                    {{ form_errors(edit_form.email) }}
+                                </div>
+                                   <span>
+                                        <input type="submit" value="Valider" class="btn btn-ems" />
+                                        <a href="{{ path('user_edit', { 'id': user.id }) }}" class="btn btn-ems">Annuler</a>
+                                   </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Nom utilisateur</th>
+                        <td>{{ user.username }} <span class="rs-e">Modifier</span>
+                            <div class="De-e">
+                                <div class="form-group" style="max-width: 400px">
+                                    {{ form_widget(edit_form.username,{'attr':{'class':'form-control'}}) }}
+                                    {{ form_errors(edit_form.username) }}
+                                </div>
+                                   <span>
+                                        <input type="submit" value="Valider" class="btn btn-ems" />
+                                        <a href="{{ path('user_edit', { 'id': user.id }) }}" class="btn btn-ems">Annuler</a>
+                                   </span>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Profil/Agence</th>
+                        <td>{{ user.profil }}/
+                            {% if(user.agence) %}
+                                {{ user.agence.nom }}
+                            {% else %}
+
+                            {% endif %}
+                            <span class="rs-e">Modifier</span>
+                            <div class="De-e">
+                                <div class="form-group" style="max-width: 400px">
+                                    {{ form_widget(edit_form.profil,{'attr':{'class':'form-control'}}) }}
+                                    {{ form_errors(edit_form.profil) }}
+                                </div>
+                                <div class="form-group" style="max-width: 400px">
+                                    {{ form_widget(edit_form.agence,{'attr':{'class':'form-control'}}) }}
+                                    {{ form_errors(edit_form.agence) }}
+                                </div>
+                                   <span>
+                                        <input type="submit" value="Valider" class="btn btn-ems" />
+                                        <a href="{{ path('user_edit', { 'id': user.id }) }}" class="btn btn-ems">Annuler</a>
+                                   </span>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Etat</th>
+                        <td>
+                            {% if(user.enabled==1) %}
+                                Activé
+                            {% else %}
+                                Désactivé
+                            {% endif %}
+                            <span class="rs-e">Modifier</span>
+
+                            <div class="De-e">
+                                <div class="form-group" style="max-width: 400px">
+                                    {% if(user.enabled==1) %}
+                                        <input type="radio" name="etat" value="1" checked >
+                                        <label style="color: #777">Activé</label>
+
+                                        <input type="radio" name="etat" value="0" >
+                                        <label style="color: #777">Désactivé</label>
+                                    {% else %}
+                                        <input type="radio" name="etat" value="1">
+                                        <label style="color: #777">Activé</label>
+                                        <input type="radio" name="etat" value="0"  checked>
+                                        <label style="color: #777">Désactivé</label>
+                                    {% endif %}
+                                </div>
+                                   <span>
+                                        <input type="submit" value="Valider" class="btn btn-ems" />
+                                        <a href="{{ path('user_edit', { 'id': user.id }) }}" class="btn btn-ems">Annuler</a>
+                                   </span>
+                            </div>
+
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2">
+                            <span  style="float: right">
+                    <ul>
+                        <li style="float:left;">
+                            <a href="{{ path('user_index') }}"><input type="button" value="Lister" class="btn  btn-ems" style="margin-right: 15px;"/></a>
+                        </li>
+
+                        <li style="float:left;">
+                            <a href="{{ path('user_delete',{ 'id': user.id }) }}"><input type="button" value="Suprm" class="btn  btn-ems" style="margin-right: 15px;"/></a>
+                        </li>
+
+                    </ul>
+                 </span>
+
+
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <td colspan="2">
+                         <div>
+                            
+                        </div>
+                        </td>
+
+                    </tr>
+                    
+                    
+                    
+
+                    </tbody>
+                </table>
+
+                {{ form_end(edit_form) }}
+                </div> 
+                
+                
+                <div id="myModal" class="modal">
+                      <!-- Modal content -->
+                      <div class="modal-content" style="width:500px">
+                        <div><span class="close">&times;</span></div>
+                        <h1 class="mt-4">Changement - password</h1>
+                              
+                        <form action="{{ path('param_bur_user-pwd') }}" method="post">
+                                                <input type="hidden" name="user"size="20" value="{{ user.id }}"/>
+                                                <table style="width: 100%">
+                                                    <tbody>
+
+
+
+                                                    <tr>
+                                                        <td width="15%">
+                                                             <span style="font-weight: bold">
+                                                              Nouveau mot de passe :
+                                                             </span>
+                                                        </td>
+                                                        <td width="85%">
+                                                            <div style="padding-top: 15px;padding-right: 5px;max-width: 400px">
+                                                                <input type="password" name="newpass1"size="20" class="form-control"/>
+                                                            </div>
+
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="15%">
+                                                             <span style="font-weight: bold">
+                                                              Confirmation mot de passe :
+                                                             </span>
+                                                        </td>
+                                                        <td width="85%">
+                                                            <div style="padding-top: 15px;padding-right: 5px;max-width: 400px">
+                                                                <input type="password" name="newpass2" size="20" class="form-control"/>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <span style="float:right">
+                                                           <input type="submit" value="Changer" class="btn btn-ems" /></span>      
+                                                        </td>  
+                                                    </tr>
+                                                </table>
+
+
+
+                                                
+                                                </form>
+                        
+                      </div>
+                                        
+                    </div>
+                
+                
+                
+            </div>
+        </div>
+     </div>
+
+
+
+
+
+{% endblock %}

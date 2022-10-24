@@ -1,0 +1,237 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete.html.twig') }}
+    
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+    
+                
+                <div class="titre titre-action" id="titre">
+                    <div class="container">
+                        <table width="100%">       
+                            <tbody> 
+                                <tr>
+                                    <td>
+                                        Mes vacations du mois : 
+                                        <span style="color: red;font-weight: bold">{{ mois }}</span>
+                                    </td>
+                                       
+                                </tr>
+                            </tbody>
+                        </table>
+                    
+
+                     </div>  
+                
+
+                </div> 
+
+                <div class="content" id="content">       
+                   
+                 
+                    
+                        <div class="table-responsive">
+                            <table style="width: 100%" class="table table-bordered">
+                                <tbody>
+                                <tr>
+                                    <td style="border-right: 2px solid #d2d2d2;width: 20%">
+                                        <div>
+
+
+                                            <span style="font-size: 12px;font-weight: bold;color: #337ab7;">
+                                                   Journée
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td  style="border-right: 2px solid #d2d2d2;width: 240px">
+
+                                        <table style="width: 100%">
+                                            <tbody>
+                                            <tr>
+                                                <td style="width: 200px">
+
+                                                    <span style="font-size: 12px;font-weight: bold">Type bordereau</span>
+
+                                                </td>
+                                                <td style="width: 90px">
+                                                    <div>
+                                                        <span style="font-size: 12px;font-weight: bold">Numéro</span>
+                                                    </div>
+
+                                                </td>
+                                                <td style="width: 40px">
+                                                    <div>
+                                                        <span style="font-size: 12px;font-weight: bold">Action</span>
+                                                    </div>
+                                                </td>
+
+                                                <td style="width: 240px">
+                                                    
+                                                   
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </td>
+
+
+
+
+
+
+
+
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    <div class="alert-danger">
+                         <span style="font-weight: bold">
+                          {{ app.session.get('msg') }}
+                        </span>
+                    </div>
+
+
+
+                        {% for vacation in vacations %}
+
+                            <div style="border-bottom: 1px solid #337ab7;">
+
+
+                                <div style="border-bottom: 1px solid #337ab7;">
+                                    <table style="width: 100%" class="table table-bordered">
+                                        <tbody>
+                                        <tr>
+                                            <td style="border-right: 2px solid #d2d2d2;width: 20%">
+                                                <div>
+                                                    <span style="font-size: 12px;font-weight: bold;color: red">
+                                                      {{ vacation.vacation.journee  }}
+                                                    </span>
+                                                    <span style="font-size: 11px;font-weight: bold;float: right">
+                                                        <a href="{{ path('vacation_edit', { 'id': vacation.vacation.id }) }}">
+                                                            Détails&nbsp;&nbsp;&nbsp;
+                                                        </a>
+                                                    </span>
+                                                </div>
+
+                                                <div style="border-top: solid 1px #777;">
+
+                                                     <span style="font-size: 11px;font-weight: bold;float: left">
+                                                        <a href="{{ path('vacation_delete', { 'id': vacation.vacation.id }) }}">
+                                                            supprimer
+                                                        </a>
+                                                    </span>
+
+                                                    <span style="font-size: 11px;font-weight: bold;float: right">
+                                                        <a href="{{ path('agent_depot_differe', { 'date': vacation.vacation.journee }) }}">
+                                                           Déposez
+                                                        </a>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td  style="border-right: 2px solid #d2d2d2;width: 240px">
+
+                                                <table style="width: 100%">
+                                                    <tbody>
+                                                    {% for bordereau in vacation.bordereaux %}
+                                                        <tr>
+                                                            <td style="width: 200px">
+
+                                                                {{ bordereau.typeenvoi }}
+                                                            </td>
+                                                            <td style="width: 90px">
+                                                                {{ bordereau.numbdr }}
+                                                            </td>
+
+                                                            <td style="width: 40px">
+                                                                 <span style="font-size: 11px;font-weight: bold;float: left">
+
+                                                                      {% if bordereau.typeenvoi=="clients réguliers national" %}
+                                                                          <a href="{{ path('agent_depot', { 'depot': 'ren', 'datepicker': vacation.vacation.journee}) }}">
+                                                                              Déposez
+                                                                          </a>
+                                                                     {% elseif  bordereau.typeenvoi=="clients réguliers international" %}
+                                                                          <a href="{{ path('agent_depot', { 'depot': 'rei', 'datepicker': vacation.vacation.journee}) }}">
+                                                                              Déposez
+                                                                          </a>
+
+                                                                      {% elseif  bordereau.typeenvoi=="clients occasionnels national" %}
+                                                                          <a href="{{ path('agent_depot', { 'depot': 'oen', 'datepicker': vacation.vacation.journee}) }}">
+                                                                              Déposez
+                                                                          </a>
+                                                                      {% else %}
+                                                                          <a href="{{ path('agent_depot', { 'depot': 'oei', 'datepicker': vacation.vacation.journee}) }}">
+                                                                              Déposez
+                                                                          </a>
+                                                                      {% endif %}
+
+
+
+                                                                 </span>
+
+                                                            </td>
+                                                            <td style="width: 40px">
+
+                                                                 <span style="font-size: 11px;font-weight: bold;float: left">
+
+
+                                                                      <a href="{{ path('bordereau_delete', { 'id': bordereau.id }) }}">
+                                                                          supprimer
+                                                                      </a>
+                                                                 </span>
+
+                                                            </td>
+
+                                                            <td style="width: 200px">
+
+
+
+                                                                <span style="float: right">
+                                                                    <a href="{{ path('envoi_index', { 'id': bordereau.id }) }}">
+                                                                        <img src="{{ asset('img/bliste.jpg') }}" width="40" height="15">
+                                                                    </a>
+                                                                    </span>
+                                                            </td>
+
+                                                        </tr>
+                                                    {% endfor %}
+
+
+                                                    </tbody>
+                                                </table>
+
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        {% endfor %}
+
+               
+                </div> 
+                        
+                        
+                        
+                        
+                    
+           
+            </div>
+        </div>
+     </div>
+
+
+
+
+
+{% endblock %}

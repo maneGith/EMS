@@ -1,0 +1,597 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete.html.twig') }}
+    
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                <div class="titre lien-titre" id="titre">
+                   <div class="container">
+                        <table width="100%">       
+                            <tbody> 
+                                <tr>
+                                    <td>
+                                       Bordereau des {{ bordereau.typeenvoi }}
+                                    </td>
+                                    <td width="10%">
+                                        <!-- Small button groups (default and split) -->
+                                        <div class="btn-group">
+                                          <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Actions
+                                          </button>
+                                          <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="" onclick="printContent('BL')">Imprimer le BL</a>
+                                           
+                                            <div class="dropdown-divider"></div>
+                                            
+                                            {% if(is_granted('ROLE_AGENTGUICHET')) %}
+                                                 {% if bordereau.typeenvoi=="clients réguliers national" %}
+                                                                          <a class="dropdown-item" href="{{ path('agent_depot', { 'depot': 'ren', 'datepicker': bordereau.vacation.journee}) }}">
+                                                                             Ajout au BL
+                                                                          </a>
+                                                                     {% elseif  bordereau.typeenvoi=="clients réguliers international" %}
+                                                                          <a class="dropdown-item" href="{{ path('agent_depot', { 'depot': 'rei', 'datepicker': bordereau.vacation.journee}) }}">
+                                                                             Ajout au BL
+                                                                          </a>
+
+                                                                      {% elseif  bordereau.typeenvoi=="clients occasionnels national" %}
+                                                                          <a class="dropdown-item" href="{{ path('agent_depot', { 'depot': 'oen', 'datepicker': bordereau.vacation.journee}) }}">
+                                                                              Ajout au  BL
+                                                                          </a>
+                                                                      {% else %}
+                                                                          <a class="dropdown-item" href="{{ path('agent_depot', { 'depot': 'oei', 'datepicker':bordereau.vacation.journee}) }}">
+                                                                             Ajout au BL
+                                                                          </a>
+                                                                      {% endif %}
+                                                
+                                                <div class="dropdown-divider"></div>
+                                                 {% endif %}
+                                            
+                                            {% if(is_granted('ROLE_AGENTGUICHET')) %}
+                                                <a class="dropdown-item" href="{{ path('vacation_index') }}">Vacations du mois</a>
+                                            {% else %}
+                                                <a class="dropdown-item" href="{{ path('homepage') }}">Page d'Accueil</a>
+                                            {% endif %}
+                                            
+                                          </div>
+                                            
+                                        </div>
+                                    </td>    
+                                </tr>
+                            </tbody>
+                        </table>
+                    
+
+                     </div>             
+                </div> 
+
+                <div class="content container" id="content">       
+                   
+                    <table style="width: 100%">
+                        <tbody>
+                        <tr>
+                            <td style="width: 95%;" >
+                                <div style="border: solid 1px">
+                                    <div style="border: solid #337ab7;" id="BL">
+
+                                        <table style="width: 100%">
+                                            <tbody>
+
+                                            {{ include('envoi/entete.html.twig') }}
+
+                                            {% for envoi in tabEnvois %}
+
+                                                {% if envoi.nature=='RP' %}
+                                                    <tr>
+                                                        <td style="width: 15%;">
+                                                            <div style="border:solid 1px;height: 45px;padding: 2px 5px">
+                                                                <span style="font-weight: bold;">Total à reporter</span>
+                                                            </div>
+                                                        </td>
+                                                        <td style="width: 20%;">
+                                                            <div style="border:solid 1px;height: 45px;padding: 2px 5px">
+
+                                                            </div>
+                                                        </td>
+                                                        <td style="width: 20%;">
+                                                            <div style="border:solid 1px;height: 45px;padding: 2px 5px">
+
+                                                            </div>
+                                                        </td>
+                                                        <td style="width: 10%;">
+                                                            <div style="border:solid 1px;text-align:right;height: 45px;padding: 2px 5px">
+                                                                <span style="font-weight: bold;"> {{ envoi.poids }}</span>
+                                                            </div>
+                                                        </td>
+                                                        <td style="width: 15%;">
+                                                            <div style="border:solid 1px;text-align:right;height: 45px;padding: 2px 5px">
+                                                                <span style="font-weight: bold;">
+                                                                {% if envoi.taxe|length > 6 %}
+                                                                    {{ envoi.taxe|striptags|slice(0, envoi.taxe|length-6)|raw }}
+
+                                                                    {{ envoi.taxe|striptags|slice(envoi.taxe|length-6, 3)|raw }}
+
+                                                                    {{ envoi.taxe|striptags|slice(envoi.taxe|length-3, 3)|raw }}
+
+                                                                {% elseif(envoi.taxe|length > 3) %}
+                                                                    {{ envoi.taxe|striptags|slice(0, envoi.taxe|length-3)|raw }}
+
+                                                                    {{ envoi.taxe|striptags|slice(envoi.taxe|length-3, 3)|raw }}
+
+                                                                {% else %}
+                                                                    {{ envoi.taxe }}
+                                                                {% endif %}
+                                                                    </span>
+                                                            </div>
+                                                        </td>
+                                                        <td style="width: 10%;">
+                                                            <div style="border:solid 1px;text-align:right;height: 45px;padding: 2px 5px">
+
+                                                                 <span style="font-weight: bold;">
+                                                                {% if envoi.tva|length > 6 %}
+                                                                    {{ envoi.tva|striptags|slice(0, envoi.tva|length-6)|raw }}
+
+                                                                    {{ envoi.tva|striptags|slice(envoi.tva|length-6, 3)|raw }}
+
+                                                                    {{ envoi.tva|striptags|slice(envoi.tva|length-3, 3)|raw }}
+
+                                                                {% elseif(envoi.tva|length > 3) %}
+                                                                    {{ envoi.tva|striptags|slice(0, envoi.tva|length-3)|raw }}
+
+                                                                    {{ envoi.tva|striptags|slice(envoi.tva|length-3, 3)|raw }}
+
+                                                                {% else %}
+                                                                    {{ envoi.tva }}
+                                                                {% endif %}
+                                                                     </span>
+                                                            </div>
+                                                        </td>
+                                                        <td style="width: 10%;">
+                                                            <div style="border:solid 1px;text-align:center;height: 45px;padding: 2px 5px">
+
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    {{ include('envoi/entete.html.twig') }}
+
+                                                {% elseif envoi.nature=='VD'  %}
+
+                                                    <tr>
+                                                        <td style="width: 15%;">
+                                                            <div style="border:solid 1px;height: 45px;padding: 2px 5px">
+                                                            </div>
+                                                        </td>
+                                                        <td style="width: 20%;">
+                                                            <div style="border:solid 1px;height: 45px;padding: 2px 5px">
+                                                            </div>
+                                                        </td>
+                                                        <td style="width: 20%;">
+                                                            <div style="border:solid 1px;height: 45px;padding: 2px 5px">
+
+                                                            </div>
+                                                        </td>
+                                                        <td style="width: 10%;">
+                                                            <div style="border:solid 1px;text-align:right;height: 45px;padding: 2px 5px">
+                                                                <span style="font-weight: bold;"> {{ envoi.poids }}</span>
+                                                            </div>
+                                                        </td>
+                                                        <td style="width: 15%;">
+                                                            <div style="border:solid 1px;text-align:right;height: 45px;padding: 2px 5px">
+                                                            </div>
+                                                        </td>
+                                                        <td style="width: 10%;">
+                                                            <div style="border:solid 1px;text-align:right;height: 45px;padding: 2px 5px">
+                                                            </div>
+                                                        </td>
+                                                        <td style="width: 10%;">
+                                                            <div style="border:solid 1px;text-align:center;height: 45px;padding: 2px 5px">
+
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+
+
+                                                {% elseif envoi.nature=='TJ'  %}
+
+                                                    <tr>
+                                                        <td style="width: 15%;">
+                                                            <div style="border:solid 1px;height: 45px;padding: 2px 5px">
+                                                                <span style="font-weight: bold;">Total du jour </span>
+                                                            </div>
+                                                        </td>
+                                                        <td style="width: 20%;">
+                                                            <div style="border:solid 1px;height: 45px;padding: 2px 5px">
+
+                                                            </div>
+                                                        </td>
+                                                        <td style="width: 20%;">
+                                                            <div style="border:solid 1px;height: 45px;padding: 2px 5px;text-align: right">
+                                                                <span style="font-weight: bold;"> {{ envoi.nomdest }}</span>
+                                                            </div>
+                                                        </td>
+                                                        <td style="width: 10%;">
+                                                            <div style="border:solid 1px;text-align:right;height: 45px;padding: 2px 5px">
+                                                                <span style="font-weight: bold;"> {{ envoi.poids }}</span>
+                                                            </div>
+                                                        </td>
+                                                        <td style="width: 15%;">
+                                                            <div style="border:solid 1px;text-align:right;height: 45px;padding: 2px 5px">
+                                                                <span style="font-weight: bold;">
+                                                                {% if envoi.taxe|length > 6 %}
+                                                                    {{ envoi.taxe|striptags|slice(0, envoi.taxe|length-6)|raw }}
+
+                                                                    {{ envoi.taxe|striptags|slice(envoi.taxe|length-6, 3)|raw }}
+
+                                                                    {{ envoi.taxe|striptags|slice(envoi.taxe|length-3, 3)|raw }}
+
+                                                                {% elseif(envoi.taxe|length > 3) %}
+                                                                    {{ envoi.taxe|striptags|slice(0, envoi.taxe|length-3)|raw }}
+
+                                                                    {{ envoi.taxe|striptags|slice(envoi.taxe|length-3, 3)|raw }}
+
+                                                                {% else %}
+                                                                    {{ envoi.taxe }}
+                                                                {% endif %}
+                                                                    </span>
+                                                            </div>
+                                                        </td>
+                                                        <td style="width: 10%;">
+                                                            <div style="border:solid 1px;text-align:right;height: 45px;padding: 2px 5px">
+
+                                                                 <span style="font-weight: bold;">
+                                                                {% if envoi.tva|length > 6 %}
+                                                                    {{ envoi.tva|striptags|slice(0, envoi.tva|length-6)|raw }}
+
+                                                                    {{ envoi.tva|striptags|slice(envoi.tva|length-6, 3)|raw }}
+
+                                                                    {{ envoi.tva|striptags|slice(envoi.tva|length-3, 3)|raw }}
+
+                                                                {% elseif(envoi.tva|length > 3) %}
+                                                                    {{ envoi.tva|striptags|slice(0, envoi.tva|length-3)|raw }}
+
+                                                                    {{ envoi.tva|striptags|slice(envoi.tva|length-3, 3)|raw }}
+
+                                                                {% else %}
+                                                                    {{ envoi.tva }}
+                                                                {% endif %}
+                                                                     </span>
+                                                            </div>
+                                                        </td>
+                                                        <td style="width: 10%;">
+                                                            <div style="border:solid 1px;text-align:center;height: 45px;padding: 2px 5px">
+
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                {% elseif envoi.nature=='TA'  %}
+
+                                                    <tr>
+                                                        <td style="width: 15%;">
+                                                            <div style="border:solid 1px;height: 45px;padding: 2px 5px">
+                                                                <span style="font-weight: bold;">Antérieur </span>
+                                                            </div>
+                                                        </td>
+                                                        <td style="width: 20%;">
+                                                            <div style="border:solid 1px;height: 45px;padding: 2px 5px">
+
+                                                            </div>
+                                                        </td>
+                                                        <td style="width: 20%;">
+                                                            <div style="border:solid 1px;height: 45px;padding: 2px 5px;text-align: right">
+                                                                <span style="font-weight: bold;"> {{ envoi.nomdest }}</span>
+                                                            </div>
+                                                        </td>
+                                                        <td style="width: 10%;">
+                                                            <div style="border:solid 1px;text-align:right;height: 45px;padding: 2px 5px">
+                                                                <span style="font-weight: bold;"> {{ envoi.poids }}</span>
+                                                            </div>
+                                                        </td>
+                                                        <td style="width: 15%;">
+                                                            <div style="border:solid 1px;text-align:right;height: 45px;padding: 2px 5px">
+                                                                <span style="font-weight: bold;">
+                                                                {% if envoi.taxe|length > 6 %}
+                                                                    {{ envoi.taxe|striptags|slice(0, envoi.taxe|length-6)|raw }}
+
+                                                                    {{ envoi.taxe|striptags|slice(envoi.taxe|length-6, 3)|raw }}
+
+                                                                    {{ envoi.taxe|striptags|slice(envoi.taxe|length-3, 3)|raw }}
+
+                                                                {% elseif(envoi.taxe|length > 3) %}
+                                                                    {{ envoi.taxe|striptags|slice(0, envoi.taxe|length-3)|raw }}
+
+                                                                    {{ envoi.taxe|striptags|slice(envoi.taxe|length-3, 3)|raw }}
+
+                                                                {% else %}
+                                                                    {{ envoi.taxe }}
+                                                                {% endif %}
+                                                                    </span>
+                                                            </div>
+                                                        </td>
+                                                        <td style="width: 10%;">
+                                                            <div style="border:solid 1px;text-align:right;height: 45px;padding: 2px 5px">
+
+                                                                 <span style="font-weight: bold;">
+                                                                {% if envoi.tva|length > 6 %}
+                                                                    {{ envoi.tva|striptags|slice(0, envoi.tva|length-6)|raw }}
+
+                                                                    {{ envoi.tva|striptags|slice(envoi.tva|length-6, 3)|raw }}
+
+                                                                    {{ envoi.tva|striptags|slice(envoi.tva|length-3, 3)|raw }}
+
+                                                                {% elseif(envoi.tva|length > 3) %}
+                                                                    {{ envoi.tva|striptags|slice(0, envoi.tva|length-3)|raw }}
+
+                                                                    {{ envoi.tva|striptags|slice(envoi.tva|length-3, 3)|raw }}
+
+                                                                {% else %}
+                                                                    {{ envoi.tva }}
+                                                                {% endif %}
+                                                                     </span>
+                                                            </div>
+                                                        </td>
+                                                        <td style="width: 10%;">
+                                                            <div style="border:solid 1px;text-align:center;height: 45px;padding: 2px 5px">
+
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                {% elseif envoi.nature=='TG'  %}
+
+                                                    <tr>
+                                                        <td style="width: 15%;">
+                                                            <div style="border:solid 1px;height: 45px;padding: 2px 5px">
+                                                                <span style="font-weight: bold;">Total du mois </span>
+                                                            </div>
+                                                        </td>
+                                                        <td style="width: 20%;">
+                                                            <div style="border:solid 1px;height: 45px;padding: 2px 5px">
+
+                                                            </div>
+                                                        </td>
+                                                        <td style="width: 20%;">
+                                                            <div style="border:solid 1px;height: 45px;padding: 2px 5px;text-align: right">
+                                                                <span style="font-weight: bold;"> {{ envoi.nomdest }}</span>
+                                                            </div>
+                                                        </td>
+                                                        <td style="width: 10%;">
+                                                            <div style="border:solid 1px;text-align:right;height: 45px;padding: 2px 5px">
+                                                                <span style="font-weight: bold;"> {{ envoi.poids }}</span>
+                                                            </div>
+                                                        </td>
+                                                        <td style="width: 15%;">
+                                                            <div style="border:solid 1px;text-align:right;height: 45px;padding: 2px 5px">
+                                                                <span style="font-weight: bold;">
+                                                                {% if envoi.taxe|length > 6 %}
+                                                                    {{ envoi.taxe|striptags|slice(0, envoi.taxe|length-6)|raw }}
+
+                                                                    {{ envoi.taxe|striptags|slice(envoi.taxe|length-6, 3)|raw }}
+
+                                                                    {{ envoi.taxe|striptags|slice(envoi.taxe|length-3, 3)|raw }}
+
+                                                                {% elseif(envoi.taxe|length > 3) %}
+                                                                    {{ envoi.taxe|striptags|slice(0, envoi.taxe|length-3)|raw }}
+
+                                                                    {{ envoi.taxe|striptags|slice(envoi.taxe|length-3, 3)|raw }}
+
+                                                                {% else %}
+                                                                    {{ envoi.taxe }}
+                                                                {% endif %}
+                                                                    </span>
+                                                            </div>
+                                                        </td>
+                                                        <td style="width: 10%;">
+                                                            <div style="border:solid 1px;text-align:right;height: 45px;padding: 2px 5px">
+
+                                                                 <span style="font-weight: bold;">
+                                                                {% if envoi.tva|length > 6 %}
+                                                                    {{ envoi.tva|striptags|slice(0, envoi.tva|length-6)|raw }}
+
+                                                                    {{ envoi.tva|striptags|slice(envoi.tva|length-6, 3)|raw }}
+
+                                                                    {{ envoi.tva|striptags|slice(envoi.tva|length-3, 3)|raw }}
+
+                                                                {% elseif(envoi.tva|length > 3) %}
+                                                                    {{ envoi.tva|striptags|slice(0, envoi.tva|length-3)|raw }}
+
+                                                                    {{ envoi.tva|striptags|slice(envoi.tva|length-3, 3)|raw }}
+
+                                                                {% else %}
+                                                                    {{ envoi.tva }}
+                                                                {% endif %}
+                                                                     </span>
+                                                            </div>
+                                                        </td>
+                                                        
+                                                        
+{#                              widget                          #}
+                                                        
+                                                        
+                                                        
+                                                    </tr>
+
+
+                                                {% else  %}
+                                                    <tr>
+                                                        <td style="width: 15%;">
+                                                            <div style="border:solid 1px;height: 60px;padding: 2px 5px">
+                                                                <img alt="{{ envoi.code|upper }}" src="{{asset('code.php?codetype=Code39&size=25&text='~ envoi.code|upper ~ '&print=true')}}" />
+{#                                                                <img alt="{{ envoi.code|upper }}" src="http://softsolutionsarl.com/codebar/barcode.php?codetype=Code39&size=25&text={{ envoi.code|upper }}&print=true" />#}
+{#                                                                {{ envoi.code }}#}
+{#                                                                   {{ envoi.code|upper }}#}
+                                                            </div>
+                                                        </td>
+                                                        <td style="width: 20%;">
+                                                            <div style="border:solid 1px;height: 60px;padding: 2px 5px">
+                                                                {{ envoi.nomexp|striptags|slice(0, 54)|raw }}
+                                                            </div>
+                                                        </td>
+                                                        <td style="width: 20%;">
+                                                            <div style="border:solid 1px;height: 60px;padding: 2px 5px;line-height:14px;">
+
+                                                                {% if envoi.nature=='ENR' %}
+
+
+
+                                                                    {{ envoi.nomdest|striptags|slice(0, 30)|raw }}/
+                                                                    {{ envoi.paysdest|striptags|slice(0, 15)|raw }}
+
+                                                                    {% if envoi.paysdest=='Sénégal' %}
+                                                                       / {{ envoi.ville }}
+                                                                    {% endif %}
+
+                                                                {% else %}
+                                                                    {{ envoi.nomdest }}
+                                                                {% endif %}
+
+                                                            </div>
+                                                        </td>
+                                                        <td style="width: 10%;">
+                                                            <div style="border:solid 1px;text-align:right;height: 60px;padding: 2px 5px">
+                                                                {{ envoi.poids }}
+                                                            </div>
+                                                        </td>
+                                                        <td style="width: 15%;">
+                                                            <div style="border:solid 1px;text-align:right;height: 60px;padding: 2px 5px">
+
+                                                                {% if envoi.taxe|length > 6 %}
+                                                                    {{ envoi.taxe|striptags|slice(0, envoi.taxe|length-6)|raw }}
+
+                                                                    {{ envoi.taxe|striptags|slice(envoi.taxe|length-6, 3)|raw }}
+
+                                                                    {{ envoi.taxe|striptags|slice(envoi.taxe|length-3, 3)|raw }}
+
+                                                                {% elseif(envoi.taxe|length > 3) %}
+                                                                    {{ envoi.taxe|striptags|slice(0, envoi.taxe|length-3)|raw }}
+
+                                                                    {{ envoi.taxe|striptags|slice(envoi.taxe|length-3, 3)|raw }}
+
+                                                                {% else %}
+                                                                    {{ envoi.taxe }}
+                                                                {% endif %}
+                                                            </div>
+                                                        </td>
+                                                        <td style="width: 10%;">
+                                                            <div style="border:solid 1px;text-align:right;height: 60px;padding: 2px 5px">
+
+                                                                {% if envoi.tva|length > 6 %}
+                                                                    {{ envoi.tva|striptags|slice(0, envoi.tva|length-6)|raw }}
+
+                                                                    {{ envoi.tva|striptags|slice(envoi.tva|length-6, 3)|raw }}
+
+                                                                    {{ envoi.tva|striptags|slice(envoi.tva|length-3, 3)|raw }}
+
+                                                                {% elseif(envoi.tva|length > 3) %}
+                                                                    {{ envoi.tva|striptags|slice(0, envoi.tva|length-3)|raw }}
+
+                                                                    {{ envoi.tva|striptags|slice(envoi.tva|length-3, 3)|raw }}
+
+                                                                {% else %}
+                                                                    {{ envoi.tva }}
+                                                                {% endif %}
+                                                            </div>
+                                                        </td>
+                                                        <td style="width: 10%;">
+                                                            <div style="border:solid 1px;text-align:center;height: 60px;padding: 2px 5px">
+                                                                {{ envoi.heure | replace({':': 'h'})}}
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                {% endif %}
+
+
+
+
+                                            {% endfor %}
+
+
+
+
+
+
+                                            </tbody>
+                                        </table>
+
+
+                                    </div>
+                                </div>
+                            </td>
+                         {#mise en place widget recu#}
+                            <td style="width: 5%;">
+                                
+                               <div style="border: solid 1px">
+                                    <div style="border: solid #337ab7;">
+
+                                        <table style="width: 100%">
+                                            <tbody>
+                                                {{ include('envoi/cadreentete.html.twig') }}
+                                                 {% for envoi in tabEnvois %}
+                                                     
+                                                      {% if envoi.nature=='RP' %}
+                                                          
+                                                          <tr>
+                                                            <td>
+                                                                <div style="border:solid 1px;height: 45px;padding: 2px 5px">
+                                                                    
+                                                                </div>
+                                                            </td>
+                                                        
+                                                          </tr>
+                                                          
+                                                           {{ include('envoi/cadreentete.html.twig') }}
+                                                      {% elseif envoi.nature=='ENR' %}
+                                                            <tr>
+                                                              <td>
+                                                                  <div style="height: 60px;border:solid 1px;text-align:right;">
+                                                                       <a href="{{ path('envoi_show', { 'id':  envoi.id}) }}">                                                        
+                                                                           <div style="height:10px;width:25px;background-image:url({{asset('img/lien-recu.jpg')}})"> 
+                                                                           </div>
+                                                                      </a>
+                                                                  </div>
+                                                              </td>
+                                                              </tr>
+                                                    {% else %}
+                                                              <tr>
+                                                                <td>
+                                                                    <div style="height: 45px;">
+                                                                       
+                                                                    </div>
+                                                                </td>
+                                                               </tr>
+                                                      {% endif %}
+                                                      
+                                                 {% endfor %}
+                                            </tbody>
+                                        </table>
+
+
+                                    </div>
+                                   
+                                  </div>
+                            </td>
+                            
+                            
+                        </tr>
+
+                        </tbody>
+                    </table>
+                    
+                </div> 
+            </div>
+        </div>
+     </div>
+
+
+
+
+
+{% endblock %}

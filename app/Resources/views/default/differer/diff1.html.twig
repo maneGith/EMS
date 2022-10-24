@@ -1,0 +1,127 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete.html.twig') }}
+    
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                <div class="titre lien-titre" id="titre">
+                    Dépôt différé                
+                </div> 
+
+                <div class="content" id="content">       
+                    
+                    <div class="alert-danger">
+                         <span style="font-weight: bold">
+                          {{ app.session.get('msg') }}
+                        </span>
+                    </div>
+                    <form action="{{ path('agent_depot') }}" method="post">
+                    <table style="width: 100%" class="table table-bordered">
+                        <tbody>
+                        <tr>
+                            <td width="50%">
+                                <div>
+                                    <span style="font-weight: bold">Journée du :</span>
+                                    <div class="form-group">
+                                        {% if date is null %}
+                                            
+                                         <div class="input-group date">
+                                            <input type="text" class="form-control" id="datepicker" name="datepicker" autocomplete="off"/><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                         </div>
+
+                                        {% else %}
+                                            <input type="hidden"  id="datepicker" name="datepicker" class="form-control" placeholder="Entrez la date de dépot"  style="width: 238px" autocomplete="off" value="{{ date }}"/>
+
+                                            <span style="font-weight: bold;color: red">
+                                                     {{ date }}</span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <span style="font-weight: bold">Heure :</span>
+                                    <div class="form-group">
+                                        <input type="text" id="timepicker" name="timepicker" class="form-control" placeholder="Entrez l'heure"  style="width: 240px"/>
+                                    </div>
+                                </div>
+                            </td>
+
+
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div>
+                                    <span style="font-weight: bold">Type du dépôt :</span>
+                                </div>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div>
+
+                                    <table style="width: 100%" class="table table-bordered">
+                                        <tbody>
+                                        <tr>
+                                            <td style="width: 25%">
+                                                <input  required="required" value="ren" name="depot" type="radio"/>
+                                                <span style="color: #777">Régulier national</span>
+                                            </td>
+                                            <td style="width: 25%">
+                                                <input  required="required" value="rei" name="depot" type="radio"/>
+                                                <span style="color: #777">Régulier international</span>
+                                            </td>
+                                            <td style="width: 25%">
+                                                <input  required="required" value="oen" name="depot" type="radio"/>
+                                                <span style="color: #777">Occasionnel national</span>
+                                            </td>
+                                            <td style="width: 25%">
+                                                <input  required="required" value="oei" name="depot" type="radio"/>
+                                                <span style="color: #777">Occasionnel international</span>
+                                            </td>
+
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+
+                                </div>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div>
+                                    <div style="height: 30px;margin-top: 2px;border-top: solid 2px #337ab7;padding-top:2px ">
+                                        <input type="submit" value="Suivant" class="btn  btn-ems" />
+                                        <a href="{{ path('vacation_index') }}" class="btn btn-ems">Retour</a>
+                                    </div>
+                                </div>
+                            </td>
+
+
+                        </tr>
+                        </tbody>
+                    </table>
+
+
+                    </form>
+                </div> 
+            </div>
+        </div>
+     </div>
+
+
+
+
+
+{% endblock %}

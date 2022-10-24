@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/header.html.twig') }}
+
+    <div id="container" style="border: solid 1px #d2d2d2;overflow-x: hidden;overflow-y:hidden">
+        <div class="row">
+
+            <div class="column column-left menu">
+                <div class="menu-action">
+                    {{ include('includes/admin.html.twig') }}
+                </div>
+            </div>
+            <div class="column column-middle" style="background:#8E998F;">
+
+                <div id="wrapper">
+
+                    <div class="titre-action">
+                        <div style="border-top: solid 2px #337ab7;"></div>
+                        <span style="font-weight: bold">Changement parametres utilisateur agence/bureau : {{ nom_agence }}</span>
+                    </div>
+
+                    <div class="content-action" style="text-align: center">
+                        <span style="font-weight: bold;color: #2ca02c">{{ msg }}</span>
+
+                    </div>
+                </div>
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

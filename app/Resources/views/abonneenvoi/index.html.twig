@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Abonneenvois list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for abonneEnvoi in abonneEnvois %}
+            <tr>
+                <td><a href="{{ path('abonneenvoi_show', { 'id': abonneEnvoi.id }) }}">{{ abonneEnvoi.id }}</a></td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('abonneenvoi_show', { 'id': abonneEnvoi.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('abonneenvoi_edit', { 'id': abonneEnvoi.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('abonneenvoi_new') }}">Create a new abonneEnvoi</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,345 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete.html.twig') }}
+    
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                <div class="titre lien-titre" id="titre">
+                    <span style="font-weight: bold">Liste des clients abonnés</span>             
+                </div> 
+
+                <div class="content" id="content">       
+                   <table class="table table-condensed">
+                        <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Etat ab</th>
+                            <th>Factures</th>
+                            <th>
+                                {% if(is_granted('ROLE_CONTROLE')) %}
+                                    <span style="float: right">
+                                   <a id="myBtn" href="#" class="btn btn-ems r-ems">
+                                       Créer
+                                   </a>
+                                </span>
+                                {% else %}
+                                {% endif %}
+
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for abonne in abonnes %}
+                            <tr>
+                                <td>{{ abonne.nom }}</td>
+                                <td>{{ abonne.etat }}</td>
+                                <td>
+                                    <a href="#" style="font-weight: bold">
+                                        lister
+                                    </a>
+                                </td>
+                                <td>
+
+                                    {% if(is_granted('ROLE_CONTROLE')) %}
+                                        <ul>
+                                            <li>
+                                                <a href="{{ path('abonne_edit', { 'id': abonne.id }) }}" style="float: right;font-weight: bold">
+                                                    <i class="glyphicon glyphicon-cog" style="color:#1b6d85"></i>
+                                                    <span class="rs-e">Paramètres</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    {% else %}
+                                    {% endif %}
+
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div> 
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+            </div>
+        </div>
+     </div>
+
+
+
+                        <div id="myModal" class="modal">
+                      <!-- Modal content -->
+                      <div class="modal-content" style="width:500px">
+                        <div><span class="close">&times;</span></div>
+                        <h1 class="mt-4">Création d'un abonné</h1>
+                              
+                        {{ form_start(form) }}
+
+                        <table style="width: 100%">
+                            <tbody>
+                            <tr>
+                                <td width="15%">
+                                    <div style="padding-top: 15px;padding-right: 5px;padding-left: 5px;">
+                                            <span style="font-weight: bold">
+                                              Nom :
+                                            </span>
+                                    </div>
+                                </td>
+                                <td style="width: 85%;">
+                                    <div style="padding-top: 15px;padding-right: 5px;max-width: 400px">
+                                        {{ form_widget(form.nom,{'attr':{'class':'form-control',
+                                            'style':'font-weight: bold;border:solid 1px #337ab7'}}) }}
+                                        {{ form_errors(form.nom) }}
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td width="15%">
+                                    <div style="padding-top: 15px;padding-right: 5px;padding-left: 5px;">
+                                            <span style="font-weight: bold">
+                                              Civilité :
+                                            </span>
+                                    </div>
+                                </td>
+                                <td style="width: 85%;">
+                                    <div style="padding-top: 15px;padding-right: 5px;max-width: 400px">
+                                        <div id="{{ form.civilite.vars.id }}">
+                                            <table style="width: 100%">
+                                                <tbody>
+                                                <tr>
+
+                                                    {% for civilite in form.civilite.children %}
+                                                        <td>
+                                                            <div class="radio">
+                                                                <label class="required">
+
+                                                                    {% if(civilite.vars.value=='Entreprise') %}
+                                                                        <input id="{{ civilite.vars.id }}" name="{{ civilite.vars.full_name }}" required="required" value="{{ civilite.vars.value }}" type="radio" checked/>
+                                                                    {% else %}
+                                                                        <input id="{{ civilite.vars.id }}" name="{{ civilite.vars.full_name }}" required="required" value="{{ civilite.vars.value }}" type="radio"/>
+                                                                    {% endif %}
+                                                                    {{ civilite.vars.label }}
+                                                                </label>
+                                                            </div>
+                                                        </td>
+
+                                                    {% endfor %}
+
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        {% do form.civilite.setRendered %}
+                                    </div>
+
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td width="15%">
+                                    <div style="padding-top: 15px;padding-right: 5px;padding-left: 5px;">
+                                                <span style="font-weight: bold">
+                                                Téléphone :
+                                                </span>
+                                    </div>
+                                </td>
+                                <td style="width: 85%;">
+                                    <div style="padding-top: 15px;padding-right: 5px;max-width: 400px">
+                                        {{ form_widget(form.telephone,{'attr':{'class':'form-control',
+                                            'style':'font-weight: bold;border:solid 1px #337ab7'}}) }}
+                                        {{ form_errors(form.telephone) }}
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td width="15%">
+                                    <div style="padding-top: 15px;padding-right: 5px;padding-left: 5px;">
+                                                <span style="font-weight: bold">
+                                                Numéro de compte :
+                                                </span>
+                                    </div>
+                                </td>
+                                <td style="width: 85%;">
+                                    <div style="padding-top: 15px;padding-right: 5px;max-width: 400px">
+                                        {{ form_widget(form.numcompte,{'attr':{'class':'form-control',
+                                            'style':'font-weight: bold;border:solid 1px #337ab7'}}) }}
+                                        {{ form_errors(form.numcompte) }}
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td width="15%">
+                                    <div style="padding-top: 15px;padding-right: 5px;padding-left: 5px;">
+                                                <span style="font-weight: bold">
+                                               Email :
+                                                </span>
+                                    </div>
+                                </td>
+                                <td style="width: 50%;">
+                                    <div style="padding-top: 15px;padding-right: 5px;max-width: 400px">
+                                        {{ form_widget(form.email,{'attr':{'class':'form-control',
+                                            'style':'font-weight: bold;border:solid 1px #337ab7'}}) }}
+                                        {{ form_errors(form.email) }}
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td width="15%">
+                                    <div style="padding-top: 15px;padding-right: 5px;padding-left: 5px;">
+                                                <span style="font-weight: bold">
+                                               Adresse :
+                                                </span>
+                                    </div>
+                                </td>
+                                <td style="width: 85%;">
+                                    <div style="padding-top: 15px;padding-right: 5px;max-width: 400px">
+                                        {{ form_widget(form.adresse,{'attr':{'class':'form-control',
+                                            'style':'font-weight: bold;border:solid 1px #337ab7'}}) }}
+                                        {{ form_errors(form.adresse) }}
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td width="15%">
+                                    <div style="padding-top: 15px;padding-right: 5px;padding-left: 5px;">
+                                                <span style="font-weight: bold">
+                                               Code postal :
+                                                </span>
+                                    </div>
+                                </td>
+                                <td style="width: 85%;">
+                                    <div style="padding-top: 15px;padding-right: 5px;max-width: 400px">
+                                        {{ form_widget(form.codepostal,{'attr':{'class':'form-control',
+                                            'style':'font-weight: bold;border:solid 1px #337ab7'}}) }}
+                                        {{ form_errors(form.codepostal) }}
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td width="15%">
+                                    <div style="padding-top: 15px;padding-right: 5px;padding-left: 5px;">
+                                                <span style="font-weight: bold">
+                                               Ville :
+                                                </span>
+                                    </div>
+                                </td>
+                                <td style="width: 85%;">
+                                    <div style="padding-top: 15px;padding-right: 5px;max-width: 400px">
+                                        {{ form_widget(form.ville,{'attr':{'class':'form-control',
+                                            'style':'font-weight: bold;border:solid 1px #337ab7'}}) }}
+                                        {{ form_errors(form.ville) }}
+                                    </div>
+                                </td>
+
+                            </tr>
+
+                            <tr>
+                                <td width="15%">
+                                    <div style="padding-top: 15px;padding-right: 5px;padding-left: 5px;">
+                                            <span style="font-weight: bold">
+                                              Etat :
+                                            </span>
+                                    </div>
+                                </td>
+                                <td style="width: 85%;">
+                                    <div style="padding-top: 15px;padding-right: 5px;max-width: 400px">
+                                        <div id="{{ form.etat.vars.id }}">
+                                            <table style="width: 100%">
+                                                <tbody>
+                                                <tr>
+
+                                                    {% for etat in form.etat.children %}
+                                                        <td>
+                                                            <div class="radio">
+                                                                <label class="required">
+
+                                                                    {% if(etat.vars.value=='Maintenu') %}
+                                                                        <input id="{{ etat.vars.id }}" name="{{ etat.vars.full_name }}" required="required" value="{{ etat.vars.value }}" type="radio" checked/>
+                                                                    {% else %}
+                                                                        <input id="{{ etat.vars.id }}" name="{{ etat.vars.full_name }}" required="required" value="{{ etat.vars.value }}" type="radio"/>
+                                                                    {% endif %}
+                                                                    {{ etat.vars.label }}
+                                                                </label>
+                                                            </div>
+                                                        </td>
+
+                                                    {% endfor %}
+
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        {% do form.etat.setRendered %}
+                                    </div>
+
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td width="15%">
+                                    <div style="padding-top: 15px;padding-right: 5px;padding-left: 5px;">
+                                                <span style="font-weight: bold">
+                                               Référence :
+                                                </span>
+                                    </div>
+                                </td>
+                                <td style="width: 85%;">
+                                    <div style="padding-top: 15px;padding-right: 5px;max-width: 400px">
+                                        {{ form_widget(form.type,{'attr':{'class':'form-control',
+                                            'style':'font-weight: bold;border:solid 1px #337ab7'}}) }}
+                                        {{ form_errors(form.type) }}
+                                    </div>
+                                </td>
+
+                            </tr>
+
+                            <tr>
+                                <td style="width: 15%;">
+
+                                </td>
+                                <td style="width: 85%;">
+                                    <div style="padding-top: 15px;padding-right: 5px;">
+                                        <input type="submit" value="Ajouter" class="btn  btn-ems" />
+                                        <a href="{{ path('abonne_index') }}" class="btn  btn-ems">
+                                            Annuler
+                                        </a>
+                                    </div>
+                                </td>
+                                <td style="width: 25%;">
+
+                                </td>
+                            </tr>
+
+                            </tbody>
+
+                        </table>
+
+
+                       {{ form_end(form) }}
+                        
+                        
+                      </div>
+                                        
+                    </div>
+
+
+{% endblock %}

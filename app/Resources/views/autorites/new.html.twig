@@ -1,0 +1,217 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete.html.twig') }}
+    
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                <div class="titre lien-titre" id="titre">
+                   Les autorités pour la signature des factures              
+                </div> 
+
+                <div class="content" id="content">       
+                   
+                    <div style="padding-top: 15px">
+                            <table style="width: 100%" class="table table-bordered">
+                                <tbody>
+
+                                <tr>
+                                    <td style="border-right: 2px solid #d2d2d2;width: 30%">
+                                        <div>
+                                                    <span style="font-size: 12px;font-weight: bold">
+                                                     Nom
+                                                    </span>
+                                        </div>
+                                    </td>
+                                    <td  style="border-right: 2px solid #d2d2d2;width: 20px">
+
+                                        <table style="width: 100%">
+                                            <tbody>
+                                            <tr>
+                                                <td style="width: 140px">
+
+                                                    <span style="font-size: 12px;font-weight: bold">Profil</span>
+
+                                                </td>
+                                                <td style="width: 100px">
+
+                                                    <span style="font-size: 12px;font-weight: bold">Etat</span>
+
+                                                </td>
+                                                <td>
+                                                     <a id="myBtn" href="#" class="btn btn-ems r-ems">
+                                                         Créer
+                                                     </a>
+                                                </td>
+
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    
+                    {% for autorite in autorites %}
+
+                            <div style="margin-top: -20px">
+                                <table style="width: 100%" class="table table-bordered">
+                                    <tbody>
+
+
+
+                                    <tr>
+                                        <td style="border-right: 2px solid #d2d2d2;width: 30%">
+                                            <div>
+                                                    <span style="font-size: 12px;font-weight: bold;color: red">
+
+                                                      {{ autorite.nom }}
+                                                    </span>
+                                            </div>
+                                        </td>
+                                        <td  style="border-right: 2px solid #d2d2d2;width: 240px">
+
+                                            <table style="width: 100%">
+                                                <tbody>
+
+                                                <tr>
+                                                    <td style="width: 140px">
+                                                        {{ autorite.titre }}
+                                                    </td>
+                                                    <td style="width: 100px">
+                                                        {{ autorite.etat }}
+                                                    </td>
+
+                                                    <td>
+
+                                                            <span style="float: right;margin-left: 15px">
+                                                             <a href="{{ path('autorites_edit', { 'id': autorite.id }) }}" style="float: right;font-weight: bold">
+                                                                   <span class="rs-e">Modifier</span>
+                                                               </a>
+                                                            </span>
+
+                                                            <span style="float: right">
+                                                                {% if(autorite.etat=='Activé') %}
+                                                                    <span style="color: #777">Activer</span>
+                                                                {% else %}
+                                                                    <a href="{{ path('autorite_acti', { 'id': autorite.id,'titre': autorite.titre}) }}" style="float: right;font-weight: bold">
+                                                                        <span class="rs-e">Activer</span>
+                                                                    </a>
+                                                                {% endif %}
+
+                                                            </span>
+                                                    </td>
+
+                                                </tr>
+
+
+                                                </tbody>
+                                            </table>
+
+                                        </td>
+                                    </tr>
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        {% endfor %}
+                    
+                </div> 
+                        
+                        
+                        <div id="myModal" class="modal">
+                      <!-- Modal content -->
+                      <div class="modal-content" style="width:500px">
+                        <div><span class="close">&times;</span></div>
+                        <h1 class="mt-4">Création d'une autorité</h1>
+                              
+                        {{ form_start(form) }}
+                        <table style="width: 100%">
+                            <tbody>
+
+                            <tr>
+                                <td width="15%">
+                                    <div style="padding-top: 15px;padding-right: 5px;padding-left: 5px;">
+                                            <span style="font-weight: bold">
+                                             Nom :
+                                            </span>
+                                    </div>
+                                </td>
+                                <td style="width: 85%;">
+                                    <div style="padding-top: 15px;padding-right: 5px;max-width: 400px">
+
+                                        {{ form_widget(form.nom,{'attr':{'class':'form-control',
+                                            'style':'font-weight: bold;border:solid 1px #337ab7'}}) }}
+                                        {{ form_errors(form.nom) }}
+                                    </div>
+                                </td>
+
+                            </tr>
+
+
+
+                            <tr>
+                                <td width="15%">
+                                    <div style="padding-top: 15px;padding-right: 5px;padding-left: 5px;">
+                                            <span style="font-weight: bold">
+                                             Titre :
+                                            </span>
+                                    </div>
+                                </td>
+                                <td style="width: 85%;">
+                                    <div style="padding-top: 15px;padding-right: 5px;max-width: 400px">
+
+                                        {{ form_widget(form.titre,{'attr':{'class':'form-control',
+                                            'style':'font-weight: bold;border:solid 1px #337ab7'}}) }}
+                                        {{ form_errors(form.titre) }}
+                                    </div>
+                                </td>
+
+                            </tr>
+
+                            <tr>
+                                <td width="15%">
+
+                                </td>
+                                <td width="85%">
+                                    <div style="padding-top: 15px;padding-right: 5px;">
+                                        <input type="submit" value="Ajouter" class="btn  btn-ems" />
+                                        <a href="{{ path('autorites_new') }}" class="btn  btn-ems">
+                                            Annuler
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            </tbody>
+
+                        </table>
+{{ form_end(form) }}
+                        
+                        
+                      </div>
+                                        
+                    </div>
+                        
+                        
+                        
+            </div>
+        </div>
+     </div>
+
+
+
+
+
+{% endblock %}

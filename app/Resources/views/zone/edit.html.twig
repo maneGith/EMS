@@ -1,0 +1,169 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete.html.twig') }}
+    
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                <div class="titre lien-titre" id="titre">
+                    <span style="font-weight: bold">
+                    Paramètres généraux d'une zone tarifaire
+                </span>     
+                    
+                    <span style="color:#337ab7;font-weight: bold;float: right">
+                    <ul>
+                        <li  style="float: left;margin-right: 15px">
+                            <a href="{{ path('zone_index') }}" class="btn btn-ems r-ems" >Retour</a>
+                        </li>
+
+                        <li style="float: left;margin-right: 3px">
+
+                            <a href="{{ path('zone_delete', { 'id': zone.id }) }}" class="btn btn-ems r-ems">Suprm</a>
+
+                        </li>
+                    </ul>
+                 </span>
+                </div> 
+
+                <div class="content container" id="content">       
+                   
+                    {{ form_start(edit_form) }}
+
+                    <table class="table table-condensed">
+                        <tbody>
+
+
+
+                        <tr>
+                            <th width="25%" style="border-bottom: solid 1px">Zone :</th>
+                            <td width="25%" style="border-bottom: solid 1px">{{ zone.name }}
+                            </td>
+                            <th width="25%" style="border-left: solid 1px;border-bottom: solid 1px">Domaine :</th>
+                            <td width="25%" style="border-bottom: solid 1px">{{ zone.domaine }}     <span class="rs-e">Modifier</span>
+                                <div class="De-e">
+                                    <div class="form-group" style="max-width: 400px">
+                                        {{ form_widget(edit_form.domaine,{'attr':{'class':'form-control'}}) }}
+                                        {{ form_errors(edit_form.domaine) }}
+                                    </div>
+                                   <span>
+                                        <input type="submit" value="Valider" class="btn btn-ems" />
+                                        <a href="{{ path('zone_edit', { 'id': zone.id }) }}" class="btn btn-ems">Annuler</a>
+                                   </span>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="form-group" style="max-width: 400px;display: none">
+                        {{ form_widget(edit_form.name,{'attr':{'class':'form-control'}}) }}
+                        {{ form_errors(edit_form.name) }}
+                    </div>
+            {{ form_end(edit_form) }}
+            
+            
+            <div  style="background: #fff;margin-top: 8px">
+                <table class="table table-condensed">
+                    <thead>
+                    
+                    <tr>
+
+                        <th>Pays
+                        
+                        <span style="float: right;font-weight: bold;">
+                         <a id="myBtn" href="#" class="btn  btn-ems  r-ems">Créer</a> </span>
+
+                        </th>
+
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                {% for pay in pays %}
+                    <tr>
+
+                        <td>{{ pay.name }}
+
+
+                            <span style="float: right;margin-left: 30px"> <a href="{{ path('pays_delete', { 'id': pay.id }) }}" class="rs-e"></i>Supprimer </a></span>
+
+
+                            <span class="rs-e">Modifier</span>
+                                    <div class="De-e" style="max-width: 502px">
+
+                                        <form action="{{ path('pays_edit', { 'id': pay.id }) }}" method="post">
+
+                                            <div class="form-group" style="max-width: 500px">
+
+                                                <input type="text" name="name" value="{{ pay.name }}" class="form-control" style="border:solid 1px #337ab7;"/>
+                                            </div>
+
+                                            <span style="float: right">
+                                               <input type="submit" value="Valider" class="btn btn-ems" />
+                                            <a href="{{ path('zone_edit', { 'id': zone.id }) }}"class="btn btn-ems">Annuler</a>
+                                           </span>
+                                        </form>
+
+                                    </div>
+
+
+
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                </table>
+
+
+            </div>
+            
+            
+            
+            
+                </div> 
+                
+                
+                <div id="myModal" class="modal">
+                      <!-- Modal content -->
+                      <div class="modal-content" style="width:500px">
+                        <div><span class="close">&times;</span></div>
+                        <h1 class="mt-4">Création - pays</h1>
+                              
+                        <div>
+
+                                <form action="{{ path('pays_new') }}" method="post">
+
+                                    <input type="hidden" name="id"  value="{{ zone.id }}"/>
+
+                                    <div class="form-group" style="max-width: 500px">
+                                        <input type="text" name="name" placeholder="Tapez le nom du pays" class="form-control" style="border:solid 1px #337ab7;"/>
+                                    </div>
+
+
+                                       <input type="submit" value="Ajouter" class="btn btn-ems" />
+                                       <a href="{{ path('zone_edit', { 'id': zone.id }) }}"class="btn btn-ems">Annuler</a>
+
+                                </form>
+
+                            </div>
+                        
+                      </div>
+                                        
+                    </div>
+                
+                
+            </div>
+        </div>
+     </div>
+
+
+
+
+
+{% endblock %}

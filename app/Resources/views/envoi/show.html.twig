@@ -1,0 +1,139 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete.html.twig') }}
+    
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                <div class="titre lien-titre" id="titre">
+                
+                   <div class="container">
+                        <table width="100%">       
+                            <tbody> 
+                                <tr>
+                                    <td>
+                                        Reçu d'expédition P3P4 
+                                      
+                                    </td>
+                                    <td width="10%">
+                                        <!-- Small button groups (default and split) -->
+                                        <div class="btn-group">
+                                          <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Actions
+                                          </button>
+                                          <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="#Imp3p4" onclick="printContent('p3p4')">Imprimer le P3P4</a>
+                                                <div class="dropdown-divider"></div>
+                                                
+                                              
+                                                 {% if(is_granted('ROLE_AGENTGUICHET')) %}
+                                                 {% if envoi.bordereau.typeenvoi=="clients réguliers national" %}
+                                                                          <a class="dropdown-item" href="{{ path('agent_depot', { 'depot': 'ren', 'datepicker': envoi.bordereau.vacation.journee}) }}">
+                                                                             Ajout - même BL
+                                                                          </a>
+                                                                     {% elseif  envoi.bordereau.typeenvoi=="clients réguliers international" %}
+                                                                          <a class="dropdown-item" href="{{ path('agent_depot', { 'depot': 'rei', 'datepicker': envoi.bordereau.vacation.journee}) }}">
+                                                                             Ajout - même BL
+                                                                          </a>
+
+                                                                      {% elseif  envoi.bordereau.typeenvoi=="clients occasionnels national" %}
+                                                                          <a class="dropdown-item" href="{{ path('agent_depot', { 'depot': 'oen', 'datepicker': envoi.bordereau.vacation.journee}) }}">
+                                                                              Ajout - même BL
+                                                                          </a>
+                                                                      {% else %}
+                                                                          <a class="dropdown-item" href="{{ path('agent_depot', { 'depot': 'oei', 'datepicker': envoi.bordereau.vacation.journee}) }}">
+                                                                             Ajout - même BL
+                                                                          </a>
+                                                                      {% endif %}
+                                                
+                                                <div class="dropdown-divider"></div>
+                                                
+                                              
+                                     
+                                                 {% endif %}
+                                                                     
+                                                
+                                                
+                                                 <a  class="dropdown-item" href="{{ path('envoi_edit', { 'id': envoi.id }) }}">Modifier l'envoi</a>
+                                                 <div class="dropdown-divider"></div>
+                                                 
+                                                   {% if(is_granted('ROLE_CONTROLE')) %}
+                                       
+
+                                                        {% if(abonne!=0) %}
+
+                                                            <a  class="dropdown-item" href="{{ path('abonneenvoi_delete', { 'id': abonne }) }}">Supprimer l'envoi</a>
+
+                                                        {% else %}
+                                                            <a  class="dropdown-item" href="{{ path('envoi_delete', { 'id': envoi.id }) }}">Supprimer l'envoi</a>
+                                                        {% endif %}
+                                                <div class="dropdown-divider"></div>
+                                                 {% endif %}
+                                                
+                                                <a class="dropdown-item" href="{{ path('envoi_index', { 'id': envoi.bordereau.id }) }}">BL des dépôts</a>
+                                                <div class="dropdown-divider"></div>
+                                                
+                                                    {% if(is_granted('ROLE_AGENTGUICHET')) %}
+                                                        <a class="dropdown-item" href="{{ path('vacation_index') }}">Vacations du mois</a>
+                                                    {% else %}
+                                                        <a class="dropdown-item" href="{{ path('homepage') }}">Pade d'accueil</a>
+                                                    {% endif %}
+                                          </div>
+                                            
+                                        </div>
+                                    </td>    
+                                </tr>
+                            </tbody>
+                        </table>
+                    
+
+                     </div>  
+                </div> 
+
+                <div class="content container" id="content">       
+                   <div id="p3p4" size="A4">
+
+                        <div id="p3p41">
+                            {{ include('envoi/p3p4.html.twig') }}
+                        </div>
+
+                        <div style="height: 70px;position: relative">
+                             
+                           {# <div style="position: absolute;left: 0px;top: -9px;">
+                                <table style="width: 100%">
+                                                <tbody>
+                                                <tr>
+                                                    <td style="text-align: center">
+                                                      
+                                                    </td>
+
+                                                </tr>
+                                                </tbody>
+                               </table>
+                           </div>     #}
+                        </div>
+
+                        <div id="p3p42">
+                            {{ include('envoi/p3p4.html.twig') }}
+                        </div>
+
+
+
+                    </div>
+                </div> 
+            </div>
+        </div>
+     </div>
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,148 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete.html.twig') }}
+    
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                <div class="titre lien-titre" id="titre">
+                   <span style="font-weight: bold">Tarifs des envois EMS</span>              
+                </div> 
+
+                <div class="content container" id="content">       
+                   <table class="table">
+
+                <tbody>
+                <tr>
+                    <td>
+                            <a href="{{ path('bareme_national', { 'typeclient':'nc' }) }}"> <img  src="{{ asset('img/tarif-ems-bareme-n.jpg') }}" /></a>
+
+                    </td>
+
+                    <td>
+                            <a href="{{ path('zones_pays', { 'bareme': 'abonnes' }) }}"><img  src="{{ asset('img/tarif-ems-bareme-a.jpg') }}" /></a>
+
+                    </td>
+
+                    <td>
+                            <a href="{{ path('zones_pays', { 'bareme': 'occasionnels' }) }}"> <img  src="{{ asset('img/tarif-ems-bareme-o.jpg') }}" /></a>
+
+
+                        </a>
+                    </td>
+
+
+                </tr>
+                <tr>
+
+                    <td colspan="3">
+
+                        <div style="background: #fff">
+                            <table class="table table-condensed">
+                                <thead>
+                                <tr>
+                                    <th colspan="3" style="border: solid 0px">
+                                        <div class="titre-content">
+                                            <div style="border-top: solid 2px #337ab7;"></div>
+                                            <span style="font-weight: bold">Zone/Domaine</span>
+                                        <span style="float: right">
+                                              
+                                            
+                                             <a id="myBtn" href="#" class="btn btn-ems r-ems">
+                                                         Créer
+                                                     </a>
+                                        </span>
+                                        </div>
+                                    </th>
+                                </tr>
+
+                                
+                               
+                                </thead>
+                                <tbody>
+                                {% for zone in zones %}
+                                    <tr>
+
+                                        <td>{{ zone.name }} / {{ zone.domaine }}</td>
+
+                                        <td colspan="2">
+                                            <ul style="list-style-type:none;padding-left:0;float: right">
+                                                <li>
+                                                    <a href="{{ path('zone_edit', { 'id': zone.id }) }}" style="float: right;font-weight: bold">
+                                                        <span class="rs-e">Paramètres</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+                </div> 
+                                
+                       
+                   <div id="myModal" class="modal">
+                      <!-- Modal content -->
+                      <div class="modal-content" style="width:500px">
+                        <div><span class="close">&times;</span></div>
+                        <h1 class="mt-4">Création - zone tarifaire</h1>
+                              
+                        
+                       
+                                        <div class="form">
+                                            {{ form_start(form,{'attr':{'action':path('zone_new')}}) }}
+                                            <div style="max-width: 500px;padding-top: 10px">
+                                                <div class="form-group">
+                                                    <label>Nom</label>
+                                                    {{ form_widget(form.name,{'attr':{'class':'form-control'}}) }}
+                                                    {{ form_errors(form.name) }}
+                                                </div>
+
+
+                                                <div class="form-group">
+                                                    {{ form_label(form.domaine)}}
+                                                    {{ form_widget(form.domaine,{'attr':{'class':'form-control'}}) }}
+                                                    {{ form_errors(form.domaine) }}
+                                                </div>
+
+
+                                                <div style="height: 30px">
+                                                    <span>
+                                                        <input type="submit" value="Ajouter" class="btn  btn-ems" />
+                                                        <a href="{{ path('zone_index') }}"class="btn btn-ems">Annuler</a>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            {{ form_end(form) }}
+                                        </div>
+                                   
+                        
+                        
+                      </div>
+                                        
+                    </div>
+                                
+                                
+                                
+            </div>
+        </div>
+     </div>
+
+
+
+
+
+{% endblock %}

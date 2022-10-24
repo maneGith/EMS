@@ -1,0 +1,831 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete.html.twig') }}
+    
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                <div class="titre lien-titre" id="titre">
+                    <span style="font-weight: bold">Modification
+                                <span style="color: red">
+                                    {{ envoi.client|lower }} {{  envoi.type|lower }}
+                                </span>
+                    </span>           
+                </div> 
+
+                <div class="content" id="content">       
+                   
+                    <div class="alert-danger">
+                                             <span style="font-weight: bold">
+                                            {% if( error =="1") %}
+                                             Attention le poids est une valeur numerique !!!
+                                            {% elseif(error =="2") %}
+                                                Attention le poids est compris entre 0 et 30kg !!!
+                                            {% endif %}
+                                            </span>
+                        </div>
+
+                            {{ form_start(edit_form) }}
+
+                        {% if(envoi.client=='Occasionnel') %}
+                            <div id="expt">
+                                <table class="table table-condensed">
+                                    <tbody>
+                                    <tr>
+                                        <td colspan="2">
+                                            <div style="background-image: linear-gradient(to bottom, #FFAF44 0%, #fff9ce 100%);">
+                                                <span style="font-weight: bold;color: #777">Expéditeur</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <div  style="max-width: 400px;display:none">
+                                        {{ form_widget(edit_form.expediteur.numcompte,{'attr':{'class':'form-control',
+                                            'style':'border:solid 1px #337ab7'}}) }}
+                                        {{ form_errors(edit_form.expediteur.numcompte) }}
+                                    </div>
+                                    <tr>
+                                        <th>Téléphone</th>
+                                        <td>{{ envoi.expediteur.usager.telephone }}      <span class="rs-e">Modifier</span>
+                                            <div class="De-e">
+                                                <div class="form-group" style="max-width: 400px">
+                                                    {{ form_widget(edit_form.expediteur.usager.telephone,{'attr':{'class':'form-control',
+                                                        'style':'border:solid 1px #337ab7','placeholder':' N° Téléphone'}}) }}
+                                                    {{ form_errors(edit_form.expediteur.usager.telephone) }}
+                                                </div>
+                                                <span>
+                                                    <input type="submit" value="Modifier" class="btn btn-ems" />
+                                                    <a href="{{ path('envoi_edit', { 'id': envoi.id }) }}" class="btn btn-ems">Annuler</a>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Nom</th>
+
+                                        <td>{{ envoi.expediteur.usager.nom }}      <span class="rs-e">Modifier</span>
+                                            <div class="De-e">
+                                                <div class="form-group" style="max-width: 400px">
+                                                    {{ form_widget(edit_form.expediteur.usager.nom,{'attr':{'class':'form-control',
+                                                        'style':'border:solid 1px #337ab7','placeholder':'Nom'}}) }}
+                                                    {{ form_errors(edit_form.expediteur.usager.nom) }}
+                                                </div>
+                                                <span>
+                                                    <input type="submit" value="Modifier" class="btn btn-ems" />
+                                                    <a href="{{ path('envoi_edit', { 'id': envoi.id }) }}" class="btn btn-ems">Annuler</a>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Civilité</th>
+                                        <td>{{ envoi.expediteur.civilite }}      <span class="rs-e">Modifier</span>
+                                            <div class="De-e">
+                                                <div class="form-group" style="max-width: 400px">
+                                                    <div id="{{ edit_form.expediteur.civilite.vars.id }}">
+                                                        <table style="width: 100%">
+                                                            <tbody>
+                                                            <tr>
+
+                                                                {% for civilite in edit_form.expediteur.civilite.children %}
+                                                                    <td>
+                                                                        <div class="radio">
+                                                                            <label class="required">
+                                                                                {% if(civilite.vars.value==envoi.expediteur.civilite) %}
+                                                                                    <input id="{{ civilite.vars.id }}" name="{{ civilite.vars.full_name }}" required="required" value="{{ civilite.vars.value }}" type="radio" checked/>
+                                                                                {% else %}
+                                                                                    <input id="{{ civilite.vars.id }}" name="{{ civilite.vars.full_name }}" required="required" value="{{ civilite.vars.value }}" type="radio"/>
+                                                                                {% endif %}
+
+                                                                                {{ civilite.vars.label }}
+                                                                            </label>
+                                                                        </div>
+                                                                    </td>
+
+                                                                {% endfor %}
+
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    {% do edit_form.expediteur.civilite.setRendered %}
+                                                </div>
+                                                <span>
+                                                    <input type="submit" value="Modifier" class="btn btn-ems" />
+                                                    <a href="{{ path('envoi_edit', { 'id': envoi.id }) }}" class="btn btn-ems">Annuler</a>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Adresse</th>
+
+                                        <td>{{ envoi.expediteur.usager.adresse }}      <span class="rs-e">Modifier</span>
+                                            <div class="De-e">
+                                                <div class="form-group" style="max-width: 400px">
+                                                    {{ form_widget(edit_form.expediteur.usager.adresse,{'attr':{'class':'form-control',
+                                                        'style':'border:solid 1px #337ab7'}}) }}
+                                                    {{ form_errors(edit_form.expediteur.usager.adresse) }}
+                                                    <span>
+                                                        <input type="submit" value="Modifier" class="btn btn-ems" />
+                                                        <a href="{{ path('envoi_edit', { 'id': envoi.id }) }}" class="btn btn-ems">Annuler</a>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Code postal</th>
+                                        <td>
+
+                                            {% if(envoi.expediteur.usager.codepostal==null) %}
+                                                ---
+                                                <span class="rs-e">Modifier</span>
+                                                <div class="De-e">
+                                                    <div class="form-group" style="max-width: 400px">
+                                                        {{ form_widget(edit_form.expediteur.usager.codepostal,{'attr':{'class':'form-control',
+                                                            'style':'border:solid 1px #337ab7','value':'---'}}) }}
+                                                        {{ form_errors(edit_form.expediteur.usager.codepostal) }}
+                                                        <span>
+                                                        <input type="submit" value="Modifier" class="btn btn-ems" />
+                                                        <a href="{{ path('envoi_edit', { 'id': envoi.id }) }}" class="btn btn-ems">Annuler</a>
+                                                    </span>
+                                                    </div>
+                                                </div>
+                                            {% else %}
+                                                {{ envoi.expediteur.usager.codepostal }}
+                                                <span class="rs-e">Modifier</span>
+                                                <div class="De-e">
+                                                    <div class="form-group" style="max-width: 400px">
+                                                        {{ form_widget(edit_form.expediteur.usager.codepostal,{'attr':{'class':'form-control',
+                                                            'style':'border:solid 1px #337ab7'}}) }}
+                                                        {{ form_errors(edit_form.expediteur.usager.codepostal) }}
+                                                        <span>
+                                                        <input type="submit" value="Modifier" class="btn btn-ems" />
+                                                        <a href="{{ path('envoi_edit', { 'id': envoi.id }) }}" class="btn btn-ems">Annuler</a>
+                                                    </span>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Ville</th>
+                                        <td>{{ envoi.expediteur.usager.ville }}      <span class="rs-e">Modifier</span>
+                                            <div class="De-e">
+                                                <div class="form-group" style="max-width: 400px">
+                                                    {{ form_widget(edit_form.expediteur.usager.ville,{'attr':{'class':'form-control',
+                                                        'style':'border:solid 1px #337ab7','placeholder':'Ville'}}) }}
+                                                    {{ form_errors(edit_form.expediteur.usager.ville) }}
+                                                    <span>
+                                                        <input type="submit" value="Modifier" class="btn btn-ems" />
+                                                        <a href="{{ path('envoi_edit', { 'id': envoi.id }) }}" class="btn btn-ems">Annuler</a>
+                                                    </span>
+                                                </div>
+
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Pays</th>
+                                        <td>
+                                            <span style="color: red;font-weight: bold">{{ envoi.expediteur.usager.pays.name }} </span>
+
+                                        </td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        {% else %}
+                            <div id="expt">
+                                <table class="table table-condensed">
+                                    <tbody>
+                                    <tr>
+                                        <td colspan="2">
+                                            <div style="background-image: linear-gradient(to bottom, #FFAF44 0%, #fff9ce 100%);">
+                                                <span style="font-weight: bold;color: #777">Expéditeur</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <div  style="max-width: 400px;display:none">
+                                        {{ form_widget(edit_form.expediteur.numcompte,{'attr':{'class':'form-control',
+                                            'style':'border:solid 1px #337ab7'}}) }}
+                                        {{ form_errors(edit_form.expediteur.numcompte) }}
+                                    </div>
+                                    <tr>
+                                        <th style="width: 45%">Téléphone</th>
+                                        <td>{{ envoi.expediteur.usager.telephone }}
+                                            <div class="De-e">
+                                                <div class="form-group" style="max-width: 400px">
+                                                    {{ form_widget(edit_form.expediteur.usager.telephone,{'attr':{'class':'form-control',
+                                                        'style':'border:solid 1px #337ab7','placeholder':' N° Téléphone'}}) }}
+                                                    {{ form_errors(edit_form.expediteur.usager.telephone) }}
+                                                </div>
+                                                <span>
+                                                    <input type="submit" value="Modifier" class="btn btn-ems" />
+                                                    <a href="{{ path('envoi_edit', { 'id': envoi.id }) }}" class="btn btn-ems">Annuler</a>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Nom</th>
+
+                                        <td>{{ envoi.expediteur.usager.nom }}
+                                            <div class="De-e">
+                                                <div class="form-group" style="max-width: 400px">
+                                                    {{ form_widget(edit_form.expediteur.usager.nom,{'attr':{'class':'form-control',
+                                                        'style':'border:solid 1px #337ab7','placeholder':'Nom'}}) }}
+                                                    {{ form_errors(edit_form.expediteur.usager.nom) }}
+                                                </div>
+                                                <span>
+                                                    <input type="submit" value="Modifier" class="btn btn-ems" />
+                                                    <a href="{{ path('envoi_edit', { 'id': envoi.id }) }}" class="btn btn-ems">Annuler</a>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Civilité</th>
+                                        <td>{{ envoi.expediteur.civilite }}
+                                            <div class="De-e">
+                                                <div class="form-group" style="max-width: 400px">
+                                                    <div id="{{ edit_form.expediteur.civilite.vars.id }}">
+                                                        <table style="width: 100%">
+                                                            <tbody>
+                                                            <tr>
+
+                                                                {% for civilite in edit_form.expediteur.civilite.children %}
+                                                                    <td>
+                                                                        <div class="radio">
+                                                                            <label class="required">
+                                                                                {% if(civilite.vars.value==envoi.expediteur.civilite) %}
+                                                                                    <input id="{{ civilite.vars.id }}" name="{{ civilite.vars.full_name }}" required="required" value="{{ civilite.vars.value }}" type="radio" checked/>
+                                                                                {% else %}
+                                                                                    <input id="{{ civilite.vars.id }}" name="{{ civilite.vars.full_name }}" required="required" value="{{ civilite.vars.value }}" type="radio"/>
+                                                                                {% endif %}
+
+                                                                                {{ civilite.vars.label }}
+                                                                            </label>
+                                                                        </div>
+                                                                    </td>
+
+                                                                {% endfor %}
+
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    {% do edit_form.expediteur.civilite.setRendered %}
+                                                </div>
+                                                <span>
+                                                    <input type="submit" value="Modifier" class="btn btn-ems" />
+                                                    <a href="{{ path('envoi_edit', { 'id': envoi.id }) }}" class="btn btn-ems">Annuler</a>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Adresse</th>
+
+                                        <td>{{ envoi.expediteur.usager.adresse }}
+                                            <div class="De-e">
+                                                <div class="form-group" style="max-width: 400px">
+                                                    {{ form_widget(edit_form.expediteur.usager.adresse,{'attr':{'class':'form-control',
+                                                        'style':'border:solid 1px #337ab7'}}) }}
+                                                    {{ form_errors(edit_form.expediteur.usager.adresse) }}
+                                                    <span>
+                                                        <input type="submit" value="Modifier" class="btn btn-ems" />
+                                                        <a href="{{ path('envoi_edit', { 'id': envoi.id }) }}" class="btn btn-ems">Annuler</a>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Code postal</th>
+                                        <td>
+
+                                            {% if(envoi.expediteur.usager.codepostal==null) %}
+                                                ---
+                                                <span class="rs-e">Modifier</span>
+                                                <div class="De-e">
+                                                    <div class="form-group" style="max-width: 400px">
+                                                        {{ form_widget(edit_form.expediteur.usager.codepostal,{'attr':{'class':'form-control',
+                                                            'style':'border:solid 1px #337ab7','value':'---'}}) }}
+                                                        {{ form_errors(edit_form.expediteur.usager.codepostal) }}
+                                                        <span>
+                                                        <input type="submit" value="Modifier" class="btn btn-ems" />
+                                                        <a href="{{ path('envoi_edit', { 'id': envoi.id }) }}" class="btn btn-ems">Annuler</a>
+                                                    </span>
+                                                    </div>
+                                                </div>
+                                            {% else %}
+                                                {{ envoi.expediteur.usager.codepostal }}
+
+                                                <div class="De-e">
+                                                    <div class="form-group" style="max-width: 400px">
+                                                        {{ form_widget(edit_form.expediteur.usager.codepostal,{'attr':{'class':'form-control',
+                                                            'style':'border:solid 1px #337ab7'}}) }}
+                                                        {{ form_errors(edit_form.expediteur.usager.codepostal) }}
+                                                        <span>
+                                                        <input type="submit" value="Modifier" class="btn btn-ems" />
+                                                        <a href="{{ path('envoi_edit', { 'id': envoi.id }) }}" class="btn btn-ems">Annuler</a>
+                                                    </span>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Ville</th>
+                                        <td>{{ envoi.expediteur.usager.ville }}
+                                            <div class="De-e">
+                                                <div class="form-group" style="max-width: 400px">
+                                                    {{ form_widget(edit_form.expediteur.usager.ville,{'attr':{'class':'form-control',
+                                                        'style':'border:solid 1px #337ab7','placeholder':'Ville'}}) }}
+                                                    {{ form_errors(edit_form.expediteur.usager.ville) }}
+
+                                                </div>
+
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Pays</th>
+                                        <td>
+                                            <span style="color: red;font-weight: bold">{{ envoi.expediteur.usager.pays.name }} </span>
+
+                                        </td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        {% endif %}
+
+
+                        <div id="douane">
+                            <table class="table table-condensed">
+                                <tbody>
+                                {% if(envoi.type=='Non document') %}
+                                    <tr>
+                                        <td colspan="2">
+                                            <div style="background-image: linear-gradient(to bottom, #FFAF44 0%, #fff9ce 100%);">
+                                                <span style="font-weight: bold;color: #777">Déclaration en douane</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th width="44%">Contenu</th>
+                                        <td>{{ envoi.description }}     <span class="rs-e">Modifier</span>
+                                            <div class="De-e">
+                                                <div class="form-group" style="max-width: 400px">
+                                                {{ form_widget(edit_form.description,{'attr':{'class':'form-control',
+                                                    'style':'border:solid 1px #337ab7','placeholder':'Contenu'}}) }}
+                                                {{ form_errors(edit_form.description) }}
+                                                </div>
+                                                <span>
+                                                    <input type="submit" value="Modifier" class="btn btn-ems" />
+                                                    <a href="{{ path('envoi_edit', { 'id': envoi.id }) }}" class="btn btn-ems">Annuler</a>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="2">
+                                            <div style="background-image: linear-gradient(to bottom, #FFAF44 0%, #fff9ce 100%);">
+                                                <span style="font-weight: bold;color: #777">Nature/Valeur</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <div style="padding-top: 15px;padding-right: 5px;max-width: 400px;display: none">
+                                        <textarea id="{{ edit_form.description.vars.id }}" style="border:solid 1px #337ab7" class="form-control" name="{{ edit_form.description.vars.full_name }}">---</textarea>
+                                    </div>
+                                    {% do edit_form.description.setRendered %}
+                                {% endif %}
+
+
+                                    <tr>
+                                        <th width="45%">Nature</th>
+                                        <td>{{ envoi.nature }}      <span class="rs-e">Modifier</span>
+                                            <div class="De-e">
+                                                <div class="form-group" style="max-width: 400px">
+                                                    <div id="{{ edit_form.nature.vars.id }}">
+                                                        <table style="width: 100%">
+                                                            <tbody>
+
+                                                                {% for naenvoi in edit_form.nature.children %}
+                                                                    <tr>
+                                                                        <td>
+                                                                            <div class="radio">
+                                                                                <label class="required">
+                                                                                    {% if(naenvoi.vars.value==envoi.nature) %}
+                                                                                        <input id="{{ naenvoi.vars.id }}" name="{{ naenvoi.vars.full_name }}" required="required" value="{{ naenvoi.vars.value }}" type="radio" checked/>
+                                                                                    {% else %}
+                                                                                        <input id="{{ naenvoi.vars.id }}" name="{{ naenvoi.vars.full_name }}" required="required" value="{{ naenvoi.vars.value }}" type="radio"/>
+                                                                                    {% endif %}
+
+                                                                                    {{ naenvoi.vars.label }}
+                                                                                </label>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                {% endfor %}
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    {% do edit_form.nature.setRendered %}
+                                                </div>
+                                                <span>
+                                                    <input type="submit" value="Modifier" class="btn btn-ems" />
+                                                    <a href="{{ path('envoi_edit', { 'id': envoi.id }) }}" class="btn btn-ems">Annuler</a>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+
+                                {% if(envoi.type=='Non document') %}
+
+                                    <tr>
+                                        <th>Valeur</th>
+                                        <td>{{ envoi.valeur }} Euro      <span class="rs-e">Modifier</span>
+                                            <div class="De-e">
+                                                <div class="form-group" style="max-width: 400px">
+                                            {{ form_widget(edit_form.valeur,{'attr':{'class':'form-control',
+                                                'style':'border:solid 1px #337ab7','placeholder':'Valeur(Fcfa)'}}) }}
+                                            {{ form_errors(edit_form.valeur) }}
+                                                </div>
+                                                <span>
+                                                    <input type="submit" value="Modifier" class="btn btn-ems" />
+                                                    <a href="{{ path('envoi_edit', { 'id': envoi.id }) }}" class="btn btn-ems">Annuler</a>
+                                                </span>
+                                            </div>
+                                    </td>
+                                </tr>
+                                {% else %}
+                                    <tr>
+                                        <th>Valeur</th>
+                                        <td>
+                                            {% if(envoi.valeur==0) %}
+                                                ---
+                                            {% else %}
+                                                {{ envoi.valeur }}
+                                            {% endif %}
+
+                                            <span class="rs-e">Modifier</span>
+                                            <div class="De-e">
+
+                                                <div style="padding-top: 15px;padding-right: 5px;max-width: 400px;display: none">
+                                                    <input id="{{ edit_form.valeur.vars.id }}" style="border:solid 1px #337ab7" class="form-control" name="{{ edit_form.valeur.vars.full_name }}" value="{{  envoi.valeur }}"/>
+                                                </div>
+                                                {% do edit_form.valeur.setRendered %}
+
+
+                                                <div style="padding-top: 15px;padding-right: 5px;max-width: 400px;">
+                                                    <input type="text"  name="evalaur"  class="form-control" style="border:solid 1px #337ab7" placeholder="Valeur(Fcfa)"/>
+                                                </div>
+                                                 <span>
+                                                    <input type="submit" value="Modifier" class="btn btn-ems" />
+                                                    <a href="{{ path('envoi_edit', { 'id': envoi.id }) }}" class="btn btn-ems">Annuler</a>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+
+                                <tr>
+                                    <th>Poids</th>
+                                    <td> <span style="font-weight: bold;color: red">
+                                        {% if envoi.poids|slice(envoi.poids|length-3, 3)==000 %}
+
+                                            {{ envoi.poids|striptags|slice(0, envoi.poids|length-4)|raw }}
+
+                                        {% else %}
+                                            {{ envoi.poids }}
+                                        {% endif %}  </span>Kg
+                                    </td>
+                                </tr>
+
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div id="dest">
+                            <table class="table table-condensed">
+                                <tbody>
+                                <tr>
+                                    <td colspan="2">
+                                        <div style="background-image: linear-gradient(to bottom, #FFAF44 0%, #fff9ce 100%);">
+                                            <span style="font-weight: bold;color: #777">Destinataire</span>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th style="width: 45%">Téléphone</th>
+                                    <td>{{ envoi.destinataire.usager.telephone }}      <span class="rs-e">Modifier</span>
+                                        <div class="De-e">
+                                            <div class="form-group" style="max-width: 400px">
+                                                {{ form_widget(edit_form.destinataire.usager.telephone,{'attr':{'class':'form-control',
+                                                    'style':'border:solid 1px #337ab7','placeholder':' N° Téléphone'}}) }}
+                                                {{ form_errors(edit_form.destinataire.usager.telephone) }}
+                                            </div>
+                                                <span>
+                                                    <input type="submit" value="Modifier" class="btn btn-ems" />
+                                                    <a href="{{ path('envoi_edit', { 'id': envoi.id }) }}" class="btn btn-ems">Annuler</a>
+                                                </span>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>Nom</th>
+
+                                    <td>{{ envoi.destinataire.usager.nom }}      <span class="rs-e">Modifier</span>
+                                        <div class="De-e">
+                                            <div class="form-group" style="max-width: 400px">
+                                                {{ form_widget(edit_form.destinataire.usager.nom,{'attr':{'class':'form-control',
+                                                    'style':'border:solid 1px #337ab7','placeholder':'Nom'}}) }}
+                                                {{ form_errors(edit_form.destinataire.usager.nom) }}
+                                            </div>
+                                                <span>
+                                                    <input type="submit" value="Modifier" class="btn btn-ems" />
+                                                    <a href="{{ path('envoi_edit', { 'id': envoi.id }) }}" class="btn btn-ems">Annuler</a>
+                                                </span>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>Adresse</th>
+
+                                    <td>{{ envoi.destinataire.usager.adresse }}      <span class="rs-e">Modifier</span>
+                                        <div class="De-e">
+                                            <div class="form-group" style="max-width: 400px">
+                                                {{ form_widget(edit_form.destinataire.usager.adresse,{'attr':{'class':'form-control',
+                                                    'style':'border:solid 1px #337ab7'}}) }}
+                                                {{ form_errors(edit_form.destinataire.usager.adresse) }}
+                                                <span>
+                                                        <input type="submit" value="Modifier" class="btn btn-ems" />
+                                                        <a href="{{ path('envoi_edit', { 'id': envoi.id }) }}" class="btn btn-ems">Annuler</a>
+                                                    </span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>Code postal</th>
+                                    <td>
+
+
+
+                                        {% if(envoi.destinataire.usager.codepostal==null) %}
+                                            ---
+                                            <span class="rs-e">Modifier</span>
+                                            <div class="De-e">
+                                                <div class="form-group" style="max-width: 400px">
+                                                    {{ form_widget(edit_form.destinataire.usager.codepostal,{'attr':{'class':'form-control',
+                                                        'style':'border:solid 1px #337ab7','value':'---'}}) }}
+                                                    {{ form_errors(edit_form.destinataire.usager.codepostal) }}
+                                                    <span>
+                                                        <input type="submit" value="Modifier" class="btn btn-ems" />
+                                                        <a href="{{ path('envoi_edit', { 'id': envoi.id }) }}" class="btn btn-ems">Annuler</a>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        {% else %}
+                                            {{ envoi.destinataire.usager.codepostal }}      <span class="rs-e">Modifier</span>
+                                            <div class="De-e">
+                                                <div class="form-group" style="max-width: 400px">
+                                                    {{ form_widget(edit_form.destinataire.usager.codepostal,{'attr':{'class':'form-control',
+                                                        'style':'border:solid 1px #337ab7'}}) }}
+                                                    {{ form_errors(edit_form.destinataire.usager.codepostal) }}
+                                                    <span>
+                                                        <input type="submit" value="Modifier" class="btn btn-ems" />
+                                                        <a href="{{ path('envoi_edit', { 'id': envoi.id }) }}" class="btn btn-ems">Annuler</a>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>Ville</th>
+                                    <td>{{ envoi.destinataire.usager.ville }}      <span class="rs-e">Modifier</span>
+                                        <div class="De-e">
+                                            <div class="form-group" style="max-width: 400px">
+                                                {{ form_widget(edit_form.destinataire.usager.ville,{'attr':{'class':'form-control',
+                                                    'style':'border:solid 1px #337ab7','placeholder':'Ville'}}) }}
+                                                {{ form_errors(edit_form.destinataire.usager.ville) }}
+                                                <span>
+                                                        <input type="submit" value="Modifier" class="btn btn-ems" />
+                                                        <a href="{{ path('envoi_edit', { 'id': envoi.id }) }}" class="btn btn-ems">Annuler</a>
+                                                    </span>
+                                            </div>
+
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>Pays</th>
+                                    <td>
+                                        <span style="color: red;font-weight: bold">{{ envoi.destinataire.usager.pays.name }} </span>
+
+                                    </td>
+                                </tr>
+
+                                {% if(envoi.echelle=='National') %}
+                                    <tr>
+                                        <th>N° Local</th>
+                                        <td> <span style="color: red;font-weight: bold">{{ envoi.codeenvoi }} </span>     <span class="rs-e">Modifier</span>
+                                            <div class="De-e">
+                                                <div class="form-group" style="max-width: 400px">
+                                                    {{ form_widget(edit_form.codeenvoi,{'attr':{'class':'form-control',
+                                                        'style':'border:solid 1px #337ab7','placeholder':'Ville'}}) }}
+                                                    {{ form_errors(edit_form.codeenvoi) }}
+                                                    <span>
+                                                        <input type="submit" value="Modifier" class="btn btn-ems" />
+                                                        <a href="{{ path('envoi_edit', { 'id': envoi.id }) }}" class="btn btn-ems">Annuler</a>
+                                                    </span>
+                                                </div>
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <th>N° international</th>
+                                        <td> <span style="color: red;font-weight: bold">{{ envoi.codeenvoi }} </span>    
+{#                                            <span class="rs-e">Modifier</span>#}
+                                            <div class="De-e">
+                                                <div class="form-group" style="max-width: 400px">
+                                                    {{ form_widget(edit_form.codeenvoi,{'attr':{'class':'form-control',
+                                                        'style':'border:solid 1px #337ab7','placeholder':'Ville'}}) }}
+                                                    {{ form_errors(edit_form.codeenvoi) }}
+                                                    <span>
+                                                        <input type="submit" value="Modifier" class="btn btn-ems" />
+                                                        <a href="{{ path('envoi_edit', { 'id': envoi.id }) }}" class="btn btn-ems">Annuler</a>
+                                                    </span>
+                                                </div>
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                        <div id="service">
+                            <table class="table table-condensed">
+                                <tbody>
+                                <tr>
+                                    <td colspan="2">
+                                        <div style="background-image: linear-gradient(to bottom, #FFAF44 0%, #fff9ce 100%);">
+                                            <span style="font-weight: bold;color: #777">Informations de service</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style="width: 45%">Heure de dépot</th>
+                                    <td>
+                                        <span style="color: red;font-weight: bold">{{ envoi.heure }} </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th width="45%">Paiement</th>
+                                    <td>{{ envoi.modepaie }}      <span class="rs-e">Modifier</span>
+                                        <div class="De-e">
+                                            <div class="form-group" style="max-width: 400px">
+                                        <div id="{{ edit_form.modepaie.vars.id }}" style="padding-top: 15px;padding-right: 5px;max-width: 400px">
+                                            <table style="width: 100%">
+                                                <tbody>
+                                                <tr>
+                                                    {% for mode in edit_form.modepaie.children %}
+                                                        <td>
+                                                            <div class="radio">
+                                                                <label class="required">
+                                                                    {% if(mode.vars.value==envoi.modepaie) %}
+                                                                        <input id="{{ mode.vars.id }}" name="{{ mode.vars.full_name }}" required="required" value="{{ mode.vars.value }}" type="radio" checked/>
+                                                                    {% else %}
+                                                                        <input id="{{ mode.vars.id }}" name="{{ mode.vars.full_name }}" required="required" value="{{ mode.vars.value }}" type="radio"/>
+                                                                    {% endif %}
+                                                                    {{ mode.vars.label }}
+                                                                </label>
+                                                            </div>
+                                                        </td>
+
+                                                    {% endfor %}
+
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            {% do edit_form.modepaie.setRendered %}
+                                        </div>
+                                            </div>
+                                                <span>
+                                                    <input type="submit" value="Modifier" class="btn btn-ems" />
+                                                    <a href="{{ path('envoi_edit', { 'id': envoi.id }) }}" class="btn btn-ems">Annuler</a>
+                                                </span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style="width: 45%">Tarif HT</th>
+                                    <td>
+                                        <div style="padding-right: 5px;padding-left: 5px;max-width: 85px;text-align: right">
+                                            <span style="color: red;font-weight: bold">
+                                                {% if  envoi.tarif|length > 3 %}
+                                                    {{  envoi.tarif|striptags|slice(0,  envoi.tarif|length-3)|raw }}
+                                                    &nbsp;
+                                                    {{  envoi.tarif|striptags|slice( envoi.tarif|length-3, 3)|raw }}
+                                                {% else %}
+                                                    {{  envoi.tarif }}
+                                                {% endif %}
+                                            </span><span style="font-weight: bold"> F</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style="width: 45%">TVA</th>
+                                    <td>
+                                        <div style="padding-right: 5px;padding-left: 5px;max-width: 85px;text-align: right">
+                                            <span style="color: red;font-weight: bold">
+                                                {% if  envoi.tva|length > 3 %}
+                                                    {{  envoi.tva|striptags|slice(0,  envoi.tva|length-3)|raw }}
+                                                    &nbsp;
+                                                    {{  envoi.tva|striptags|slice( envoi.tva|length-3, 3)|raw }}
+                                                {% else %}
+                                                    {{  envoi.tva }}
+                                                {% endif %}
+                                            </span><span style="font-weight: bold"> F</span>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th style="width: 45%">Tarif TTC</th>
+                                    <td>
+                                        <div style="padding-right: 5px;padding-left: 5px;max-width: 85px;text-align: right">
+                                            <span style="color: red;font-weight: bold">
+                                                {% if  envoi.ttc|length > 3 %}
+                                                    {{  envoi.ttc|striptags|slice(0,  envoi.ttc|length-3)|raw }}
+                                                    &nbsp;
+                                                    {{  envoi.ttc|striptags|slice( envoi.ttc|length-3, 3)|raw }}
+                                                {% else %}
+                                                    {{  envoi.ttc }}
+                                                {% endif %}
+                                            </span><span style="font-weight: bold"> F</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                        {{ form_end(edit_form) }}
+                    
+                </div> 
+            </div>
+        </div>
+     </div>
+
+
+
+
+
+{% endblock %}

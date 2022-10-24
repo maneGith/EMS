@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {{ include('includes/header.html.twig') }}
+
+    <div id="container" style="border: solid 1px #d2d2d2;overflow-x: hidden;overflow-y:hidden">
+        <div class="row">
+
+            <div class="column column-left menu">
+                {{ include('includes/admin.html.twig') }}
+            </div>
+            <div class="column column-middle">
+
+
+                <table class="table table-condensed">
+                    <thead>
+                    <tr>
+                        <th><span style="color:#777;font-weight: bold">Tarifs envois express</span>
+                            <span style="float: right">
+                                <a href="#" style="margin-right: 2px;font-size: 12px" class="btn">
+                                    Sénégal
+                                </a>
+                                <a href="#" style="margin-right: 2px;font-size: 12px" class="btn">
+                                    Abonnés
+                                </a>
+                                <a href="#" style="font-size: 12px" class="btn">
+                                    Occasionnels
+                                </a>
+                            </span>
+                        </th>
+                    </tr>
+
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td><span style="font-weight: bold">Sénégal</span>
+                                <span style="float: right">
+                                   <a href="#" style="float: right;font-size: 12px;font-weight: bold">
+                                       Créer
+                                   </a>
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="background: rgba(255, 175, 68, 0.64)"><span style="font-weight: bold">Etranger</span>
+                                <span style="float: right">
+                                   <a href="#" style="float: right;font-size: 12px;font-weight: bold">
+                                   Ajouter zone/pays
+                                   </a>
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><span style="color:#777;">Abonnés</span>
+                                <span style="float: right">
+                                   <a href="#" style="float: right;font-size: 12px;font-weight: bold">
+                                       Créer
+                                   </a>
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><span style="color:#777;">Occasionnels</span>
+                                <span style="float: right">
+                                   <a href="#" style="float: right;font-size: 12px;font-weight: bold">
+                                       Créer
+                                   </a>
+                                </span>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

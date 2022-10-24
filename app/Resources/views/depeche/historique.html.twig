@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete.html.twig') }}
+    
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                <div class="titre lien-titre" id="titre">
+                   Dépêches transmis             
+                </div> 
+
+                <div class="content container" id="content">       
+                  
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Numero</th>
+                                <th>Type des envois</th>
+                                <th>Bureau destinataire</th>
+                                <th>Date</th>
+                                <th>Etat</th>
+                                <th>
+                                   
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for depeche in depeches %}
+                            <tr>
+                                <td>{{ depeche.numero }}</td>
+                                <td>{{ depeche.type }}</td>
+                                 <td>{{ depeche.destination.nom }}</td>
+                                 
+                                <td>{{ depeche.journee }}</td>
+                                 <td>{{ depeche.etat }}</td>
+                                <td>
+                                                                       
+                                        <div class="btn-group">
+                                          <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Actions
+                                          </button>
+                                          <div class="dropdown-menu">
+                                            
+                                            <a class="dropdown-item" href="{{ path('depeche_manifeste', { 'id': depeche.id }) }}">
+                                                Manifeste
+                                            </a>
+                                            <div class="dropdown-divider"></div>
+                                            
+                                            <a class="dropdown-item" href="{{ path('depeche_enfermeture', { 'id': depeche.id }) }}">
+                                                Reprendre
+                                            </a>
+                                            <div class="dropdown-divider"></div>
+                                            
+                                            <a class="dropdown-item" href="{{ path('depeche_edit', { 'id': depeche.id }) }}">
+                                                Paramètres
+                                            </a>
+                                          </div>
+                                            
+                                        </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                      
+                </div> 
+        
+        
+                    
+                                        
+                    </div>
+        
+            </div>
+        </div>
+     </div>
+
+
+
+
+
+{% endblock %}

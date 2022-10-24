@@ -1,0 +1,619 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete.html.twig') }}
+    
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                <div class="titre lien-titre" id="titre">
+                    Chargement d'une depeche         
+                    <a  href="#Imp3p4" onclick="printContent('p3p4')">Imprimer Manifeste</a>
+                </div> 
+
+                <div class="content container" id="content">       
+                   
+                    <div id="p3p4"> 
+                        <div>  
+                            <table style="width: 100%">
+                                <tbody>
+                                    <tr>
+                                
+{#                           Premiere division#   et }  {#                           Deuxieme division#}
+                                <td width="30%"  style="border-left:  solid 2px black;border-top:  solid 2px black;">
+                                   <img src="{{ asset('img/logo-ems.jpg') }}" width="100%" height="70px">
+                                </td>
+                                
+                                <td style="border-top:  solid 2px black;border-right:  solid 2px black;">
+                                     <div style="text-align: center">
+                                          <span style="font-weight: bold">
+                                  MANIFESTE
+                                </span> 
+                                </div>
+                                 
+                                </td>
+                           
+                            </tr>
+                            
+                           
+                            </tbody>
+                            </table>
+                        </div>
+                        
+                        
+                        <div>  
+                            <table style="width: 100%">
+                                <tbody>
+                                    <tr>
+{#                           Premire colonne#}
+                                <td width="50%" style="padding: 0">
+                                    <table style="width: 100%">
+                                        <tbody>
+                                            <tr>
+                                                <td  colspan="5" style="border-left:  solid 2px black;border-top:  solid 2px black;">
+                                                  BUREAU EXPEDITEUR : <span style="font-weight: bold">
+                                 {{depeche.agence.nom}}
+                                </span> 
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="5"  style="border-left:  solid 2px black;border-top:  solid 2px black;">
+                                                  BUREAU DESTINATAIRE  : <span style="font-weight: bold">
+                                 {{depeche.destination.nom}}
+                                </span> 
+                                                </td>
+                                            </tr>
+                                            
+                                        
+                                             <tr>
+                                                <td  width="6%" style="border-left:  solid 2px black;border-top:  solid 2px black;border-bottom:  solid 2px black;">
+                                                    
+                                                    <div style="text-align:center">
+                                                        <span style="font-weight: bold">No</span> 
+                                                    </div>
+                                                    <div style="text-align:center">
+                                                         <span style="font-weight: bold">Ordre</span> 
+                                                    </div>
+                                                  
+                                                   
+                                                </td>
+                                                <td   width="22%" style="border-left:  solid 2px black;border-top:  solid 2px black;border-bottom:  solid 2px black;">
+                                                <div style="text-align:center">
+                                                        <span style="font-weight: bold">No</span> 
+                                                    </div>
+                                                    <div style="text-align:center">
+                                                         <span style="font-weight: bold">DE L'ENVOI</span> 
+                                                    </div>
+                                                </td>
+                                                 <td  width="22%" style="border-left:  solid 2px black;border-top:  solid 2px black;border-bottom:  solid 2px black;">
+                                                   <span style="font-weight: bold">BENEFICIAIRE</span> 
+                                                </td>
+                                                <td  width="30%" style="border-left:  solid 2px black;border-top:  solid 2px black;border-bottom:  solid 2px black;">
+                                                   <span style="font-weight: bold">DESTINATION</span> 
+                                                </td>
+                                                <td  width="20%" style="border-left:  solid 2px black;border-top:  solid 2px black;border-bottom:  solid 2px black;">
+                                                   <span style="font-weight: bold">POIDS</span> 
+                                                </td>
+                                               
+                                            </tr>
+                                            
+                                            {% for contenu in gauchemanifeste %}
+                                              <tr>
+                                                    
+                                                    <td width="6%" style="border-left:  solid 2px black;border-bottom:  solid 2px black;border-right:  solid 2px black;">
+                                                        {{loop.index}}
+                                                    </td>
+                                                    <td  width="22%" style="border-left:  solid 2px black;border-bottom:  solid 2px black;border-right:  solid 2px black;">
+                                                       {{contenu.envoi.codeenvoi}}
+                                                    </td>
+                                                    <td  width="22%" style="border-left:  solid 2px black;border-bottom:  solid 2px black;">
+                                                      {# {{contenu.envoi.type}}#}
+                                                       
+                                                        {{contenu.envoi.destinataire.usager.nom|striptags|slice(0, 10)|raw}}
+                                                        
+                                                        
+                                                        
+                                                    </td>
+                                                    <td  width="30%" style="border-left:  solid 2px black;border-bottom:  solid 2px black;border-right:  solid 2px black;">
+                                                        
+                                                         {% if contenu.envoi.destinataire.usager.pays.name=='Sénégal' %}
+                                                               {{ contenu.envoi.destinataire.usager.ville|striptags|slice(0, 18)|raw }}
+                                                         {% else %}
+                                                              {{contenu.envoi.destinataire.usager.pays.name|striptags|slice(0, 18)|raw}}
+                                                         {% endif %}
+                                                        
+                                                       
+                                                    </td>
+
+                                                    <td  width="20%" style="border-left:  solid 2px black;border-bottom:  solid 2px black;">
+                                                        {{contenu.envoi.poids}}
+                                                    </td>
+
+                                                   
+                                                    
+                                                    
+                                                </tr>
+                                            {% endfor %}
+                                            
+                                              {% if gauche<=30 %}
+                                                           
+                                                   {% for i in gauche..30 %}
+                                                
+                                                <tr>
+                                                    
+                                                    <td width="6%" style="border-left:  solid 2px black;border-bottom:  solid 2px black;border-right:  solid 2px black;">
+                                                         {{ i }}
+                                                    </td>
+                                                    <td  width="22%" style="border-left:  solid 2px black;border-bottom:  solid 2px black;border-right:  solid 2px black;">
+                                                     
+                                                    </td>
+                                                    <td  width="22%" style="border-left:  solid 2px black;border-bottom:  solid 2px black;">
+                                                     
+                                                    </td>
+
+                                                    <td  width="30%" style="border-left:  solid 2px black;border-bottom:  solid 2px black;border-right:  solid 2px black;">
+                                                       
+                                                    </td>
+
+                                                    <td  width="20%" style="border-left:  solid 2px black;border-bottom:  solid 2px black;">
+                                                     
+                                                    </td>
+
+                                                    
+                                                    
+                                                    
+                                                </tr>
+                                                
+                                              
+                                             {% endfor %}
+                                                  
+                                                  
+                                              {% endif %}
+                                            
+                                           
+                                            
+                                        </tbody>
+                                    </table>
+                                    
+                                </td>
+                                
+                               
+                                
+{#                           Deuxieme division#}
+                                <td width="50%" style="padding: 0">
+                                   <table style="width: 100%">
+                                        <tbody>
+                                            <tr>
+                                                <td  colspan="3" style="border-left:  solid 2px black;border-top:  solid 2px black;">
+                                                 DATE D'EXPEDITION :  <span style="font-weight: bold">{{depeche.journee}}</span>
+                                                </td>
+                                                <td colspan="2" rowspan="2"  style="border-left:  solid 2px black;border-top:  solid 2px black;border-right:  solid 2px black;">
+                                                  DEPECHE No :  <span style="font-weight: bold">{{depeche.numero}}</span>
+                                                  
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3"  style="border-left:  solid 2px black;border-top:  solid 2px black;">
+                                                  HEURE :  <span style="font-weight: bold"> {{depeche.heure}}</span>
+                                                 
+                                                </td>
+                                            </tr>
+                                           
+                                            
+                                        
+                                             <tr>
+                                                <td  width="3%" style="border-left:  solid 2px black;border-top:  solid 2px black;border-bottom:  solid 2px black;">
+                                                   <div style="text-align:center">
+                                                        <span style="font-weight: bold">No</span> 
+                                                    </div>
+                                                    <div style="text-align:center">
+                                                         <span style="font-weight: bold"> Ordre</span> 
+                                                    </div>
+                                                  
+                                                </td>
+                                                <td   width="11%" style="border-left:  solid 2px black;border-top:  solid 2px black;border-bottom:  solid 2px black;">
+                                                 
+                                                  <div style="text-align:center">
+                                                        <span style="font-weight: bold">No</span> 
+                                                    </div>
+                                                    <div style="text-align:center">
+                                                         <span style="font-weight: bold">DE L'ENVOI</span> 
+                                                    </div>
+                                                  
+                                                </td>
+                                                 <td  width="11%" style="border-left:  solid 2px black;border-top:  solid 2px black;border-bottom:  solid 2px black;border-right:  solid 2px black;">
+                                                  <span style="font-weight: bold">BENEFICIAIRE</span> 
+                                                </td>
+                                                <td  width="15%" style="border-left:  solid 2px black;border-top:  solid 2px black;border-bottom:  solid 2px black;">
+                                                  <span style="font-weight: bold">DESTINATION</span> 
+                                                </td>
+                                                <td  width="10%" style="border-left:  solid 2px black;border-top:  solid 2px black;border-bottom:  solid 2px black;border-right:  solid 2px black;">
+                                                  
+                                                  <span style="font-weight: bold">POIDS</span> 
+                                                </td>
+                                               
+                                            </tr>
+                                            
+                                            {% set ordredroite = 0 %}
+                                            {% for contenu in droitemanifeste %}
+                                              <tr>
+                                                    
+                                                    <td width="6%" style="border-left:  solid 2px black;border-bottom:  solid 2px black;border-right:  solid 2px black;">
+                                                       {% set ordredroite = loop.index + 30 %}
+                                                        {{ordredroite}}
+                                                    </td>
+                                                    <td  width="22%" style="border-left:  solid 2px black;border-bottom:  solid 2px black;border-right:  solid 2px black;">
+                                                       {{contenu.envoi.codeenvoi}}
+                                                    </td>
+                                                    
+                                                     <td  width="22%" style="border-left:  solid 2px black;border-bottom:  solid 2px black;border-right:  solid 2px black;">
+                                                    {#   {{contenu.envoi.type}}#}
+                                                         {{contenu.envoi.destinataire.usager.nom|striptags|slice(0, 10)|raw}}
+                                                    </td>
+
+                                                    <td  width="30%" style="border-left:  solid 2px black;border-bottom:  solid 2px black;border-right:  solid 2px black;">
+                                                       
+                                                        
+                                                         {% if contenu.envoi.destinataire.usager.pays.name=='Sénégal' %}
+                                                               {{ contenu.envoi.destinataire.usager.ville|striptags|slice(0, 18)|raw }}
+                                                         {% else %}
+                                                              {{contenu.envoi.destinataire.usager.pays.name|striptags|slice(0, 18)|raw}}
+                                                         {% endif %}
+                                                    </td>
+
+                                                    <td  width="20%" style="border-left:  solid 2px black;border-bottom:  solid 2px black;border-right:  solid 2px black;">
+                                                        {{contenu.envoi.poids}}
+                                                    </td>
+
+                                                   
+                                                    
+                                                    
+                                                </tr>
+                                            {% endfor %}
+                                            
+                                             {% if droite<=30 %}
+                                            
+                                            
+                                            {% for i in droite..30 %}
+                                                
+                                                <tr>
+                                                    
+                                                    <td width="6%" style="border-left:  solid 2px black;border-bottom:  solid 2px black;border-right:  solid 2px black;">
+                                                        
+                                                         {% set ordredroite = i + 30 %}
+                                                          {{ ordredroite }}
+                                                    </td>
+                                                    <td  width="22%" style="border-left:  solid 2px black;border-bottom:  solid 2px black;border-right:  solid 2px black;">
+                                                     
+                                                    </td>
+                                                    
+                                                     <td  width="22%" style="border-left:  solid 2px black;border-bottom:  solid 2px black;border-right:  solid 2px black;">
+                                                     
+                                                    </td>
+
+                                                    <td  width="30%" style="border-left:  solid 2px black;border-bottom:  solid 2px black;border-right:  solid 2px black;">
+                                                       
+                                                    </td>
+
+                                                    <td  width="20%" style="border-left:  solid 2px black;border-bottom:  solid 2px black;border-right:  solid 2px black;">
+                                                     
+                                                    </td>
+
+                                                   
+                                                    
+                                                    
+                                                </tr>
+                                                
+                                              
+                                             {% endfor %}
+                                             {% endif %}
+                                            
+                                        </tbody>
+                                    </table>
+                                </td>
+                                
+                                
+                                
+                                
+                            </tr>
+                            
+                            
+                                 </tbody>
+                            </table>
+                        </div> 
+                        
+                        <div>  
+                            <table style="width: 100%">
+                                <tbody>
+                                    <tr>
+{#                           Premire colonne#}
+                                <td width="50%" style="padding: 0">
+                                    <table style="width: 90%">
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td>
+                                                &nbsp;
+                                                </td>
+                                                <td>
+                                                &nbsp;
+                                                </td>
+                                               
+                                            </tr>
+                                             <tr>
+                                                
+                                                <td>
+                                                &nbsp;
+                                                </td>
+                                                <td>
+                                                 &nbsp;
+                                                </td>
+                                            </tr>
+                                             <tr>
+                                                
+                                                <td>
+                                                &nbsp;
+                                                </td>
+                                                <td>
+                                                 &nbsp;
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td  colspan="2" style="border-left:  solid 2px black;border-top:  solid 2px black;border-right:  solid 2px black;">
+                                                    <div style="text-align: center">
+                                                            SIGNATURES LISIBLES
+                                                    </div>
+                                                </td>
+                                             
+                                                
+                                            </tr>
+                                            <tr>
+                                                
+                                                <td style="border-top:  solid 2px black;">
+                                                Nom et prénoms
+                                                </td>
+                                                <td style="border-left:  solid 2px black;">
+                                                Nom et prénoms
+                                                </td>
+                                                
+                                               
+                                            </tr>
+                                            
+                                            <tr>
+                                                
+                                               <td>
+                                                 &nbsp;
+                                                </td>
+                                                <td style="border-left:  solid 2px black;">
+                                                 &nbsp;
+                                                </td>
+                                                
+                                             
+                                            </tr>
+                                            <tr>
+                                                
+                                                <td>
+                                                 &nbsp;
+                                                </td>
+                                                <td style="border-left:  solid 2px black;">
+                                                &nbsp;
+                                                </td>
+                                                
+                                              
+                                            </tr>
+                                            
+                                        <tr>
+                                                
+                                                <td>
+                                                 &nbsp;
+                                                </td>
+                                                <td style="border-left:  solid 2px black;">
+                                                &nbsp;
+                                                </td>
+                                                
+                                              
+                                            </tr>
+                                             
+                                            
+                                            <tr>
+                                                
+                                               <td>
+                                                 &nbsp;
+                                                </td>
+                                                <td style="border-left:  solid 2px black;">
+                                                 &nbsp;
+                                                </td>
+                                                
+                                             
+                                            </tr>
+                                            <tr>
+                                                
+                                                <td>
+                                                 &nbsp;
+                                                </td>
+                                                <td style="border-left:  solid 2px black;">
+                                                &nbsp;
+                                                </td>
+                                                
+                                              
+                                            </tr>
+                                            
+                                        <tr>
+                                                
+                                                <td>
+                                                 &nbsp;
+                                                </td>
+                                                <td style="border-left:  solid 2px black;">
+                                                &nbsp;
+                                                </td>
+                                                
+                                              
+                                            </tr>
+                                           
+                                            
+                                        </tbody>
+                                    </table>
+                                    
+                                </td>
+                                
+                               
+                                
+{#                           Deuxieme division#}
+                                <td width="50%" style="padding: 0">
+                                   <table style="width: 90%">
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td>
+                                                &nbsp;
+                                                </td>
+                                                <td>
+                                                &nbsp;
+                                                </td>
+                                               
+                                            </tr>
+                                             <tr>
+                                                
+                                                <td>
+                                                &nbsp;
+                                                </td>
+                                                <td>
+                                                 &nbsp;
+                                                </td>
+                                            </tr>
+                                             <tr>
+                                                
+                                                <td>
+                                                &nbsp;
+                                                </td>
+                                                <td>
+                                                 &nbsp;
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td  colspan="2" style="border-left:  solid 2px black;border-top:  solid 2px black;border-right:  solid 2px black;">
+                                                    <div style="text-align: center">
+                                                            SIGNATURES LISIBLES
+                                                    </div>
+                                                </td>
+                                             
+                                                
+                                            </tr>
+                                            <tr>
+                                                
+                                                <td style="border-top:  solid 2px black;">
+                                                 Nom et prénoms
+                                                </td>
+                                                <td style="border-left:  solid 2px black;">
+                                                 Nom et prénoms
+                                                </td>
+                                                
+                                               
+                                            </tr>
+                                            
+                                            <tr>
+                                                
+                                               <td>
+                                                 &nbsp;
+                                                </td>
+                                                <td style="border-left:  solid 2px black;">
+                                                 &nbsp;
+                                                </td>
+                                                
+                                             
+                                            </tr>
+                                            <tr>
+                                                
+                                                <td>
+                                                 &nbsp;
+                                                </td>
+                                                <td style="border-left:  solid 2px black;">
+                                                &nbsp;
+                                                </td>
+                                                
+                                              
+                                            </tr>
+                                            
+                                        <tr>
+                                                
+                                                <td>
+                                                 &nbsp;
+                                                </td>
+                                                <td style="border-left:  solid 2px black;">
+                                                &nbsp;
+                                                </td>
+                                                
+                                              
+                                            </tr>
+                                             
+                                            
+                                           <tr>
+                                                
+                                               <td>
+                                                 &nbsp;
+                                                </td>
+                                                <td style="border-left:  solid 2px black;">
+                                                 &nbsp;
+                                                </td>
+                                                
+                                             
+                                            </tr>
+                                            <tr>
+                                                
+                                                <td>
+                                                 &nbsp;
+                                                </td>
+                                                <td style="border-left:  solid 2px black;">
+                                                &nbsp;
+                                                </td>
+                                                
+                                              
+                                            </tr>
+                                            
+                                        <tr>
+                                                
+                                                <td>
+                                                 &nbsp;
+                                                </td>
+                                                <td style="border-left:  solid 2px black;">
+                                                &nbsp;
+                                                </td>
+                                                
+                                              
+                                            </tr>
+                                            
+                                           
+                                            
+                                        </tbody>
+                                    </table>
+                                </td>
+                                
+                                
+                                
+                                
+                            </tr>
+                           
+                                 </tbody>
+                            </table>
+                        </div>
+                    </div> 
+                    
+                    
+                </div> 
+            </div>
+        </div>
+     </div>
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,167 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete.html.twig') }}
+    
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                <div class="titre lien-titre" id="titre">
+                    Liste des dépêches               
+                </div> 
+
+                <div class="content container" id="content">       
+                  
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Numero</th>
+                                <th>Type des envois</th>
+                                <th>Bureau destinataire</th>
+                                <th>Date</th>
+                                <th>Etat</th>
+                                <th>
+                                   <span>
+                                    <a id="myBtn" href="#" class="btn btn-ems r-ems">
+                                        Créer
+                                    </a>
+                                   </span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for depeche in depeches %}
+                            <tr>
+                                <td>{{ depeche.numero }}</td>
+                                <td>{{ depeche.type }}</td>
+                                 <td>{{ depeche.destination.nom }}</td>
+                                 
+                                <td>{{ depeche.journee }}</td>
+                                 <td>{{ depeche.etat }}</td>
+                                <td>
+                                                                       
+                                        <div class="btn-group">
+                                          <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Actions
+                                          </button>
+                                          <div class="dropdown-menu">
+                                              
+                                            <a class="dropdown-item" href="{{ path('depeche_chargement', { 'id': depeche.id }) }}">
+                                                Chargement
+                                            </a>
+                                            <div class="dropdown-divider"></div>
+                                             <a class="dropdown-item" href="{{ path('depeche_manifeste', { 'id': depeche.id }) }}">
+                                                Manifeste
+                                            </a>
+                                            <div class="dropdown-divider"></div>
+                                              
+                                            <a class="dropdown-item" href="{{ path('depeche_transmis', { 'id': depeche.id }) }}">
+                                                Transmettre
+                                            </a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="{{ path('depeche_enfermeture', { 'id': depeche.id }) }}">
+                                                Reprendre
+                                            </a>
+                                            <div class="dropdown-divider"></div>
+                                            
+                                            <a class="dropdown-item" href="{{ path('depeche_edit', { 'id': depeche.id }) }}">
+                                                Paramètres
+                                            </a>
+                                            
+                                          </div>
+                                            
+                                        </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                      
+                </div> 
+        
+        
+                    <div id="myModal" class="modal">
+                      <!-- Modal content -->
+                      <div class="modal-content" style="width:500px">
+                        <div><span class="close">&times;</span></div>
+                        <h1 class="mt-4">Création d'une dépêche</h1>
+                        
+                         {{ form_start(form) }}
+{#                             {{ form_widget(form) }}#}
+                             
+                            <div style="padding-top: 5px">
+                              <b>Bureau destinataire</b>
+                              {{ form_widget(form.destination,{'attr':{'class':'form-control',
+                                                'style':'border:solid 1px #337ab7'}}) }}
+                              {{ form_errors(form.destination) }}
+                               </div>
+                              
+                               <div style="padding-top: 15px">
+                              <b>Type de depeche</b>
+                              {{ form_widget(form.type,{'attr':{'class':'form-control',
+                                                'style':'border:solid 1px #337ab7'}}) }}
+                              {{ form_errors(form.type) }}
+                               </div>
+                               
+                                <div style="padding-top: 15px">
+                              <b>Date d'expedition</b>
+                              {{ form_widget(form.journee,{'attr':{'class':'form-control',
+                                                'style':'border:solid 1px #337ab7'}}) }}
+                              {{ form_errors(form.journee) }}
+                               </div>
+                              
+                                <div style="padding-top: 15px">
+                              <b>Heure d'expedition</b>
+                              {{ form_widget(form.heure,{'attr':{'class':'form-control',
+                                                'style':'border:solid 1px #337ab7'}}) }}
+                              {{ form_errors(form.heure) }}
+                               </div>
+                              <div style="text-align:right;padding-top: 15px">
+                                   <input type="submit" class="btn btn-ems r-ems" value="Ajouter" />
+                              </div>
+                              
+                               {#<b>Etat de la depeche</b>
+                              <div id="{{ form.etat.vars.id }}">
+                                <table style="width: 100%">
+                                    <tbody>
+                                        <tr>
+                                            
+                                            {% for etat in form.etat.children %}
+                                                    <td>
+                                                        <div class="radio">
+                                                            <label class="required">
+                                                                <input id="{{ etat.vars.id }}" name="{{ etat.vars.full_name }}" required="required" value="{{ etat.vars.value }}" type="radio"/>
+                                                                {{ etat.vars.label }}
+                                                            </label>
+                                                        </div>
+                                                    </td>
+                                            {% endfor %}
+                                            
+                                        </tr>
+                                    </tbody>
+                                </table>
+                              </div>
+                              {% do form.etat.setRendered %}#}
+                             
+                           
+                        {{ form_end(form) }}
+  
+                      </div>
+                                        
+                    </div>
+        
+            </div>
+        </div>
+     </div>
+
+
+
+
+
+{% endblock %}

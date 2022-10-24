@@ -1,0 +1,354 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete.html.twig') }}
+    
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                <div class="titre lien-titre" id="titre">
+                    <table style="width: 100%">
+                        <tbody>
+
+                        <tr>
+                            <td width="90%">
+                                <span style="font-weight: bold">
+                                 Tarif national
+                        {% if typeclient=='nc' %}
+                            nouveaux clients
+                        {% elseif(typeclient=='ac') %}
+                            anciens clients
+                        {% elseif(typeclient=='ef') %}
+                            Edition 3 fleurs
+                        {% elseif(typeclient=='ip') %}
+                           Institut Pasteur
+                        {% endif %} 
+                            </td>
+                            <td width="10%">
+                                <div class="btn-group">
+                                          <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Actions
+                                          </button>
+                                          <div class="dropdown-menu">
+                                                                                         
+                                           
+                                         
+                                            <a class="dropdown-item" href="{{ path('bareme_national', { 'typeclient':'nc' }) }}">
+                                                            Tarifs nouveaux clients
+                                                        </a>
+                                            
+                                                <div class="dropdown-divider"></div>
+                                           
+                                                   <a class="dropdown-item" href="{{ path('bareme_national', { 'typeclient':'ac' }) }}">
+                                                            Tarifs anciens clients
+                                                        </a>
+                                       
+
+                                        <div class="dropdown-divider"></div>
+                                       
+                                            <a class="dropdown-item" href="{{ path('bareme_national', { 'typeclient':'ip' }) }}">
+                                                            Tarifs Institut pasteur
+                                                        </a>
+                                         
+
+                                       <div class="dropdown-divider"></div>
+                                        
+                                         <a class="dropdown-item" href="{{ path('bareme_national', { 'typeclient':'ef' }) }}">
+                                                            Tarifs Edition 3 fleurs
+                                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                         <a class="dropdown-item" href="{{ path('zone_index') }}" class="r-ems">
+                                            Retour aux zones
+                                        </a>
+                                   </div>      
+                            </td>
+
+                            
+                        </tr>
+                        </tbody>
+                    </table>              
+                </div> 
+
+                <div class="content container" id="content">       
+                    
+                    
+                    
+                    <div class="content-action" style="padding-top: 25px">
+                <table class="table" cellpadding="0" cellspacing="0">
+
+                <tbody>
+
+
+                <tr>
+
+                    <td colspan="2">
+                      
+
+                        <span>Sénégal</span>
+                        
+                        <span style="float: right;font-weight: bold;font-size: 12px" class="rs-e">
+                                  <a id="myBtn" href="#" class="btn  btn-ems  r-ems">Créer/Modifier</a> </span>
+                    </td>
+                </tr>
+
+                    <tr>
+                        <td>
+
+                            <table class="table table-condensed">
+                                <thead>
+                                <tr>
+
+                                    <th style="text-align: right">
+                                        Poids(kg)</th>
+                                    <th style="text-align: right">
+                                        Tarif ht</th>
+                                    <th style="text-align: right">
+                                        TVA</th>
+                                    <th style="text-align: right">
+                                        Tarif ttc
+                                    </th>
+
+
+                                </tr>
+                                </thead>
+
+
+                                <tbody>
+
+                                {% for bareme in baremes1 %}
+                                <tr>
+                                    <td style="text-align: right">
+
+
+
+                                        {{  bareme.poidsmax | replace({'.0': ' '}) }}
+                                    </td>
+
+                                    <td style="text-align: right">
+                                        {% if bareme.tarif|length > 3 %}
+
+                                            {{ bareme.tarif|striptags|slice(0, bareme.tarif|length-3)|raw }}
+                                            &nbsp
+                                            {{ bareme.tarif|striptags|slice(bareme.tarif|length-3, 3)|raw }}
+
+                                        {% else %}
+                                            {{ bareme.tarif }}
+                                        {% endif %}
+
+
+                                    </td>
+                                    <td style="text-align: right">
+                                        {% if  bareme.tva|length > 3 %}
+
+                                            {{  bareme.tva|striptags|slice(0, bareme.tva|length-3)|raw }}
+                                            &nbsp
+                                            {{  bareme.tva|striptags|slice( bareme.tva|length-3, 3)|raw }}
+
+                                        {% else %}
+                                            {{  bareme.tva }}
+                                        {% endif %}
+
+
+                                    </td>
+                                    <td style="text-align: right">
+
+                                        {% if   bareme.ttc|length > 3 %}
+
+                                            {{   bareme.ttc|striptags|slice(0,  bareme.ttc|length-3)|raw }}
+                                            &nbsp
+                                            {{   bareme.ttc|striptags|slice(  bareme.ttc|length-3, 3)|raw }}
+
+                                        {% else %}
+                                            {{   bareme.ttc }}
+                                        {% endif %}
+                                    </td>
+
+
+
+                                </tr>
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </td>
+
+                        <td>
+
+                            <table class="table table-condensed">
+                                <thead>
+                                <tr>
+
+                                    <th style="text-align: right">
+                                        Poids(kg)</th>
+                                    <th style="text-align: right">
+                                        Tarif ht</th>
+                                    <th style="text-align: right">
+                                        TVA</th>
+                                    <th style="text-align: right">
+                                        Tarif ttc
+                                    </th>
+
+                                </tr>
+                                </thead>
+
+
+                                <tbody>
+
+                                {% for bareme in baremes2 %}
+                                    <tr>
+                                        <td style="text-align: right">
+
+
+
+                                            {{  bareme.poidsmax | replace({'.0': ' '}) }}
+                                        </td>
+
+                                        <td style="text-align: right">
+                                            {% if bareme.tarif|length > 3 %}
+
+                                                {{ bareme.tarif|striptags|slice(0, bareme.tarif|length-3)|raw }}
+                                                &nbsp
+                                                {{ bareme.tarif|striptags|slice(bareme.tarif|length-3, 3)|raw }}
+
+                                            {% else %}
+                                                {{ bareme.tarif }}
+                                            {% endif %}
+
+
+                                        </td>
+                                        <td style="text-align: right">
+                                            {% if  bareme.tva|length > 3 %}
+
+                                                {{  bareme.tva|striptags|slice(0, bareme.tva|length-3)|raw }}
+                                                &nbsp
+                                                {{  bareme.tva|striptags|slice( bareme.tva|length-3, 3)|raw }}
+
+                                            {% else %}
+                                                {{  bareme.tva }}
+                                            {% endif %}
+
+
+                                        </td>
+                                        <td style="text-align: right">
+
+                                            {% if   bareme.ttc|length > 3 %}
+
+                                                {{   bareme.ttc|striptags|slice(0,  bareme.ttc|length-3)|raw }}
+                                                &nbsp
+                                                {{   bareme.ttc|striptags|slice(  bareme.ttc|length-3, 3)|raw }}
+
+                                            {% else %}
+                                                {{   bareme.ttc }}
+                                            {% endif %}
+                                        </td>
+
+
+                                    </tr>
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </td>
+
+                    </tr>
+                    <tr>
+
+                        <td colspan="2">
+
+
+                     <span style="float: right;font-weight: bold">
+
+
+                         <form action="{{ path('bareme_delete') }}" method="post">
+                             <input type="hidden"  name="n_zone"  style="border:solid 1px #337ab7;font-weight: bold" value="Interne"/>
+                             <input type="hidden"  name="client"  style="border:solid 1px #337ab7;font-weight: bold" value="Tout type"/>
+                             <input type="hidden"  name="documt"  style="border:solid 1px #337ab7;font-weight: bold" value="Tout type"/>
+                             <input type="hidden"  name="tclient"  style="border:solid 1px #337ab7;font-weight: bold" value="{{ typeclient }}"/>
+                             <button type="submit" class="btn  btn-ems  r-ems">Tout supprimer</button>
+                         </form>
+                    </span>
+                        </td>
+                    </tr>
+                </tbody>
+                </table>
+
+
+            </div>
+                    
+                    
+                    
+                </div> 
+                                
+                                
+                 <div id="myModal" class="modal">
+                      <!-- Modal content -->
+                      <div class="modal-content" style="width:500px">
+                        <div><span class="close">&times;</span></div>
+                        <h1 class="mt-4">Création/Modification - tarifs</h1>
+                              
+                        <div>
+
+                            <form action="{{ path('new_bareme_national', { 'typeclient':typeclient }) }}" method="post">
+                                <table style="width: 100%">
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="form-group">
+                                                <label>Tarif premiere tranche</label>
+                                                <input type="text"  name="min_montant" class="form-control" style="border:solid 1px #337ab7;font-weight: bold" value="{{ min_montant }}"/>
+                                            </div>
+
+                                        </td>
+                                        <td>
+
+                                            <div class="form-group">
+                                                <label>Difference tarifaire</label>
+                                                <input type="text"  name="tranche_montant" class="form-control" style="border:solid 1px #337ab7;font-weight: bold" value="{{ tranche_montant }}"/>
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="form-group">
+                                                <label>Max poids derniere tranche</label>
+                                                <input type="text" name="max_poids"  class="form-control" style="border:solid 1px #337ab7;font-weight: bold" value="{{ max_poids | replace({'.0': ' '}) }}"/>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label>Difference de poids</label>
+                                                <input type="text"  name="tranche_poids" class="form-control" style="border:solid 1px #337ab7;font-weight: bold" value="{{ tranche_poids }}"/>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                                <div>
+                                             <span style="float: right">
+                                            <input type="submit" value="Valider" class="btn  btn-ems " />
+                                            <a href="{{ path('bareme_national') }}" class="btn btn-ems">Quitter</a> </span>
+                                </div>
+                            </form>
+                        </div>
+                        
+                      </div>
+                                        
+                    </div> 
+                                
+            </div>
+        </div>
+     </div>
+
+
+
+
+
+{% endblock %}

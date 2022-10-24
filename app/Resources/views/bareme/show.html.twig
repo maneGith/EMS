@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Bareme</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ bareme.id }}</td>
+            </tr>
+            <tr>
+                <th>Poidsmin</th>
+                <td>{{ bareme.poidsmin }}</td>
+            </tr>
+            <tr>
+                <th>Poidsmax</th>
+                <td>{{ bareme.poidsmax }}</td>
+            </tr>
+            <tr>
+                <th>Tarif</th>
+                <td>{{ bareme.tarif }}</td>
+            </tr>
+            <tr>
+                <th>Document</th>
+                <td>{{ bareme.document }}</td>
+            </tr>
+            <tr>
+                <th>Client</th>
+                <td>{{ bareme.client }}</td>
+            </tr>
+            <tr>
+                <th>Domaine</th>
+                <td>{{ bareme.domaine.name }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('bareme_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('bareme_edit', { 'id': bareme.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

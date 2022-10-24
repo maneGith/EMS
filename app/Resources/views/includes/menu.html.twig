@@ -1,0 +1,92 @@
+<!-- Sidebar -->
+{% if(is_granted('ROLE_AGENTGUICHET')) %}
+    <div class="bg-light border-right" id="sidebar-wrapper">
+        <div class="list-group list-group-flush">
+          <a href="{{ path('vacation_index') }}" class="list-group-item list-group-item-action bg-light lien-menu">Mes vacations</a>
+          <a href="{{ path('agent_determiner_taxe', { 'depot': 'ren'}) }}" class="list-group-item list-group-item-action bg-light lien-menu">Régulier national</a>
+          <a href="{{ path('agent_determiner_taxe', { 'depot': 'rei'}) }}" class="list-group-item list-group-item-action bg-light lien-menu">Régulier international</a>
+          <a href="{{ path('agent_determiner_taxe', { 'depot': 'oen'}) }}" class="list-group-item list-group-item-action bg-light lien-menu">Occasionnel national</a>
+          <a href="{{ path('agent_determiner_taxe', { 'depot': 'oei'}) }}" class="list-group-item list-group-item-action bg-light lien-menu">Occasionnel international</a>
+          <a href="{{ path('cherche_route') }}" class="list-group-item list-group-item-action bg-light lien-menu">Rechercher un dépôt</a>
+          <a href="{{ path('track_trace') }}" class="list-group-item list-group-item-action bg-light lien-menu">Track and trace</a>
+          <a href="{{ path('vacation_historique') }}" class="list-group-item list-group-item-action bg-light lien-menu">Historique des dépôts</a>
+        </div>
+    </div> 
+{% elseif(is_granted('ROLE_CONTROLE')) %}
+    <div class="bg-light border-right" id="sidebar-wrapper">
+        <div class="list-group list-group-flush">
+          <a href="{{ path('depots_journaliers', { 'agence':'ems' }) }}" class="list-group-item list-group-item-action bg-light lien-menu">Situation journalière</a>
+          <a href="{{ path('depots_mois', { 'agence':'ems' }) }}" class="list-group-item list-group-item-action bg-light lien-menu">Situation mensuelle</a>
+{#          <a href="#" class="list-group-item list-group-item-action bg-light lien-menu">Situation annuelle</a>#}
+          <a href="{{ path('agences_vacations', { 'agence':'ems' }) }}" class="list-group-item list-group-item-action bg-light lien-menu">Bordereaux des dépôts</a>
+          <a href="{{ path('abonne_index') }}" class="list-group-item list-group-item-action bg-light lien-menu">Clients abonnés</a>
+          <a href="{{ path('recap_depots') }}" class="list-group-item list-group-item-action bg-light lien-menu">Récapitulation des dépôts</a>
+          <a href="{{ path('cherche_route') }}" class="list-group-item list-group-item-action bg-light lien-menu">Rechercher un dépôt</a>
+          <a href="{{ path('track_trace') }}" class="list-group-item list-group-item-action bg-light lien-menu">Track and trace</a>
+          <a href="{{ path('depots_historique') }}" class="list-group-item list-group-item-action bg-light lien-menu">Historiques</a>
+        </div>
+    </div> 
+    
+{% elseif(is_granted('ROLE_RECOUVREMENT')) %}
+          
+    <div class="bg-light border-right" id="sidebar-wrapper">
+        <div class="list-group list-group-flush">
+          <a href="{{ path('abonne_index') }}" class="list-group-item list-group-item-action bg-light lien-menu">Clients abonnés</a>
+          <a href="{{ path('recouvrement') }}" class="list-group-item list-group-item-action bg-light lien-menu">Les factures</a>
+          <a href="{{ path('autorites_new') }}" class="list-group-item list-group-item-action bg-light lien-menu">Les signatures</a>
+          <a href="{{ path('cherche_route') }}" class="list-group-item list-group-item-action bg-light lien-menu">Rechercher un dépôt</a>
+          <a href="{{ path('track_trace') }}" class="list-group-item list-group-item-action bg-light lien-menu">Track and trace</a>
+          <a href="{{ path('recouvr_index_historique') }}" class="list-group-item list-group-item-action bg-light lien-menu">Historique des factures</a>
+        </div>
+    </div>
+{% elseif(is_granted('ROLE_DEXEMS')) %}
+    <div class="bg-light border-right" id="sidebar-wrapper">
+        <div class="list-group list-group-flush">
+              <a href="{{ path('depots_journaliers', { 'agence':'ems' }) }}" class="list-group-item list-group-item-action bg-light lien-menu">Situation journalière</a>
+              <a href="{{ path('depots_mois', { 'agence':'ems' }) }}" class="list-group-item list-group-item-action bg-light lien-menu">Situation mensuelle</a>
+{#              <a href="#" class="list-group-item list-group-item-action bg-light lien-menu">Situation annuelle</a>#}
+              <a href="{{ path('agences_vacations', { 'agence':'ems' }) }}" class="list-group-item list-group-item-action bg-light lien-menu">Bordereaux des dépôts</a>
+              <a href="{{ path('abonne_index') }}" class="list-group-item list-group-item-action bg-light lien-menu">Clients abonnés</a>
+              <a href="{{ path('recap_depots') }}" class="list-group-item list-group-item-action bg-light lien-menu">Récapitulation des dépôts</a>
+              <a href="{{ path('cherche_route') }}" class="list-group-item list-group-item-action bg-light lien-menu">Rechercher un dépôt</a>
+              <a href="{{ path('recouvrement') }}" class="list-group-item list-group-item-action bg-light lien-menu">Les factures</a>
+              <a href="{{ path('track_trace') }}" class="list-group-item list-group-item-action bg-light lien-menu">Track and trace</a>
+              <a href="{{ path('depots_historique') }}" class="list-group-item list-group-item-action bg-light lien-menu">Historiques</a>
+         </div>
+    </div>
+{% elseif(is_granted('ROLE_ADMIN')) %}
+    <div class="bg-light border-right" id="sidebar-wrapper">
+        <div class="list-group list-group-flush">
+              <a href="{{ path('agence_index') }}" class="list-group-item list-group-item-action bg-light lien-menu">Les  emplacements</a>
+              <a href="{{ path('user_index') }}" class="list-group-item list-group-item-action bg-light lien-menu">Les utilisateurs</a>
+              <a href="{{ path('zone_index') }}" class="list-group-item list-group-item-action bg-light lien-menu">Les  tarifs</a>
+              <a href="{{ path('cherche_route') }}" class="list-group-item list-group-item-action bg-light lien-menu">Rechercher un dépôt</a>
+              <a href="{{ path('track_trace') }}" class="list-group-item list-group-item-action bg-light lien-menu">Track and trace</a>
+
+         </div>
+    </div>
+{% elseif(is_granted('ROLE_DGEMS') or is_granted('ROLE_DAFEMS')) %}
+     <div class="bg-light border-right" id="sidebar-wrapper">
+        <div class="list-group list-group-flush">
+              <a href="{{ path('depots_journaliers', { 'agence':'ems' }) }}" class="list-group-item list-group-item-action bg-light lien-menu">Situation journalière</a>
+              <a href="{{ path('depots_mois', { 'agence':'ems' }) }}" class="list-group-item list-group-item-action bg-light lien-menu">Situation mensuelle</a>
+{#              <a href="#" class="list-group-item list-group-item-action bg-light lien-menu">Situation annuelle</a>#}
+              <a href="{{ path('agences_vacations', { 'agence':'ems' }) }}" class="list-group-item list-group-item-action bg-light lien-menu">Bordereaux des dépôts</a>
+              <a href="{{ path('abonne_index') }}" class="list-group-item list-group-item-action bg-light lien-menu">Clients abonnés</a>
+              <a href="{{ path('recap_depots') }}" class="list-group-item list-group-item-action bg-light lien-menu">Récapitulation des dépôts</a>
+              <a href="{{ path('recouvrement') }}" class="list-group-item list-group-item-action bg-light lien-menu">Les factures</a>
+              <a href="{{ path('depots_historique') }}" class="list-group-item list-group-item-action bg-light lien-menu">Historiques</a>
+         </div>
+    </div>
+   {% elseif(is_granted('ROLE_AGENTCABINE')) %}
+     <div class="bg-light border-right" id="sidebar-wrapper">
+        <div class="list-group list-group-flush">
+              <a href="{{ path('depeche_index')  }}" class="list-group-item list-group-item-action bg-light lien-menu">Sacs transmis</a>
+              <a href="#" class="list-group-item list-group-item-action bg-light lien-menu">Sacs reçus</a>
+              <a href="{{ path('depeche_historique')  }}" class="list-group-item list-group-item-action bg-light lien-menu">Historiques</a>
+        </div>
+    </div>
+{% else %}
+    
+{% endif %}
+                

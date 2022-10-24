@@ -1,0 +1,23 @@
+<ul>
+    <li><a href="{{ path('depots_journaliers', { 'agence':'ems' }) }}">Dépot journalier</a>
+    </li>
+    <li><a href="{{ path('depots_mois', { 'agence':'ems' }) }}">Dépot &nbsp;mensuel</a>
+    </li>
+    <li><a href="#">Dépot &nbsp;&nbsp;&nbsp;&nbsp;annuel</a>
+    </li>
+    <li><a href="{{ path('agences_vacations', { 'agence':'ems' }) }}" >Vacations</a>
+    </li>
+    <li><a href="{{ path('abonne_index') }}">Abonnés</a>
+    </li>
+    <li><a href="{{ path('recap_depots') }}">Récap dépots</a>
+    </li>
+    <li>
+        <a href="{{ path('cherche_route') }}">
+            <div style="position: relative">
+                <span style="font-weight: bold">
+                   Rechercher envoi
+                </span>
+            </div>
+        </a>
+    </li>
+</ul>

@@ -1,0 +1,273 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete.html.twig') }}
+    
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                <div class="titre lien-titre" id="titre">
+                    Chargement d'une depeche              
+                </div> 
+
+                <div class="content container" id="content">  
+                    
+                    <div class="table-responsive">
+                        <table style="width: 100%">
+                        <tbody>
+                            <tr>
+{#  Hall                               #}
+                                <td width="50%" style="padding: 0px"> 
+                                    
+                                    <table style="width: 100%" border="1">
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="3">
+                                                   Cabine de chargement
+                                                </td>
+                                                <td colspan="2">
+                                                   <a href="#" id="placerSac" class="btn btn-ems r-ems">Placer dans le sac</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="5">
+                                                  Bureau expediteur {{depeche.agence.nom}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                
+                                
+                                                <td  width="22%">
+                                                    N DE L'ENVOI&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                </td>
+                                                
+                                                  <td  width="20%">
+                                                    BENEFICIAIRE
+                                                </td>
+
+                                                <td  width="25%">
+                                                    DESTINATION 
+                                                </td>
+
+                                                <td  width="15%">
+                                                    POIDS
+                                                </td>
+                                                <td  width="12%">
+                                                    DATE
+                                                </td>
+
+                                              
+                                                <td width="6%">
+                                                    <input type="checkbox" id="tchecker" class="checkClass">
+                                                    <input type="checkbox" id="tdchecker" class="checkClass" style="display:none;"><br>&nbsp;
+                                                </td>
+                                            </tr>
+                                            
+                                            
+                                            
+                                         </tbody>
+                                    </table>
+                                </td>
+                                
+                                <td width="50%" style="padding: 0px">
+                                    <table style="width: 100%" border="1">
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="3">
+                                                   Depeche n  {{depeche.numero}}
+                                                </td>
+                                
+                                                <td  colspan="4">
+                                                     Date d'expedition {{depeche.journee}}
+                                                 
+                                                </td>
+
+                                                
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td colspan="7">
+                                                    Bureau destinataire : {{depeche.destination.nom}}
+                                                    <span style="float: right">
+                                                    <a href="{{ path('depeche_manifeste', { 'id': depeche.id }) }}" class="btn btn-ems r-ems">Manifeste</a> 
+                                               
+                                                    </span>
+                                                </td>
+                                              </tr>
+                                              
+                                              <tr>
+                                                <td width="6%">
+                                                     No
+                                                </td>
+                                
+                                                <td  width="20%">
+                                                    N DE L'ENVOI
+                                                </td>
+                                                
+                                                
+                                                <td  width="20%">
+                                                    BENEFICIAIRE
+                                                </td>
+
+                                                <td  width="25%">
+                                                    DESTINATION
+                                                </td>
+
+                                                <td  width="13%">
+                                                    POIDS
+                                                </td>
+                                                
+                                                <td  width="10%">
+                                                    DATE
+                                                </td>
+
+                                                <td width="6%" style="border-right: 0px">
+                                                      
+                                                </td>
+                                            </tr>
+                                         </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            
+                            
+                         </tbody>
+                    </table>
+                    </div>
+                   
+                    <div class="table-responsive">  
+                        
+{#                        {{dump(envois)}}#}
+                    <table style="width: 100%">
+                        <tbody>
+                            <tr>
+{#  Hall                               #}
+                                <td width="50%" style="padding: 0px"> 
+                                    
+                                      <div style="height: 4000px;overflow-y: hidden">  
+                                          <form action="{{ path('placer_depeche', { 'id': depeche.id }) }}" method="post" id="formPlace">
+                                    <table style="width: 100%" border="1">
+                                        <tbody>
+                                            
+                                            
+                                            {% for envoi in envois %}
+                                              <tr>
+                                                    
+
+                                                    <td  width="22%">
+                                                       {{envoi.codeenvoi}}
+                                                    </td>
+
+                                                     <td  width="22%">
+                                                     {#  {{envoi.type}}#}
+                                                       {{envoi.destinataire.usager.nom}}
+                                                    </td>
+                                                    
+                                                    <td  width="25%">
+{#                                                       {{envoi.destinataire.usager.pays.name}}#}
+                                                        
+                                                         {% if envoi.destinataire.usager.pays.name=='Sénégal' %}
+                                                               {{ envoi.destinataire.usager.ville }}
+                                                         {% else %}
+                                                              {{envoi.destinataire.usager.pays.name}}
+                                                         {% endif %}
+                                                        
+                                                    </td>
+
+                                                    <td  width="15%">
+                                                        {{envoi.poids}}
+                                                    </td>
+
+                                                 
+                                                <td  width="12%">
+                                                     {{envoi.date}}
+                                                </td>
+
+                                                    
+                                                    <td width="6%" style="border-right: 0px">
+                                                        <input type="checkbox" name="depeche" class="checkClass checkData" value="{{envoi.id}}">
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            
+                                         </tbody>
+                                    </table>
+                                             </form>
+                                             </div>
+                                </td>
+                                
+                                <td width="50%" style="padding: 0px">
+                                      <div style="height: 4000px;overflow-y: hidden">  
+                                    <table style="width: 100%" border="1">
+                                        <tbody>
+                                            
+                                            {% for contenu in contenudepeche %}
+                                              <tr>
+                                                    
+                                                <td width="6%">
+                                                    {{loop.index}}
+                                                </td>
+                                                    <td  width="20%">
+                                                       {{contenu.envoi.codeenvoi}}
+                                                    </td>
+                                                    
+                                                     <td  width="20%">
+                                                      {# {{contenu.envoi.type}}#}
+                                                      
+                                                        {{contenu.envoi.destinataire.usager.nom}}
+                                                    </td>
+
+                                                    <td  width="25%">
+{#                                                        {{contenu.envoi.destinataire.usager.pays.name}}#}
+                                                         {% if contenu.envoi.destinataire.usager.pays.name=='Sénégal' %}
+                                                               {{contenu.envoi.destinataire.usager.ville }}
+                                                         {% else %}
+                                                              {{contenu.envoi.destinataire.usager.pays.name}}
+                                                         {% endif %}
+                                                    </td>
+
+                                                    <td  width="13%">
+                                                        {{contenu.envoi.poids}}
+                                                    </td>
+
+                                                    <td  width="10%">
+                                                     {{contenu.envoi.date}}
+                                                </td>
+                                                    
+                                                    <td width="6%" style="border-right: 0px">
+                                                        <a href="{{ path('depechecontient_delete',{ 'id': contenu.id }) }}">
+                                                            <img  src="{{ asset('img/sup-icone.jpeg') }}" width="20px" heigth="10px"/>
+                                                        </a>
+{#                                                        <input type="checkbox" name="depeche" class="checkClass checkData" value="{{envoi.id}}">#}
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            
+                                         </tbody>
+                                    </table>
+                                           </div>
+                                </td>
+                            </tr>
+                            
+                            
+                         </tbody>
+                    </table>
+                    </div> 
+                    
+                    
+                </div> 
+            </div>
+        </div>
+     </div>
+
+
+
+
+
+{% endblock %}

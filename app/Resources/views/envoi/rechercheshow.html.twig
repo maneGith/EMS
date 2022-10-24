@@ -1,0 +1,119 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/header.html.twig') }}
+
+<div id="container" style="border: solid 1px #d2d2d2;overflow-x: hidden;overflow-y:hidden"
+     xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
+     xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+    <div class="row">
+
+
+        <div class="column column-left menu">
+            <div class="menu-action">
+                {% if(is_granted('ROLE_AGENTGUICHET')) %}
+                    <div class="menu-action">
+                        {{ include('includes/agent.html.twig') }}
+                    </div>
+                {% elseif(is_granted('ROLE_DEXEMS')) %}
+                    <div class="menu-action">
+                        {{ include('includes/dex.html.twig') }}
+                    </div>
+                {% elseif(is_granted('ROLE_CONTROLE')) %}
+                    <div class="menu-action">
+                        {{ include('includes/controle.html.twig') }}
+                    </div>
+                {% elseif(is_granted('ROLE_DGEMS')) %}
+                    <div class="menu-action">
+                        {{ include('includes/dg.html.twig') }}
+                    </div>
+                {% elseif(is_granted('ROLE_RECOUVREMENT')) %}
+                    <div class="menu-action">
+                        {{ include('includes/recouvrement.html.twig') }}
+                    </div>
+                {% else %}
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="column column-middle" style="background: #8E998F">
+            <div id="wrapper">
+
+
+                    <div class="titre-action" style="z-index: 100">
+                             <div style="border-top: solid 2px #337ab7;"></div>
+                             <span style="font-weight: bold">Reçu d'expédition P3P4</span>
+                             <span style="float: right">
+
+                                   {% if(is_granted('ROLE_AGENTGUICHET')) %}
+                                             {% if(si_agent=="oui") %}
+                                                   <span style="margin-right: 100px;font-weight: bold;">
+
+                                                        {% if(abonne!=0) %}
+
+                                                            <a  href="{{ path('abonneenvoi_delete', { 'id': abonne }) }}" style="color: red">Supprimer</a>
+
+                                                        {% else %}
+                                                            <a  href="{{ path('envoi_delete', { 'id': envoi.id }) }}" style="color: red">Supprimer</a>
+                                                        {% endif %}
+
+                                                   </span>
+
+                                                   <span style="margin-right: 2px;font-weight: bold">
+                                                        <a  href="{{ path('envoi_edit', { 'id': envoi.id }) }}">Modifier</a>
+                                                   </span>
+                                             {% endif %}
+
+                                   {% endif %}
+
+                                <span style="margin-right: 2px;font-weight: bold">
+                                     <a href="#Impr" onclick="printContent('p3p4')">Imprimer</a>
+                                </span>
+                                 <span style="font-weight: bold">
+                                      {% if(is_granted('ROLE_AGENTGUICHET')) %}
+                                          <a href="{{ path('vacation_index') }}">Quitter</a>
+                                      {% else %}
+                                          <a href="{{ path('homepage') }}">Quitter</a>
+                                      {% endif %}
+
+
+
+
+                                 </span>
+                             </span>
+                    </div>
+
+
+                <div class="content-action">
+
+                    <div id="p3p4">
+
+                        <div id="p3p41">
+                            {{ include('envoi/p3p4.html.twig') }}
+                        </div>
+
+                        <div style="height: 5px;position: relative">
+
+                            <div style="position: absolute;left: 0px;top: -9px;">
+                                ----------------------------------------------------------------------------------------------------------------------------------------
+
+
+                            </div>
+                        </div>
+
+                        <div id="p3p42">
+                            {{ include('envoi/p3p4.html.twig') }}
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+{% endblock %}

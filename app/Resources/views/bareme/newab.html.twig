@@ -1,0 +1,188 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+     {{ include('includes/header.html.twig') }}
+
+<div id="container" style="border: solid 1px #d2d2d2;overflow-x: hidden;">
+    <div class="row">
+
+        <div class="column column-left menu">
+            {{ include('includes/admin.html.twig') }}
+        </div>
+
+        <div class="column column-middle" style="background: #8E998F">
+             <div style="background: #fff">
+                <div>
+                    <span style="color:#337ab7;font-weight: bold">Création d'un tarif international</span>
+                        <span style="float: right;font-size: 12px;font-weight: bold">
+                            <a href="{{ path('bareme_national') }}">
+                                Fermer
+                            </a>
+                        </span>
+                </div>
+
+                 <div style="max-width: 500px;">
+                {{ form_start(form) }}
+
+
+
+
+                     <div class="form-group">
+                         <label>
+                            Poids
+                         </label>
+                         {{ form_widget(form.poidsmax,{'attr':{'class':'form-control',
+                             'style':'font-weight: bold;border:solid 1px #337ab7'}}) }}
+                         {{ form_errors(form.poidsmax) }}
+                     </div>
+
+                     <div class="form-group">
+                         {{ form_label(form.tarif)}}
+                         {{ form_widget(form.tarif,{'attr':{'class':'form-control',
+                             'style':'font-weight: bold;border:solid 1px #337ab7'}}) }}
+                         {{ form_errors(form.tarif) }}
+                     </div>
+
+
+
+                     <div style="height: 30px"> <input type="submit" value="Ajouter" class="btn  btn-ems  r-ems" /></div>
+                {{ form_end(form) }}
+
+                 </div>
+
+
+             </div>
+
+            <div style="background: #fff;margin-top: 8px">
+                <table class="table" cellpadding="0" cellspacing="0" border="1">
+
+                    <tbody>
+
+                    <tr>
+
+                        <td colspan="2" > <span style="color: #777;font-weight: bold">Tarif des envois nationaux </span>
+
+                        </td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="2">
+                            Zone 0
+                            <span style="float: right">SENEGAL</span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+
+                            <table class="table table-condensed">
+                                <thead>
+                                <tr>
+
+                                    <th>
+                                        Poids(kg)</th>
+                                    <th>
+                                        Tarif ht</th>
+                                    <th>
+                                        TVA</th>
+                                    <th>
+                                        Tarif ttc</th>
+                                    <th></th>
+
+                                </tr>
+                                </thead>
+
+
+                                <tbody>
+
+                                {% for bareme in baremes1 %}
+                                    <tr>
+                                        <td>
+
+                                                {{ bareme.poidsmax }}
+                                        </td>
+
+                                        <td>
+
+                                                {{ bareme.tarif }}
+                                        </td>
+                                        <td> {{ bareme.tva }} </td>
+                                        <td> {{ bareme.ttc }} </td>
+                                        <td>
+                                            <a  href="{{ path('bareme_edit', { 'id': bareme.id }) }}" style="float: right;font-weight: bold">
+                                                <i class="glyphicon glyphicon-arrow-down" style="color:#1b6d85"></i>
+                                            </a>
+
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </td>
+
+                        <td>
+
+                            <table class="table table-condensed">
+                                <thead>
+                                <tr>
+
+                                    <th>Poids(kg)</th>
+                                    <th>Tarif ht</th>
+                                    <th>TVA</th>
+                                    <th>Tarif ttc</th>
+                                    <th></th>
+
+                                </tr>
+                                </thead>
+
+
+                                <tbody>
+
+                                {% for bareme in baremes2 %}
+                                    <tr>
+                                        <td>
+                                            
+                                                {{ bareme.poidsmax }}
+                                        </td>
+                                        <td>
+
+                                                {{ bareme.tarif }}
+                                        </td>
+                                        <td> {{ bareme.tva }} </td>
+                                        <td> {{ bareme.ttc }} </td>
+                                        <td>
+                                            <a  href="{{ path('bareme_edit', { 'id': bareme.id }) }}" style="float: right;font-weight: bold">
+                                                <i class="glyphicon glyphicon-arrow-down" style="color:#1b6d85"></i>
+                                            </a>
+
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </td>
+
+                    </tr>
+
+                    </tbody>
+                </table>
+
+
+            </div>
+
+
+
+        </div>
+
+
+
+
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

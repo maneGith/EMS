@@ -1,0 +1,161 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+{{ include('includes/header.html.twig') }}
+<div id="container" style="border: solid 1px #d2d2d2;overflow-x: hidden;overflow-y:hidden ">
+    <div class="row">
+
+        <div  class="column column-left menu">
+            <div class="menu-action">
+                {{ include('includes/agent.html.twig') }}
+            </div>
+        </div>
+
+        <div class="column column-middle"  style="background: #8E998F">
+            <div id="wrapper">
+                <div class="titre-action">
+                    <div style="border-top: solid 2px #337ab7;"></div>
+                    <span style="font-weight: bold">Création d'une vacation</span>
+                </div>
+
+                <div class="content-action">
+
+
+                    {{ form_start(form) }}
+                        <table style="width: 100%" class="table table-bordered">
+                            <tbody>
+                            <tr>
+                                <td style="width: 50%">
+                                    <div>
+                                        <span>Journée du :</span>
+                                        <div class="form-group">
+                                            <input type="text"  id="datepicker" name="datepicker" class="form-control" placeholder="Date depot"  style="width: 240px" autocomplete="off"/>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td style="width: 50%">
+                                    <div>
+                                        <span>Numéro vacation</span>
+                                        <div class="form-group">
+                                            <input type="hidden"  name="numvacation"  value="{{ numvacation }}"/>
+                                            <span style="font-weight: bold">{{ numvacation }}</span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 50%">
+                                    Début vacation
+                                </td>
+                                <td style="width: 50%">
+                                    <table style="width: 100%">
+                                        <tbody>
+                                        <tr>
+                                            <td style="width: 50%">
+                                                <div>
+                                                    <span>Heure</span>
+                                                    <div class="form-group">
+                                                        <select class="form-control" name="debutheure">
+                                                            <option value="00" selected>00</option>
+                                                            {% for i in 1..23 %}
+
+                                                                {% if(i<10) %}
+                                                                    <option value="0{{ i }}">0{{ i }}</option>
+                                                                {% else %}
+                                                                    <option value="{{ i }}">{{ i }}</option>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td style="width: 50%">
+                                                <div>
+                                                    <span>Minute</span>
+                                                    <div class="form-group">
+                                                        <select class="form-control" name="debutminute">
+                                                            <option value="00" selected>00</option>
+                                                            {% for i in 1..59 %}
+                                                                {% if(i<10) %}
+                                                                    <option value="0{{ i }}">0{{ i }}</option>
+                                                                {% else %}
+                                                                    <option value="{{ i }}">{{ i }}</option>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 50%">
+                                    Fin vacation
+                                </td>
+                                <td style="width: 50%">
+                                    <table style="width: 100%">
+                                        <tbody>
+                                        <tr>
+                                            <td style="width: 50%">
+                                                <div>
+                                                    <span>Heure</span>
+                                                    <div class="form-group">
+                                                        <select class="form-control" name="finheure">
+                                                            <option value="00" selected>00</option>
+                                                            {% for i in 1..23 %}
+
+                                                                {% if(i<10) %}
+                                                                    <option value="0{{ i }}">0{{ i }}</option>
+                                                                {% else %}
+                                                                    <option value="{{ i }}">{{ i }}</option>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td style="width: 50%">
+                                                <div>
+                                                    <span>Minute</span>
+                                                    <div class="form-group">
+                                                        <select class="form-control" name="finminute">
+                                                            <option value="00" selected>00</option>
+                                                            {% for i in 1..59 %}
+                                                                {% if(i<10) %}
+                                                                    <option value="0{{ i }}">0{{ i }}</option>
+                                                                {% else %}
+                                                                    <option value="{{ i }}">{{ i }}</option>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <div style="height: 30px;margin-top: 2px;text-align: center">
+                                        <input type="submit" value="Valider" class="btn  btn-ems" />
+                                        <a href="{{ path('homepage') }}" class="btn btn-ems">Annuler</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    {{ form_end(form) }}
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

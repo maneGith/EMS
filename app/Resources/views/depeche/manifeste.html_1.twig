@@ -1,0 +1,348 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete.html.twig') }}
+    
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                <div class="titre lien-titre" id="titre">
+                    Chargement d'une depeche              
+                </div> 
+
+                <div class="content container" id="content">       
+                   
+                    <div  id="p3p4">  
+                    <table style="width: 100%" border="2">
+                        <tbody>
+                          
+                            
+                             
+                            
+                            <tr>
+                                
+{#                           Premiere division#   et }  {#                           Deuxieme division#}
+                                <td colspan="3" border="0">
+                                   <img src="{{ asset('img/logo-ems.jpg') }}" width="100%" height="70px">
+                                </td>
+                                
+                                <td colspan="7">
+                                  MANIFESTE
+                                </td>
+                           
+                            </tr>
+                            
+                            <tr>
+                                
+{#                           Premiere division#}
+                                <td colspan="5">
+                                   BUREAU EXPEDITEUR
+                                </td>
+                                
+                               
+                                
+{#                           Deuxieme division#}
+                                <td colspan="3">
+                                    DATE D'EXPEDITION
+                                </td>
+                                
+                                
+                                
+                                <td  colspan="2" rowspan="2">
+                                   DEPECHE N 
+                                </td>
+                                
+                                
+                                
+                            </tr>
+                            
+                            <tr>
+                                
+{#                           Premiere division#}
+                                <td colspan="5">
+                                   BUREAU DESTINATAIRE
+                                </td>
+                                
+                               
+                                
+{#                           Deuxieme division#}
+                                <td colspan="3">
+                                    HEURE
+                                </td>
+                                
+                                
+                               {# 
+                                <td  width="10%">
+                                    POIDS
+                                </td>
+                                
+                                <td  width="11%">
+                                    OBSERVATIONS
+                                </td>#}
+                                
+                            </tr>
+                            
+                          
+                                
+                                
+
+                            
+                            
+                            
+                            
+                            <tr>
+                                
+{#                           Premiere division#}
+                                <td width="3%">
+                                    N Ordre
+                                </td>
+                                
+                                <td  width="11%">
+                                    N DE L'ENVOI
+                                </td>
+                                
+                                <td  width="15%">
+                                    DESTINATION
+                                </td>
+                                
+                                <td  width="10%">
+                                    POIDS
+                                </td>
+                                
+                                <td  width="11%">
+                                    OBSERVATIONS
+                                </td>
+                                
+{#                           Deuxieme division#}
+                                <td width="3%">
+                                    N Ordre
+                                </td>
+                                
+                                <td  width="11%">
+                                    N DE L'ENVOI
+                                </td>
+                                
+                                <td  width="15%">
+                                    DESTINATION
+                                </td>
+                                
+                                <td  width="10%">
+                                    POIDS
+                                </td>
+                                
+                                <td  width="11%">
+                                    OBSERVATIONS
+                                </td>
+                                
+                            </tr>
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            {#                  Enregistrements              #}
+                                
+                                
+{#                           Premiere division#}
+                            <tr>
+                                <td width="3%">
+                                    1
+                                </td>
+                                
+                                <td  width="11%">
+                                   
+                                </td>
+                                
+                                <td  width="15%">
+                                   
+                                </td>
+                                
+                                <td  width="10%">
+                                   
+                                </td>
+                                
+                                <td  width="11%">
+                                  
+                                </td>
+                                
+{#                           Deuxieme division#}
+                                <td width="3%">
+                                   31
+                                </td>
+                                
+                                <td  width="11%">
+                                   
+                                </td>
+                                
+                                <td  width="15%">
+                                   
+                                </td>
+                                
+                                <td  width="10%">
+                                  
+                                </td>
+                                
+                                <td  width="11%">
+                                   
+                                </td>
+                                
+                            </tr>
+                            
+                            {#                           Premiere division#}
+                            <tr>
+                                <td width="3%">
+                                    2
+                                </td>
+                                
+                                <td  width="11%">
+                                   
+                                </td>
+                                
+                                <td  width="15%">
+                                   
+                                </td>
+                                
+                                <td  width="10%">
+                                   
+                                </td>
+                                
+                                <td  width="11%">
+                                  
+                                </td>
+                                
+{#                           Deuxieme division#}
+                                <td width="3%">
+                                   32
+                                </td>
+                                
+                                <td  width="11%">
+                                   
+                                </td>
+                                
+                                <td  width="15%">
+                                   
+                                </td>
+                                
+                                <td  width="10%">
+                                  
+                                </td>
+                                
+                                <td  width="11%">
+                                   
+                                </td>
+                                
+                            </tr>
+                            
+                            {#                           Premiere division#}
+                            <tr>
+                                <td width="3%">
+                                    3
+                                </td>
+                                
+                                <td  width="11%">
+                                   
+                                </td>
+                                
+                                <td  width="15%">
+                                   
+                                </td>
+                                
+                                <td  width="10%">
+                                   
+                                </td>
+                                
+                                <td  width="11%">
+                                  
+                                </td>
+                                
+{#                           Deuxieme division#}
+                                <td width="3%">
+                                   33
+                                </td>
+                                
+                                <td  width="11%">
+                                   
+                                </td>
+                                
+                                <td  width="15%">
+                                   
+                                </td>
+                                
+                                <td  width="10%">
+                                  
+                                </td>
+                                
+                                <td  width="11%">
+                                   
+                                </td>
+                                
+                            </tr>
+                            
+                            
+                            {#                           Premiere division#}
+                            <tr>
+                                <td width="3%">
+                                    4
+                                </td>
+                                
+                                <td  width="11%">
+                                   
+                                </td>
+                                
+                                <td  width="15%">
+                                   
+                                </td>
+                                
+                                <td  width="10%">
+                                   
+                                </td>
+                                
+                                <td  width="11%">
+                                  
+                                </td>
+                                
+{#                           Deuxieme division#}
+                                <td width="3%">
+                                   34
+                                </td>
+                                
+                                <td  width="11%">
+                                   
+                                </td>
+                                
+                                <td  width="15%">
+                                   
+                                </td>
+                                
+                                <td  width="10%">
+                                  
+                                </td>
+                                
+                                <td  width="11%">
+                                   
+                                </td>
+                                
+                            </tr>
+                         </tbody>
+                    </table>
+                    </div> 
+                    
+                    
+                </div> 
+            </div>
+        </div>
+     </div>
+
+
+
+
+
+{% endblock %}

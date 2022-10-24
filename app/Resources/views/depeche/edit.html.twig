@@ -1,0 +1,130 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete.html.twig') }}
+    
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                <div class="titre lien-titre" id="titre">
+                    Paramètres généraux d'une depeche           
+                </div> 
+
+                <div class="content" id="content">  
+                    
+                  
+                    <table class="table table-condensed">
+                                    <tbody>
+                                          {{ form_start(edit_form) }}
+                                        <tr>
+                                        <th>Bureau destinataire</th>
+                                        <td>{{ depeche.destination.nom }}      <span class="rs-e">Modifier</span>
+                                            <div class="De-e">
+                                                <div class="form-group" style="max-width: 400px">
+                                                    {{ form_widget(edit_form.destination,{'attr':{'class':'form-control',
+                                                        'style':'border:solid 1px #337ab7','placeholder':' N° Téléphone'}}) }}
+                                                    {{ form_errors(edit_form.destination) }}
+                                                </div>
+                                                <span>
+                                                    <input type="submit" value="Modifier" class="btn btn-ems" />
+                                                    <a href="{{ path('depeche_edit', { 'id': depeche.id }) }}" class="btn btn-ems">Annuler</a>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Type de depeche</th>
+
+                                        <td>{{ depeche.type }}      <span class="rs-e">Modifier</span>
+                                            <div class="De-e">
+                                                <div class="form-group" style="max-width: 400px">
+                                                    {{ form_widget(edit_form.type,{'attr':{'class':'form-control',
+                                                        'style':'border:solid 1px #337ab7'}}) }}
+                                                    {{ form_errors(edit_form.type) }}
+                                                </div>
+                                                <span>
+                                                    <input type="submit" value="Modifier" class="btn btn-ems" />
+                                                    <a href="{{ path('depeche_edit', { 'id': depeche.id }) }}" class="btn btn-ems">Annuler</a>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <th>Date d'expédition</th>
+
+                                        <td>{{ depeche.journee }}      <span class="rs-e">Modifier</span>
+                                            <div class="De-e">
+                                                <div class="form-group" style="max-width: 400px">
+                                                    {{ form_widget(edit_form.journee,{'attr':{'class':'form-control',
+                                                        'style':'border:solid 1px #337ab7'}}) }}
+                                                    {{ form_errors(edit_form.journee) }}
+                                                </div>
+                                                <span>
+                                                    <input type="submit" value="Modifier" class="btn btn-ems" />
+                                                    <a href="{{ path('depeche_edit', { 'id': depeche.id }) }}" class="btn btn-ems">Annuler</a>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <th>Heure d'expédition</th>
+
+                                        <td>{{ depeche.heure }}      <span class="rs-e">Modifier</span>
+                                            <div class="De-e">
+                                                <div class="form-group" style="max-width: 400px">
+                                                    {{ form_widget(edit_form.heure,{'attr':{'class':'form-control',
+                                                        'style':'border:solid 1px #337ab7'}}) }}
+                                                    {{ form_errors(edit_form.heure) }}
+                                                </div>
+                                                <span>
+                                                    <input type="submit" value="Modifier" class="btn btn-ems" />
+                                                    <a href="{{ path('depeche_edit', { 'id': depeche.id }) }}" class="btn btn-ems">Annuler</a>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    
+                                     {{ form_end(edit_form) }}
+                                    
+                                    <tr>
+                        <td colspan="3">
+            <span  style="float: right">
+                    <ul>
+                        <li style="float:left;">
+                            <a href="{{ path('depeche_index') }}"><input type="button" value="Lister" class="btn  btn-ems" style="margin-right: 15px;"/></a>
+                        </li>
+
+                        <li style="float:left;">
+                            {{ form_start(delete_form) }}
+                            <a href="#"> <input type="submit" value="Suprm" class="btn  btn-ems"></a>
+                            {{ form_end(delete_form) }}
+                        </li>
+                    </ul>
+            </span></td></tr>
+                                    
+                                     </tbody>
+                                </table>
+                   
+                    
+                    
+                    
+                
+                </div> 
+            </div>
+        </div>
+     </div>
+
+
+
+
+
+{% endblock %}

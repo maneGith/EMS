@@ -1,0 +1,661 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete.html.twig') }}
+    
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+               <div class="titre lien-titre" id="titre">
+                     <div class="container">
+                        <table width="100%">       
+                            <tbody> 
+                                <tr>
+                                    <td>
+                                        
+                                        <span style="font-weight: bold">Etats de recouvrement des factures:</span>
+                                       
+                                            <span style="color: red;font-weight: bold">{{ mois }}</span>
+                                            
+                                    </td>
+                                    <td width="10%">
+                                        <!-- Small button groups (default and split) -->
+                                        <div class="btn-group">
+                                          <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Périodes
+                                          </button>
+                                          <div class="dropdown-menu">
+                                                                                         
+                                           
+                                            <a class="dropdown-item" href="{{ path('recouvrement', {'mois':'01','annee':annee_cours })}}">
+                                                  Janvier {{ annee_cours }}
+                                            </a>
+                                                <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="{{ path('recouvrement', { 'mois':'02','annee':annee_cours })}}">
+                                                  Fèvrier {{ annee_cours }}
+                                            </a>
+                                                   
+                                       
+
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{ path('recouvrement', {'mois':'03','annee':annee_cours })}}">
+                                                  Mars {{ annee_cours }}
+                                        </a>
+
+                                         
+
+                                       <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{ path('recouvrement', {'mois':'04','annee':annee_cours })}}">
+                                                  Avril {{ annee_cours }}
+                                        </a>
+
+
+                                       <div class="dropdown-divider"></div>
+                                       
+                                       <a class="dropdown-item" href="{{ path('recouvrement', { 'mois':'05','annee':annee_cours })}}">
+                                                  Mai {{ annee_cours }}
+                                        </a>
+
+                                           
+                                       <div class="dropdown-divider"></div>
+
+                                       <a class="dropdown-item" href="{{ path('recouvrement', {'mois':'06','annee':annee_cours })}}">
+                                                  Juin {{ annee_cours }}
+                                        </a>
+
+                                            
+                                                <div class="dropdown-divider"></div>
+
+                                            <a class="dropdown-item" href="{{ path('recouvrement', { 'mois':'07','annee':annee_cours })}}">
+                                                  Juillet {{ annee_cours }} 
+                                        </a>
+
+
+                                       <div class="dropdown-divider"></div>
+                                          <a class="dropdown-item" href="{{ path('recouvrement', {'mois':'08','annee':annee_cours })}}">
+                                                  Août {{ annee_cours }} 
+                                        </a>
+
+
+                                      <div class="dropdown-divider"></div>
+
+                                       <a class="dropdown-item" href="{{ path('recouvrement', { 'mois':'09','annee':annee_cours })}}">
+                                                  Septembre {{ annee_cours }} 
+                                        </a>
+                                           
+                                        <div class="dropdown-divider"></div>
+                                        
+                                        <a class="dropdown-item" href="{{ path('recouvrement', { 'mois':'10','annee':annee_cours })}}">
+                                                  Octobre {{ annee_cours }} 
+                                        </a>
+                                            
+
+                                        <div class="dropdown-divider"></div>
+
+                                         <a class="dropdown-item" href="{{ path('recouvrement', { 'mois':'11','annee':annee_cours })}}">
+                                                  Novembre {{ annee_cours }} 
+                                        </a>
+                                            
+
+                                       
+
+                                        <div class="dropdown-divider"></div>
+                                        
+                                          <a class="dropdown-item" href="{{ path('recouvrement', {'mois':'12','annee':annee_cours })}}">
+                                                  Décembre {{ annee_cours }} 
+                                        </a>
+
+                                            
+                                                
+                                           
+                                          </div>
+                                            
+                                        </div>
+                                    </td>    
+                                </tr>
+                            </tbody>
+                        </table>
+                    
+
+                     </div>           
+                </div> 
+
+                <div class="content" id="content">    
+                    
+                    <div>
+                            <table style="width: 100%" class="table table-condensed">
+                                <tbody>
+                                <tr style="border-top: 2px solid #337ab7">
+                                    <td style="width:15%;border-right: 2px solid black"> <span style="font-size: 12px;font-weight: bold">
+
+                                            Abonnés
+
+                                            </span>
+                                        <span style="margin-right: 2px;margin-left: 20px;font-weight: bold">
+                                                    <a href="{{ path('printall_pdf', {'date':mois}) }}" target="_blank" class="btn btn-ems r-ems">Factures (PDF)</a>
+                                            </span>
+                                    </td>
+                                    <td style="border-right: 2px solid black;width: 85%">
+                                        <table style="width: 100%" class="table table-condensed">
+                                            <tbody>
+                                            <tr style="border-top: 2px solid #337ab7">
+                                                <td style="width:25%;border: 2px solid darkred">
+                                                    <span style="font-size: 12px;font-weight: bold;color: darkred">Situation générale : </span>
+                                                        <span style="font-weight: bold">
+                                                            {{ date }}
+                                                        </span>
+                                                </td>
+                                                <td style="width:20%;border: 2px solid darkred;">
+                                                    <span style="font-size: 12px;font-weight: bold;color: #777">Montant :</span>
+
+                                                        <span style="font-weight: bold;float: right">
+                                                            {% if montantgen|length > 6 %}
+                                                                {{ montantgen|striptags|slice(0, montantgen|length-6)|raw }}
+
+                                                                {{ montantgen|striptags|slice(montantgen|length-6, 3)|raw }}
+
+                                                                {{ montantgen|striptags|slice(montantgen|length-3, 3)|raw }}
+
+                                                            {% elseif(montantgen|length > 3) %}
+                                                                {{ montantgen|striptags|slice(0, montantgen|length-3)|raw }}
+
+                                                                {{ montantgen|striptags|slice(montantgen|length-3, 3)|raw }}
+
+                                                            {% else %}
+                                                                {{ montantgen }}
+                                                            {% endif %}
+
+                                                        </span>
+                                                </td>
+                                                <td style="width:20%;border: 2px solid darkred;">
+                                                    <span style="font-size: 12px;font-weight: bold;color: #777">TVA :</span>
+                                                        <span style="font-weight: bold;float: right">
+
+                                                            {% if tvagen|length > 6 %}
+                                                                {{ tvagen|striptags|slice(0, tvagen|length-6)|raw }}
+
+                                                                {{ tvagen|striptags|slice(tvagen|length-6, 3)|raw }}
+
+                                                                {{ tvagen|striptags|slice(tvagen|length-3, 3)|raw }}
+
+                                                            {% elseif(tvagen|length > 3) %}
+                                                                {{ tvagen|striptags|slice(0, tvagen|length-3)|raw }}
+
+                                                                {{ tvagen|striptags|slice(tvagen|length-3, 3)|raw }}
+
+                                                            {% else %}
+                                                                {{ tvagen }}
+                                                            {% endif %}
+                                                        </span>
+                                                </td>
+                                                <td style="width:20%;border: 2px solid darkred;">
+                                                    <span style="font-size: 12px;font-weight: bold;color: #777">TTC :</span>
+                                                        <span style="font-weight: bold;float: right">
+                                                            {% if ttcgen|length > 6 %}
+                                                                {{ ttcgen|striptags|slice(0, ttcgen|length-6)|raw }}
+
+                                                                {{ ttcgen|striptags|slice(ttcgen|length-6, 3)|raw }}
+
+                                                                {{ ttcgen|striptags|slice(ttcgen|length-3, 3)|raw }}
+
+                                                            {% elseif(ttcgen|length > 3) %}
+                                                                {{ ttcgen|striptags|slice(0, ttcgen|length-3)|raw }}
+
+                                                                {{ ttcgen|striptags|slice(ttcgen|length-3, 3)|raw }}
+
+                                                            {% else %}
+                                                                {{ ttcgen }}
+                                                            {% endif %}
+                                                        </span>
+                                                </td>
+                                                <td style="width:15%;border: 2px solid darkred;" rowspan="3">
+                                                        situation
+                                                </td>
+                                            </tr>
+
+
+                                            <tr style="border-top: 2px solid #337ab7">
+                                                <td style="border: 2px solid darkred;" colspan="2">
+                                                    <span style="font-size: 12px;font-weight: bold;color: #777">International :</span>
+                                                        <span style="font-weight: bold;float: right">
+
+                                                            {% if montantgenin|length > 6 %}
+                                                                {{ montantgenin|striptags|slice(0, montantgenin|length-6)|raw }}
+
+                                                                {{ montantgenin|striptags|slice(montantgenin|length-6, 3)|raw }}
+
+                                                                {{ montantgenin|striptags|slice(montantgenin|length-3, 3)|raw }}
+
+                                                            {% elseif(montantgenin|length > 3) %}
+                                                                {{ montantgenin|striptags|slice(0, montantgenin|length-3)|raw }}
+
+                                                                {{ montantgenin|striptags|slice(montantgenin|length-3, 3)|raw }}
+
+                                                            {% else %}
+                                                                {{ montantgenin }}
+                                                            {% endif %}
+
+                                                        </span>
+                                                </td>
+                                                <td style="width:20%;border: 2px solid darkred;">
+                                                    <span style="font-size: 12px;font-weight: bold;color: #777">TVA :</span>
+                                                        <span style="font-weight: bold;float: right">
+
+                                                            {% if tvagenin|length > 6 %}
+                                                                {{ tvagenin|striptags|slice(0, tvagenin|length-6)|raw }}
+
+                                                                {{ tvagenin|striptags|slice(tvagenin|length-6, 3)|raw }}
+
+                                                                {{ tvagenin|striptags|slice(tvagenin|length-3, 3)|raw }}
+
+                                                            {% elseif(tvagenin|length > 3) %}
+                                                                {{ tvagenin|striptags|slice(0, tvagenin|length-3)|raw }}
+
+                                                                {{ tvagenin|striptags|slice(tvagenin|length-3, 3)|raw }}
+
+                                                            {% else %}
+                                                                {{ tvagenin }}
+                                                            {% endif %}
+                                                        </span>
+                                                </td>
+                                                <td style="width:20%;border: 2px solid darkred;">
+                                                    <span style="font-size: 12px;font-weight: bold;color: #777">TTC :</span>
+                                                        <span style="font-weight: bold;float: right">
+
+                                                            {% if ttcgenin|length > 6 %}
+                                                                {{ ttcgenin|striptags|slice(0, ttcgenin|length-6)|raw }}
+
+                                                                {{ ttcgenin|striptags|slice(ttcgenin|length-6, 3)|raw }}
+
+                                                                {{ ttcgenin|striptags|slice(ttcgenin|length-3, 3)|raw }}
+
+                                                            {% elseif(ttcgenin|length > 3) %}
+                                                                {{ ttcgenin|striptags|slice(0, ttcgenin|length-3)|raw }}
+
+                                                                {{ ttcgenin|striptags|slice(ttcgenin|length-3, 3)|raw }}
+
+                                                            {% else %}
+                                                                {{ ttcgenin }}
+                                                            {% endif %}
+                                                        </span>
+                                                </td>
+
+                                            </tr>
+
+                                            <tr style="border-top: 2px solid #337ab7">
+                                                <td style="border: 2px solid darkred;" colspan="2">
+                                                    <span style="font-size: 12px;font-weight: bold;color: #777">National &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</span>
+                                                        <span style="font-weight: bold;float: right">
+
+                                                            {% if montantgenna|length > 6 %}
+                                                                {{ montantgenna|striptags|slice(0, montantgenna|length-6)|raw }}
+
+                                                                {{ montantgenna|striptags|slice(montantgenna|length-6, 3)|raw }}
+
+                                                                {{ montantgenna|striptags|slice(montantgenna|length-3, 3)|raw }}
+
+                                                            {% elseif(montantgenna|length > 3) %}
+                                                                {{ montantgenna|striptags|slice(0, montantgenna|length-3)|raw }}
+
+                                                                {{ montantgenna|striptags|slice(montantgenna|length-3, 3)|raw }}
+
+                                                            {% else %}
+                                                                {{ montantgenna }}
+                                                            {% endif %}
+
+                                                        </span>
+                                                </td>
+                                                <td style="width:20%;border: 2px solid darkred;">
+                                                    <span style="font-size: 12px;font-weight: bold;color: #777">TVA :</span>
+                                                        <span style="font-weight: bold;float: right">
+
+                                                            {% if tvagenna|length > 6 %}
+                                                                {{ tvagenna|striptags|slice(0, tvagenna|length-6)|raw }}
+
+                                                                {{ tvagenna|striptags|slice(tvagenna|length-6, 3)|raw }}
+
+                                                                {{ tvagenna|striptags|slice(tvagenna|length-3, 3)|raw }}
+
+                                                            {% elseif(tvagenna|length > 3) %}
+                                                                {{ tvagenna|striptags|slice(0, tvagenna|length-3)|raw }}
+
+                                                                {{ tvagenna|striptags|slice(tvagenna|length-3, 3)|raw }}
+
+                                                            {% else %}
+                                                                {{ tvagenna }}
+                                                            {% endif %}
+                                                        </span>
+                                                </td>
+                                                <td style="width:20%;border: 2px solid darkred;">
+                                                    <span style="font-size: 12px;font-weight: bold;color: #777">TTC :</span>
+                                                        <span style="font-weight: bold;float: right">
+
+                                                            {% if ttcgenna|length > 6 %}
+                                                                {{ ttcgenna|striptags|slice(0, ttcgenna|length-6)|raw }}
+
+                                                                {{ ttcgenna|striptags|slice(ttcgenna|length-6, 3)|raw }}
+
+                                                                {{ ttcgenna|striptags|slice(ttcgenna|length-3, 3)|raw }}
+
+                                                            {% elseif(ttcgenna|length > 3) %}
+                                                                {{ ttcgenna|striptags|slice(0, ttcgenna|length-3)|raw }}
+
+                                                                {{ ttcgenna|striptags|slice(ttcgenna|length-3, 3)|raw }}
+
+                                                            {% else %}
+                                                                {{ ttcgenna }}
+                                                            {% endif %}
+                                                        </span>
+                                                </td>
+
+                                            </tr>
+
+                                            </tbody>
+                                        </table>
+
+                                    </td>
+                                </tr>
+
+                                {% for client in clients %}
+                                    {% if client.montant!=0 %}
+
+
+                                    <tr style="border-top: 2px solid #337ab7;">
+                                        <td style="width:15%;border-right: 2px solid black">  <span style="font-size: 12px;font-weight: bold;color: red">{{  client.abonne.nom}}</span></td>
+                                        <td style="border-right: 2px solid black;width: 85%">
+
+                                            <table style="width: 100%" class="table table-condensed">
+                                                <tbody>
+                                                <tr style="border-top: 2px solid #337ab7">
+                                                    <td style="width:25%;border: 2px solid black">
+                                                        <span style="font-size: 12px;font-weight: bold">Facture n° : </span>
+                                                        <span style="font-weight: bold">
+                                                            {{ client.numfacture }}
+                                                        </span>
+                                                        <span style="float: right">
+                                                                <form action="{{ path('abonne_facture', { 'abonne':client.abonne.id,  'date':date, 'version':'no'}) }}" method="post">
+                                                                    <button style="background-color: #fff">
+                                                                        <img src="{{asset('img/lien-recu.jpg')}}"  style="width: 100%;height: 100%"/>
+                                                                    </button>
+                                                                </form>
+                                                        </span>
+                                                    </td>
+                                                    <td style="width:20%;border: 2px solid black;">
+                                                        <span style="font-size: 12px;font-weight: bold">Montant :</span>
+                                                        <span style="float: right">
+
+                                                            {% if client.montant|length > 6 %}
+                                                                {{ client.montant|striptags|slice(0, client.montant|length-6)|raw }}
+
+                                                                {{ client.montant|striptags|slice(client.montant|length-6, 3)|raw }}
+
+                                                                {{ client.montant|striptags|slice(client.montant|length-3, 3)|raw }}
+
+                                                            {% elseif(client.montant|length > 3) %}
+                                                                {{ client.montant|striptags|slice(0, client.montant|length-3)|raw }}
+
+                                                                {{ client.montant|striptags|slice(client.montant|length-3, 3)|raw }}
+
+                                                            {% else %}
+                                                                {{ client.montant }}
+                                                            {% endif %}
+
+                                                        </span>
+                                                    </td>
+                                                    <td style="width:20%;border: 2px solid black;">
+                                                        <span style="font-size: 12px;font-weight: bold">TVA :</span>
+                                                        <span style="float: right">
+
+                                                            {% if client.tva|length > 6 %}
+                                                                {{ client.tva|striptags|slice(0, client.tva|length-6)|raw }}
+
+                                                                {{ client.tva|striptags|slice(client.tva|length-6, 3)|raw }}
+
+                                                                {{ client.tva|striptags|slice(client.tva|length-3, 3)|raw }}
+
+                                                            {% elseif(client.tva|length > 3) %}
+                                                                {{ client.tva|striptags|slice(0, client.tva|length-3)|raw }}
+
+                                                                {{ client.tva|striptags|slice(client.tva|length-3, 3)|raw }}
+
+                                                            {% else %}
+                                                                {{ client.tva }}
+                                                            {% endif %}
+                                                        </span>
+                                                    </td>
+                                                    <td style="width:20%;border: 2px solid black;">
+                                                        <span style="font-size: 12px;font-weight: bold">TTC :</span>
+                                                        <span style="float: right">
+
+                                                            {% if client.ttc|length > 6 %}
+                                                                {{ client.ttc|striptags|slice(0, client.ttc|length-6)|raw }}
+
+                                                                {{ client.ttc|striptags|slice(client.ttc|length-6, 3)|raw }}
+
+                                                                {{ client.ttc|striptags|slice(client.ttc|length-3, 3)|raw }}
+
+                                                            {% elseif(client.ttc|length > 3) %}
+                                                                {{ client.ttc|striptags|slice(0, client.ttc|length-3)|raw }}
+
+                                                                {{ client.ttc|striptags|slice(client.ttc|length-3, 3)|raw }}
+
+                                                            {% else %}
+                                                                {{ client.ttc }}
+                                                            {% endif %}
+                                                        </span>
+                                                    </td>
+                                                    <td style="width:15%;border: 2px solid black;" rowspan="3">
+                                                        <span style="font-size: 12px;font-weight: bold">
+
+                                                        <div style="position: relative;width: 50px;">
+
+
+                                                                {% if(is_granted('ROLE_RECOUVREMENT')) %}
+
+                                                                     <div class="btn-group">
+                                                                     <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                      Recouvrée? :
+                                                                     </button>
+                                                                     <div class="dropdown-menu">
+
+
+                                                                       <a class="dropdown-item" href="{{ path('facture_createedit', {'abonne':client.abonne.id, 'periode':date, 'etat':'OUI' })}}">
+                                                                             OUI
+                                                                       </a>
+                                                                           <div class="dropdown-divider"></div>
+                                                                       <a class="dropdown-item" href="{{ path('facture_createedit', { 'abonne':client.abonne.id, 'periode':date, 'etat':'NON' })}}">
+                                                                             NON
+                                                                       </a>
+
+
+
+
+                                                                     </div>
+
+                                                                   </div>
+                                                                               {% else %}
+                                                                              Recouvrée? :
+                                                       {% endif %}
+
+                                                            <div style="position: absolute;left: 40px;top: 38px;">
+                                                                {% if client.etat=='NON' %}
+                                                                    <span style="color: brown;">{{ client.etat }}</span>
+                                                                {% else %}
+                                                                    <span style="color: #337ab7;">{{ client.etat }}</span>
+                                                                {% endif %}
+
+
+                                                            </div>
+                                                        </div>
+
+
+                                                        </span>
+
+                                                    </td>
+                                                </tr>
+
+                                                <tr style="border-top: 2px solid #337ab7">
+                                                    <td style="border: 2px solid black;" colspan="2">
+                                                        <span style="font-size: 12px;font-weight: bold;color: #777">International :</span>
+                                                        <span style="float: right">
+
+                                                            {% if client.montantinternational|length > 6 %}
+                                                                {{ client.montantinternational|striptags|slice(0, client.montantinternational|length-6)|raw }}
+
+                                                                {{ client.montantinternational|striptags|slice(client.montantinternational|length-6, 3)|raw }}
+
+                                                                {{ client.montantinternational|striptags|slice(client.montantinternational|length-3, 3)|raw }}
+
+                                                            {% elseif(client.montantinternational|length > 3) %}
+                                                                {{ client.montantinternational|striptags|slice(0, client.montantinternational|length-3)|raw }}
+
+                                                                {{ client.montantinternational|striptags|slice(client.montantinternational|length-3, 3)|raw }}
+
+                                                            {% else %}
+                                                                {{ client.montantinternational }}
+                                                            {% endif %}
+
+                                                        </span>
+                                                    </td>
+                                                    <td style="width:20%;border: 2px solid black;">
+                                                        <span style="font-size: 12px;font-weight: bold">TVA :</span>
+                                                        <span style="float: right">
+
+                                                            {% if client.tvainternational|length > 6 %}
+                                                                {{ client.tvainternational|striptags|slice(0, client.tvainternational|length-6)|raw }}
+
+                                                                {{ client.tvainternational|striptags|slice(client.tvainternational|length-6, 3)|raw }}
+
+                                                                {{ client.tvainternational|striptags|slice(client.tvainternational|length-3, 3)|raw }}
+
+                                                            {% elseif(client.tvainternational|length > 3) %}
+                                                                {{ client.tvainternational|striptags|slice(0, client.tvainternational|length-3)|raw }}
+
+                                                                {{ client.tvainternational|striptags|slice(client.tvainternational|length-3, 3)|raw }}
+
+                                                            {% else %}
+                                                                {{ client.tvainternational }}
+                                                            {% endif %}
+                                                        </span>
+                                                    </td>
+                                                    <td style="width:20%;border: 2px solid black;">
+                                                        <span style="font-size: 12px;font-weight: bold">TTC :</span>
+                                                        <span style="float: right">
+
+                                                            {% if client.ttcinternational|length > 6 %}
+                                                                {{ client.ttcinternational|striptags|slice(0, client.ttcinternational|length-6)|raw }}
+
+                                                                {{ client.ttcinternational|striptags|slice(client.ttcinternational|length-6, 3)|raw }}
+
+                                                                {{ client.ttcinternational|striptags|slice(client.ttcinternational|length-3, 3)|raw }}
+
+                                                            {% elseif(client.ttcinternational|length > 3) %}
+                                                                {{ client.ttcinternational|striptags|slice(0, client.ttcinternational|length-3)|raw }}
+
+                                                                {{ client.ttcinternational|striptags|slice(client.ttcinternational|length-3, 3)|raw }}
+
+                                                            {% else %}
+                                                                {{ client.ttcinternational }}
+                                                            {% endif %}
+                                                        </span>
+                                                    </td>
+
+                                                </tr>
+
+                                                <tr style="border-top: 2px solid #337ab7">
+                                                    <td style="border: 2px solid black;" colspan="2">
+                                                        <span style="font-size: 12px;font-weight: bold;color: #777">National &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</span>
+                                                        <span style="float: right">
+
+                                                            {% if client.montantnational|length > 6 %}
+                                                                {{ client.montantnational|striptags|slice(0, client.montantnational|length-6)|raw }}
+
+                                                                {{ client.montantnational|striptags|slice(client.montantnational|length-6, 3)|raw }}
+
+                                                                {{ client.montantnational|striptags|slice(client.montantnational|length-3, 3)|raw }}
+
+                                                            {% elseif(client.montantnational|length > 3) %}
+                                                                {{ client.montantnational|striptags|slice(0, client.montantnational|length-3)|raw }}
+
+                                                                {{ client.montantnational|striptags|slice(client.montantnational|length-3, 3)|raw }}
+
+                                                            {% else %}
+                                                                {{ client.montantnational }}
+                                                            {% endif %}
+
+                                                        </span>
+                                                    </td>
+                                                    <td style="width:20%;border: 2px solid black;">
+                                                        <span style="font-size: 12px;font-weight: bold">TVA :</span>
+                                                        <span style="float: right">
+
+                                                            {% if client.tvanational|length > 6 %}
+                                                                {{ client.tvanational|striptags|slice(0, client.tvanational|length-6)|raw }}
+
+                                                                {{ client.tvanational|striptags|slice(client.tvanational|length-6, 3)|raw }}
+
+                                                                {{ client.tvanational|striptags|slice(client.tvanational|length-3, 3)|raw }}
+
+                                                            {% elseif(client.tvanational|length > 3) %}
+                                                                {{ client.tvanational|striptags|slice(0, client.tvanational|length-3)|raw }}
+
+                                                                {{ client.tvanational|striptags|slice(client.tvanational|length-3, 3)|raw }}
+
+                                                            {% else %}
+                                                                {{ client.tvanational }}
+                                                            {% endif %}
+                                                        </span>
+                                                    </td>
+                                                    <td style="width:20%;border: 2px solid black;">
+                                                        <span style="font-size: 12px;font-weight: bold">TTC :</span>
+                                                        <span style="float: right">
+
+                                                            {% if client.ttcnational|length > 6 %}
+                                                                {{ client.ttcnational|striptags|slice(0, client.ttcnational|length-6)|raw }}
+
+                                                                {{ client.ttcnational|striptags|slice(client.ttcnational|length-6, 3)|raw }}
+
+                                                                {{ client.ttcnational|striptags|slice(client.ttcnational|length-3, 3)|raw }}
+
+                                                            {% elseif(client.ttcnational|length > 3) %}
+                                                                {{ client.ttcnational|striptags|slice(0, client.ttcnational|length-3)|raw }}
+
+                                                                {{ client.ttcnational|striptags|slice(client.ttcnational|length-3, 3)|raw }}
+
+                                                            {% else %}
+                                                                {{ client.ttcnational }}
+                                                            {% endif %}
+                                                        </span>
+                                                    </td>
+
+                                                </tr>
+
+                                                </tbody>
+                                            </table>
+
+                                        </td>
+                                    </tr>
+                                    {% endif %}
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                   
+                </div> 
+            </div>
+        </div>
+     </div>
+
+
+
+
+
+{% endblock %}

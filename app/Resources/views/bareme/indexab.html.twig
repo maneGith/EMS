@@ -1,0 +1,476 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete.html.twig') }}
+    
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                <div class="titre lien-titre" id="titre">
+                    <table style="width: 100%">
+                        <tbody>
+
+                        <tr>
+                            <td width="90%">
+                               
+                                 <span style="font-weight: bold">Bareme des clients abonnés</span>
+                            </td>
+                            <td width="10%">
+                                <div class="btn-group">
+                                          <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Actions
+                                          </button>
+                                          <div class="dropdown-menu">
+                                                                                         
+                                           
+                                         
+                                            <a class="dropdown-item" href="{{ path('bareme_abonne', { 'zone':'Zone 1' }) }}">
+                                                            Tarifs Zone 1
+                                                        </a>
+                                            
+                                                <div class="dropdown-divider"></div>
+                                           
+                                                   <a class="dropdown-item" href="{{ path('bareme_abonne', { 'zone':'Zone 2' }) }}">
+                                                             Tarifs Zone 2
+                                                        </a>
+                                       
+
+                                        <div class="dropdown-divider"></div>
+                                       
+                                            <a class="dropdown-item" href="{{ path('bareme_abonne', { 'zone':'Zone 3' }) }}">
+                                                          Tarifs Zone 3
+                                                        </a>
+                                         
+
+                                       <div class="dropdown-divider"></div>
+                                        
+                                         <a class="dropdown-item" href="{{ path('bareme_abonne', { 'zone':'Zone 4' }) }}">
+                                                            Tarifs Zone 4
+                                                        </a>
+                                                            
+                                                             <div class="dropdown-divider"></div>
+                                        
+                                         <a class="dropdown-item" href="{{ path('bareme_abonne', { 'zone':'Zone 5' }) }}">
+                                                            Tarifs Zone 5
+                                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                         <a class="dropdown-item" href="{{ path('zones_pays', { 'bareme': 'abonnes' }) }}" class="r-ems">
+                                            Retour à zone-pays
+                                        </a>
+                                   </div>      
+                            </td>
+
+                            
+                        </tr>
+                        </tbody>
+                    </table>           
+                </div> 
+
+                <div class="content" id="content">       
+                   
+                    <table class="table" cellpadding="0" cellspacing="0" border="1">
+
+                        <tbody>
+                        <tr>
+                            <td colspan="2">
+                                {{ zone }}
+                                <span style="float: right">{{ nom_zone }}</span>
+                            </td>
+                        </tr>
+
+
+
+                        <tr>
+                            <td>
+
+                                <table class="table">
+                                    <tbody>
+
+                                    <tr>
+                                        <td colspan="2" style="border-top: 0px">
+                                            DOCUMENTS
+                                             <span style="float: right;font-weight: bold;font-size: 12px" class="rs-e">
+                                                 <a href="#" class="btn  btn-ems  r-ems">Modifier</a>
+                                             </span>
+
+                                            <div class="De-e">
+
+
+                                                <form action="{{ path('new_bareme_client') }}" method="post">
+
+                                                    <input type="hidden"  name="zone" class="form-control" style="border:solid 1px #337ab7;font-weight: bold" value="{{ zone }}"/>
+                                                    <input type="hidden"  name="client" class="form-control" style="border:solid 1px #337ab7;font-weight: bold" value="Abonne"/>
+                                                    <input type="hidden"  name="type_doc" class="form-control" style="border:solid 1px #337ab7;font-weight: bold" value="Document"/>
+                                                    <table style="width: 100%">
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="form-group">
+                                                                    <label>Tarif 1ere tranche</label>
+                                                                    <input type="text"  name="min_montant" class="form-control" style="border:solid 1px #337ab7;font-weight: bold" value="{{ min_montant_doc }}"/>
+                                                                </div>
+
+                                                            </td>
+                                                            <td>
+
+                                                                <div class="form-group">
+                                                                    <label>Difference de tarif</label>
+                                                                    <input type="text"  name="tranche_montant" class="form-control" style="border:solid 1px #337ab7;font-weight: bold" value="{{ tranche_montant_doc }}"/>
+                                                                </div>
+
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="form-group">
+                                                                    <label>Poids maximal</label>
+                                                                    <input type="text" name="max_poids"  class="form-control" style="border:solid 1px #337ab7;font-weight: bold" value="{{ max_poids_doc | replace({'.0': ' '}) }}"/>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group">
+                                                                    <label>Difference de poids</label>
+                                                                    <input type="text"  name="tranche_poids" class="form-control" style="border:solid 1px #337ab7;font-weight: bold" value="{{ tranche_poids_doc }}"/>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+
+                                                        </tbody>
+                                                    </table>
+
+
+
+
+
+
+
+                                                    <div style="height: 30px">
+                                                        <span style="float: right">
+                                                            <input type="submit" value="Valider" class="btn  btn-ems " />
+                                                            <a href="{{ path('bareme_abonne', { 'zone':zone }) }}" class="btn btn-ems">Quitter</a>
+                                                        </span>
+                                                    </div>
+
+
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                        <tr>
+
+                                            <td>
+                                                <table class="table table-condensed">
+                                                    <thead>
+
+
+                                                    <tr>
+                                                        <th style="text-align: right">
+                                                            Poids(kg)</th>
+                                                        <th style="text-align: right">
+                                                            Tarif</th>
+
+
+                                                    </tr>
+                                                    </thead>
+
+
+                                                    <tbody>
+
+                                                    {% for bareme in zone1bar1 %}
+                                                        <tr>
+                                                            <td style="text-align: right">
+
+
+                                                                {{  bareme.poidsmax | replace({'.0': ' '}) }}
+                                                            </td>
+
+                                                            <td style="text-align: right">
+
+                                                                {% if bareme.tarif|length > 3 %}
+
+                                                                    {{ bareme.tarif|striptags|slice(0, bareme.tarif|length-3)|raw }}
+                                                                    &nbsp
+                                                                    {{ bareme.tarif|striptags|slice(bareme.tarif|length-3, 3)|raw }}
+
+                                                                {% else %}
+                                                                    {{ bareme.tarif }}
+                                                                {% endif %}
+
+                                                            </td>
+
+
+
+                                                        </tr>
+                                                    {% endfor %}
+
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                            <td>
+                                            <table class="table table-condensed">
+                                                <thead>
+
+                                                <tr>
+                                                    <th style="text-align: right">
+                                                        Poids(kg)</th>
+                                                    <th style="text-align: right">
+                                                        Tarif</th>
+
+
+
+                                                </tr>
+                                                </thead>
+
+
+                                                <tbody>
+
+                                                {% for bareme in zone1bar2 %}
+                                                    <tr>
+                                                        <td style="text-align: right">
+
+                                                            {{  bareme.poidsmax | replace({'.0': ' '}) }}
+                                                        </td>
+
+                                                        <td style="text-align: right">
+                                                            {% if bareme.tarif|length > 3 %}
+
+                                                                {{ bareme.tarif|striptags|slice(0, bareme.tarif|length-3)|raw }}
+                                                                &nbsp
+                                                                {{ bareme.tarif|striptags|slice(bareme.tarif|length-3, 3)|raw }}
+
+                                                            {% else %}
+                                                                {{ bareme.tarif }}
+                                                            {% endif %}
+                                                        </td>
+
+
+                                                    </tr>
+                                                {% endfor %}
+
+                                                </tbody>
+                                            </table>
+                                            </td>
+                                        </tr>
+
+                                    <tr>
+                                        <td colspan="2">
+                                            <span style="float: right;font-weight: bold">
+                                                 <form action="{{ path('bareme_delete') }}" method="post">
+                                                     <input type="hidden"  name="n_zone"  style="border:solid 1px #337ab7;font-weight: bold" value="{{ zone }}"/>
+                                                     <input type="hidden"  name="client"  style="border:solid 1px #337ab7;font-weight: bold" value="Abonne"/>
+                                                     <input type="hidden"  name="documt"  style="border:solid 1px #337ab7;font-weight: bold" value="Document"/>
+                                                     <button type="submit" class="btn  btn-ems  r-ems">Tout supprimer</button>
+                                                 </form>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+
+                            <td>
+
+                                <table class="table">
+                                    <tbody>
+
+                                    <tr>
+                                        <td colspan="2" style="border-top: 0px">
+                                            NON DOCUMENTS
+                                            <span style="float: right;font-weight: bold;font-size: 12px" class="rs-e">
+                                                 <a href="#" class="btn  btn-ems  r-ems">Modifier</a>
+                                             </span>
+
+                                            <div class="De-e">
+
+                                                <form action="{{ path('new_bareme_client') }}" method="post">
+
+                                                    <input type="hidden"  name="zone" class="form-control" style="border:solid 1px #337ab7;font-weight: bold" value="{{ zone }}"/>
+                                                    <input type="hidden"  name="client" class="form-control" style="border:solid 1px #337ab7;font-weight: bold" value="Abonne"/>
+                                                    <input type="hidden"  name="type_doc" class="form-control" style="border:solid 1px #337ab7;font-weight: bold" value="Non document"/>
+                                                    <table style="width: 100%">
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="form-group">
+                                                                    <label>Tarif 1ere tranche</label>
+                                                                    <input type="text"  name="min_montant" class="form-control" style="border:solid 1px #337ab7;font-weight: bold" value="{{ min_montant_ndoc }}"/>
+                                                                </div>
+
+                                                            </td>
+                                                            <td>
+
+                                                                <div class="form-group">
+                                                                    <label>Difference de tarif</label>
+                                                                    <input type="text"  name="tranche_montant" class="form-control" style="border:solid 1px #337ab7;font-weight: bold" value="{{ tranche_montant_ndoc }}"/>
+                                                                </div>
+
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="form-group">
+                                                                    <label>Poids maximal</label>
+                                                                    <input type="text" name="max_poids"  class="form-control" style="border:solid 1px #337ab7;font-weight: bold" value="{{ max_poids_ndoc | replace({'.0': ' '}) }}"/>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group">
+                                                                    <label>Difference de poids</label>
+                                                                    <input type="text"  name="tranche_poids" class="form-control" style="border:solid 1px #337ab7;font-weight: bold" value="{{ tranche_poids_ndoc }}"/>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+
+                                                        </tbody>
+                                                    </table>
+
+
+
+
+
+
+
+                                                    <div style="height: 30px">
+                                                        <span style="float: right">
+                                                        <input type="submit" value="Valider" class="btn  btn-ems " />
+                                                        <a href="{{ path('bareme_abonne', { 'zone':zone }) }}" class="btn btn-ems">Quitter</a> </span>
+                                                    </div>
+
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+
+                                        <td>
+                                            <table class="table table-condensed">
+                                                <thead>
+
+
+                                                <tr>
+                                                    <th style="text-align: right">
+                                                        Poids(kg)</th>
+                                                    <th style="text-align: right">
+                                                        Tarif</th>
+
+
+
+
+                                                </tr>
+                                                </thead>
+
+
+                                                <tbody>
+
+                                                {% for bareme in zone1bar3 %}
+                                                    <tr>
+                                                        <td style="text-align: right">
+
+                                                            {{  bareme.poidsmax | replace({'.0': ' '}) }}
+                                                        </td>
+
+                                                        <td style="text-align: right">
+
+                                                            {% if bareme.tarif|length > 3 %}
+
+                                                                {{ bareme.tarif|striptags|slice(0, bareme.tarif|length-3)|raw }}
+                                                                &nbsp
+                                                                {{ bareme.tarif|striptags|slice(bareme.tarif|length-3, 3)|raw }}
+
+                                                            {% else %}
+                                                                {{ bareme.tarif }}
+                                                            {% endif %}
+                                                        </td>
+
+
+
+
+                                                    </tr>
+                                                {% endfor %}
+
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                        <td>
+                                            <table class="table table-condensed">
+                                                <thead>
+
+                                                <tr>
+                                                    <th style="text-align: right">
+                                                        Poids(kg)</th>
+                                                    <th style="text-align: right">
+                                                        Tarif</th>
+
+
+                                                </tr>
+                                                </thead>
+
+
+                                                <tbody>
+
+                                                {% for bareme in zone1bar4 %}
+                                                    <tr>
+                                                        <td style="text-align: right">
+                                                            {{  bareme.poidsmax | replace({'.0': ' '}) }}
+                                                        </td>
+
+                                                        <td style="text-align: right">
+
+                                                            {% if bareme.tarif|length > 3 %}
+
+                                                                {{ bareme.tarif|striptags|slice(0, bareme.tarif|length-3)|raw }}
+                                                                &nbsp
+                                                                {{ bareme.tarif|striptags|slice(bareme.tarif|length-3, 3)|raw }}
+
+                                                            {% else %}
+                                                                {{ bareme.tarif }}
+                                                            {% endif %}
+                                                        </td>
+
+
+
+                                                    </tr>
+                                                {% endfor %}
+
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <span style="float: right;font-weight: bold">
+                                                 <form action="{{ path('bareme_delete') }}" method="post">
+                                                     <input type="hidden"  name="n_zone"  style="border:solid 1px #337ab7;font-weight: bold" value="{{ zone }}"/>
+                                                     <input type="hidden"  name="client"  style="border:solid 1px #337ab7;font-weight: bold" value="Abonne"/>
+                                                     <input type="hidden"  name="documt"  style="border:solid 1px #337ab7;font-weight: bold" value="Non document"/>
+                                                     <button type="submit" class="btn  btn-ems  r-ems">Tout supprimer</button>
+                                                 </form>
+                                            </span>
+                                        </td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    
+                </div> 
+            </div>
+        </div>
+     </div>
+
+
+
+
+
+{% endblock %}

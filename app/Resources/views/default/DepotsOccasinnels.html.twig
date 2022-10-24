@@ -1,0 +1,1528 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete.html.twig') }}
+    
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                <div class="titre lien-titre" id="titre">
+                   <div class="container">
+                        <table width="100%">       
+                            <tbody> 
+                                <tr>
+                                    <td>
+                                        
+                                         <span style="font-weight: bold">Situation mensuelle des
+                                      
+                                            {% if (agence=='ems') %}
+                                                 agences de EMS
+                                            {% elseif(agence=='pdk') %}
+                                                postes de Dakar
+                                            {% elseif(agence=='prg') %}
+                                                postes des règions
+                                            {% else %}
+                                            {% endif %}
+                                            
+                                            :</span>
+                                         <span style="color: red;font-weight: bold">{{ mois }}</span> 
+                                    </td>
+                                    <td width="10%">
+                                        <!-- Small button groups (default and split) -->
+                                        <div class="btn-group">
+                                          <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Périodes
+                                          </button>
+                                          <div class="dropdown-menu">
+                                                                                         
+                                           
+                                            <a class="dropdown-item" href="{{ path('depots_mois', { 'agence': agence, 'mois':'01','annee':annee_cours })}}">
+                                                  Janvier {{ annee_cours }}
+                                            </a>
+                                                <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="{{ path('depots_mois', { 'agence': agence, 'mois':'02','annee':annee_cours })}}">
+                                                  Fèvrier {{ annee_cours }}
+                                            </a>
+                                                   
+                                       
+
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{ path('depots_mois', { 'agence': agence, 'mois':'03','annee':annee_cours })}}">
+                                                  Mars {{ annee_cours }}
+                                        </a>
+
+                                         
+
+                                       <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{ path('depots_mois', { 'agence': agence, 'mois':'04','annee':annee_cours })}}">
+                                                  Avril {{ annee_cours }}
+                                        </a>
+
+
+                                       <div class="dropdown-divider"></div>
+                                       
+                                       <a class="dropdown-item" href="{{ path('depots_mois', { 'agence': agence, 'mois':'05','annee':annee_cours })}}">
+                                                  Mai {{ annee_cours }}
+                                        </a>
+
+                                           
+                                       <div class="dropdown-divider"></div>
+
+                                       <a class="dropdown-item" href="{{ path('depots_mois', { 'agence': agence, 'mois':'06','annee':annee_cours })}}">
+                                                  Juin {{ annee_cours }}
+                                        </a>
+
+                                            
+                                                <div class="dropdown-divider"></div>
+
+                                            <a class="dropdown-item" href="{{ path('depots_mois', { 'agence': agence, 'mois':'07','annee':annee_cours })}}">
+                                                  Juillet {{ annee_cours }} 
+                                        </a>
+
+
+                                       <div class="dropdown-divider"></div>
+                                          <a class="dropdown-item" href="{{ path('depots_mois', { 'agence': agence, 'mois':'08','annee':annee_cours })}}">
+                                                  Août {{ annee_cours }} 
+                                        </a>
+
+
+                                      <div class="dropdown-divider"></div>
+
+                                       <a class="dropdown-item" href="{{ path('depots_mois', { 'agence': agence, 'mois':'09','annee':annee_cours })}}">
+                                                  Septembre {{ annee_cours }} 
+                                        </a>
+                                           
+                                        <div class="dropdown-divider"></div>
+                                        
+                                        <a class="dropdown-item" href="{{ path('depots_mois', { 'agence': agence, 'mois':'10','annee':annee_cours })}}">
+                                                  Octobre {{ annee_cours }} 
+                                        </a>
+                                            
+
+                                        <div class="dropdown-divider"></div>
+
+                                         <a class="dropdown-item" href="{{ path('depots_mois', { 'agence': agence, 'mois':'11','annee':annee_cours })}}">
+                                                  Novembre {{ annee_cours }} 
+                                        </a>
+                                            
+
+                                       
+
+                                        <div class="dropdown-divider"></div>
+                                        
+                                          <a class="dropdown-item" href="{{ path('depots_mois', { 'agence': agence, 'mois':'12','annee':annee_cours })}}">
+                                                  Décembre {{ annee_cours }} 
+                                        </a>
+
+                                            
+                                                
+                                           
+                                          </div>
+                                            
+                                        </div>
+                                    </td>    
+                                </tr>
+                            </tbody>
+                        </table>
+                    
+
+                     </div>             
+                </div> 
+
+                <div class="content" id="content">  
+                    <div>
+
+                            <div class="sous-titremens">
+                                <table style="width: 100%" class="table table-bordered">
+                                    <tbody>
+                                    <tr>
+                                        <td width="12%" style="border-right: 2px solid #d2d2d2;padding: 0px">
+                                            <div>
+                                                    
+                                             <div class="btn-group">
+                                          <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Emplacements
+                                           {% set ma = mois|split('/') %}    
+                                          </button>
+                                          <div class="dropdown-menu">
+                                                                                   
+                                            <a class="dropdown-item" href="{{ path('depots_mois', { 'agence':'ems', 'mois':ma[0],'annee':ma[1] }) }}">
+                                                 <span style="color: black"> Agences EMS</span>
+                                            </a>
+                                            <div class="dropdown-divider"></div>
+                                            
+                                             
+                                             <a class="dropdown-item" href="{{ path('depots_mois', { 'agence':'pdk', 'mois':ma[0],'annee':ma[1] }) }}">
+                                                  <span style="color: black"> Postes Dakar</span>
+                                              </a>
+                                            <div class="dropdown-divider"></div>
+                                            
+                                            <a class="dropdown-item" href="{{ path('depots_mois', { 'agence':'prg', 'mois':ma[0],'annee':ma[1] }) }}">
+                                                <span style="color: black">Postes Règions</span>
+                                            </a>
+                                          </div>
+                                            
+                                        </div>
+                                            </div>
+                                        </td>
+
+                                        <td width="27%" style="border-right: 2px solid #d2d2d2;padding: 0px">
+                                            <div style="text-align: center">
+                                                <span style="font-size: 12px;font-weight: bold">Envois EMS international</span>
+                                            </div>
+                                        </td>
+                                        <td width="31%" style="border-right: 2px solid #d2d2d2;padding: 0px">
+                                            <div style="text-align: center">
+                                                <span style="font-size: 12px;font-weight: bold"> Envois EMS national</span>
+                                            </div>
+                                        </td>
+
+
+                                        <td width="31%" style="padding: 0px">
+                                            <div style="text-align: center">
+                                                <span style="font-size: 12px;font-weight: bold"> Totaux dépots</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                                       
+{#                                                Recap general#}
+                      
+                            <div style="border-top: 2px solid #337ab7;">
+                                <table style="width: 100%;height: 100%" class="table table-bordered">
+                                    <tbody>
+                                    <tr>
+
+                                        <td width="12%" style="border-right: 2px solid #d2d2d2;padding: 0px">
+                                            
+                                                
+                                                    <table  class="table">
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <div style="line-height: 9px;height: 20px">
+
+                                                                <span style="font-size: 12px;font-weight: bold;color: red">
+                                                                    {% if(agence=='ems')  %}
+                                                                        Agences de EMS-Sénégal
+                                                                    {% elseif(agence=='pdk') %}
+                                                                        Bureaux de Postes de Dakar
+                                                                    {% else %}
+                                                                        Bureaux de Postes des Règions
+                                                                    {% endif %}
+                                                                </span> </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <span style="font-size: 12px;color: #777">Réguliers</span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <span style="font-size: 12px;color: #777">Occasionnels</span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <span style="font-size: 12px;font-weight: bold;color: #777">Total général</span>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                               
+                                          
+                                        </td>
+
+                                        <td width="27%" style="border-right: 2px solid #d2d2d2;padding: 0px">
+                                           
+                                                    <table class="table">
+                                                        <tbody>
+                                                        <tr>
+                                                            <td width="18%" style="border-right: 1px solid #d2d2d2">
+                                                                 <div style="line-height: 9px;height: 20px">
+                                                                     <span style="font-size: 12px;font-weight: bold"> Nbr</span>
+                                                                 </div>
+                                                            </td>
+                                                            <td width="18%" style="border-right: 1px solid #d2d2d2">
+                                                                  <div style="line-height: 9px">
+                                                                <span style="font-size: 12px;font-weight: bold">Poids</span>
+                                                                 </div>
+                                                            </td>
+                                                            <td width="42%" style="border-right: 1px solid #d2d2d2">
+                                                                 <div style="line-height: 9px">
+                                                                <span style="font-size: 12px;font-weight: bold"> Montant HT</span>
+                                                                 </div>
+                                                            </td>
+                                                            <td width="20%">
+                                                                 <div style="line-height: 9px">
+                                                                <span style="font-size: 12px;font-weight: bold">TVA</span>
+                                                                 </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="18%" style="border-right: 1px solid #d2d2d2">
+                                                                <div style="text-align: right">
+                                                                    {% if totalRIG.Nbr|length > 3 %}
+                                                                        {{ totalRIG.Nbr|striptags|slice(0, totalRIG.Nbr|length-3)|raw }}
+                                                                        &nbsp;
+                                                                        {{ totalRIG.Nbr|striptags|slice(totalRIG.Nbr|length-3, 3)|raw }}
+                                                                    {% else %}
+                                                                        {{ totalRIG.Nbr }}
+                                                                    {% endif %}</div>
+                                                            </td>
+                                                            <td width="18%" style="border-right: 1px solid #d2d2d2">
+                                                                <div style="text-align: right">
+
+                                                                    {{ totalRIG.Poids }}
+                                                                </div>
+                                                            </td>
+                                                            <td width="37%" style="border-right: 1px solid #d2d2d2">
+
+                                                                <div style="text-align: right">
+                                                                    {% if totalRIG.Montant|length > 6 %}
+                                                                        {{ totalRIG.Montant|striptags|slice(0, totalRIG.Montant|length-6)|raw }}
+
+                                                                        {{ totalRIG.Montant|striptags|slice(totalRIG.Montant|length-6, 3)|raw }}
+
+                                                                        {{ totalRIG.Montant|striptags|slice(totalRIG.Montant|length-3, 3)|raw }}
+
+                                                                    {% elseif(totalRIG.Montant|length > 3) %}
+                                                                        {{ totalRIG.Montant|striptags|slice(0, totalRIG.Montant|length-3)|raw }}
+
+                                                                        {{ totalRIG.Montant|striptags|slice(totalRIG.Montant|length-3, 3)|raw }}
+
+                                                                    {% else %}
+                                                                        {{ totalRIG.Montant }}
+                                                                    {% endif %}</div>
+
+                                                            </td>
+                                                            <td width="27%">
+                                                                <div style="text-align: right">
+                                                                    {% if totalRIG.TVA|length > 6 %}
+                                                                        {{ totalRIG.TVA|striptags|slice(0, totalRIG.TVA|length-6)|raw }}
+
+                                                                        {{ totalRIG.TVA|striptags|slice(totalRIG.TVA|length-6, 3)|raw }}
+
+                                                                        {{ totalRIG.TVA|striptags|slice(totalRIG.TVA|length-3, 3)|raw }}
+
+                                                                    {% elseif(totalRIG.TVA|length > 3) %}
+                                                                        {{ totalRIG.TVA|striptags|slice(0, totalRIG.TVA|length-3)|raw }}
+
+                                                                        {{ totalRIG.TVA|striptags|slice(totalRIG.TVA|length-3, 3)|raw }}
+
+                                                                    {% else %}
+                                                                        {{ totalRIG.TVA }}
+                                                                    {% endif %}</div>
+
+                                                            </td>
+
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="18%" style="border-right: 1px solid #d2d2d2">
+                                                                <div style="text-align: right">
+                                                                    {% if totalOIG.Nbr|length > 3 %}
+                                                                        {{ totalOIG.Nbr|striptags|slice(0, totalOIG.Nbr|length-3)|raw }}
+                                                                        &nbsp
+                                                                        {{ totalOIG.Nbr|striptags|slice(totalOIG.Nbr|length-3, 3)|raw }}
+                                                                    {% else %}
+                                                                        {{ totalOIG.Nbr }}
+                                                                    {% endif %}</div>
+                                                            </td>
+                                                            <td width="18%" style="border-right: 1px solid #d2d2d2">
+                                                                <div style="text-align: right">
+
+                                                                    {{ totalOIG.Poids }}
+                                                                </div>
+                                                            </td>
+                                                            <td width="37%" style="border-right: 1px solid #d2d2d2">
+                                                                <div style="text-align: right">
+                                                                    {% if totalOIG.Montant|length > 6 %}
+                                                                        {{ totalOIG.Montant|striptags|slice(0, totalOIG.Montant|length-6)|raw }}
+
+                                                                        {{ totalOIG.Montant|striptags|slice(totalOIG.Montant|length-6, 3)|raw }}
+
+                                                                        {{ totalOIG.Montant|striptags|slice(totalOIG.Montant|length-3, 3)|raw }}
+
+                                                                    {% elseif(totalOIG.Montant|length > 3) %}
+                                                                        {{ totalOIG.Montant|striptags|slice(0, totalOIG.Montant|length-3)|raw }}
+
+                                                                        {{ totalOIG.Montant|striptags|slice(totalOIG.Montant|length-3, 3)|raw }}
+
+                                                                    {% else %}
+                                                                        {{ totalOIG.Montant }}
+                                                                    {% endif %}</div>
+
+                                                            </td>
+                                                            <td width="27%">
+                                                                <div style="text-align: right">
+                                                                    {% if totalOIG.TVA|length > 6 %}
+                                                                        {{ totalOIG.TVA|striptags|slice(0, totalOIG.TVA|length-6)|raw }}
+
+                                                                        {{ totalOIG.TVA|striptags|slice(totalOIG.TVA|length-6, 3)|raw }}
+
+                                                                        {{ totalOIG.TVA|striptags|slice(totalOIG.TVA|length-3, 3)|raw }}
+
+                                                                    {% elseif(totalOIG.TVA|length > 3) %}
+                                                                        {{ totalOIG.TVA|striptags|slice(0, totalOIG.TVA|length-3)|raw }}
+
+                                                                        {{ totalOIG.TVA|striptags|slice(totalOIG.TVA|length-3, 3)|raw }}
+
+                                                                    {% else %}
+                                                                        {{ totalOIG.TVA }}
+                                                                    {% endif %}</div>
+
+                                                            </td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="18%" style="border-right: 1px solid #d2d2d2">
+                                                                <div style="text-align: right">
+                                                                    {% if totalIG.Nbr|length > 3 %}
+                                                                        {{ totalIG.Nbr|striptags|slice(0, totalIG.Nbr|length-3)|raw }}
+                                                                        &nbsp
+                                                                        {{ totalIG.Nbr|striptags|slice(totalIG.Nbr|length-3, 3)|raw }}
+                                                                    {% else %}
+                                                                        {{ totalIG.Nbr }}
+                                                                    {% endif %}</div>
+                                                            </td>
+                                                            <td width="18%" style="border-right: 1px solid #d2d2d2">
+                                                                <div style="text-align: right">
+                                                                    {{ totalIG.Poids }}</div>
+
+                                                            </td>
+                                                            <td width="37%" style="border-right: 1px solid #d2d2d2">
+                                                                <div style="text-align: right">
+                                                                    {% if totalIG.Montant|length > 6 %}
+                                                                        {{ totalIG.Montant|striptags|slice(0, totalIG.Montant|length-6)|raw }}
+
+                                                                        {{ totalIG.Montant|striptags|slice(totalIG.Montant|length-6, 3)|raw }}
+
+                                                                        {{ totalIG.Montant|striptags|slice(totalIG.Montant|length-3, 3)|raw }}
+
+                                                                    {% elseif(totalIG.Montant|length > 3) %}
+                                                                        {{ totalIG.Montant|striptags|slice(0, totalIG.Montant|length-3)|raw }}
+
+                                                                        {{ totalIG.Montant|striptags|slice(totalIG.Montant|length-3, 3)|raw }}
+
+                                                                    {% else %}
+                                                                        {{ totalIG.Montant }}
+                                                                    {% endif %}</div>
+
+                                                            </td>
+                                                            <td width="27%">
+                                                                <div style="text-align: right">
+                                                                    {% if totalIG.TVA|length > 6 %}
+                                                                        {{ totalIG.TVA|striptags|slice(0, totalIG.TVA|length-6)|raw }}
+
+                                                                        {{ totalIG.TVA|striptags|slice(totalIG.TVA|length-6, 3)|raw }}
+
+                                                                        {{ totalIG.TVA|striptags|slice(totalIG.TVA|length-3, 3)|raw }}
+
+                                                                    {% elseif(totalIG.TVA|length > 3) %}
+                                                                        {{ totalIG.TVA|striptags|slice(0, totalIG.TVA|length-3)|raw }}
+
+                                                                        {{ totalIG.TVA|striptags|slice(totalIG.TVA|length-3, 3)|raw }}
+
+                                                                    {% else %}
+                                                                        {{ totalIG.TVA }}
+                                                                    {% endif %}</div>
+
+                                                            </td>
+
+
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                              
+                                        </td>
+
+                                        <td width="31%" style="border-right: 2px solid #d2d2d2;padding: 0px">
+
+                                         
+                                                    <table class="table">
+                                                        <tbody>
+                                                        <tr>
+                                                            <td width="18%" style="border-right: 1px solid #d2d2d2">
+                                                                 <div style="line-height: 9px;height: 20px">
+                                                                  <span style="font-size: 12px;font-weight: bold"> Nbr</span>
+                                                                </div>
+                                                            </td>
+                                                            <td width="18%" style="border-right: 1px solid #d2d2d2">
+                                                                 <div style="line-height: 9px;">
+                                                                <span style="font-size: 12px;font-weight: bold">Poids</span>
+                                                            </div>
+                                                                 </td>
+                                                            <td width="37%" style="border-right: 1px solid #d2d2d2">
+                                                                 <div style="line-height: 9px;">
+                                                                <span style="font-size: 12px;font-weight: bold"> Montant HT</span>
+                                                             </div>
+                                                                 </td>
+                                                            <td width="27%">
+                                                                 <div style="line-height: 9px;">
+                                                                <span style="font-size: 12px;font-weight: bold">TVA</span>
+                                                             </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="18%" style="border-right: 1px solid #d2d2d2">
+                                                                <div style="text-align: right">
+                                                                    {% if totalRNG.Nbr|length > 3 %}
+                                                                        {{ totalRNG.Nbr|striptags|slice(0, totalRNG.Nbr|length-3)|raw }}
+                                                                        &nbsp
+                                                                        {{ totalRNG.Nbr|striptags|slice(totalRNG.Nbr|length-3, 3)|raw }}
+                                                                    {% else %}
+                                                                        {{ totalRNG.Nbr }}
+                                                                    {% endif %}</div>
+                                                            </td>
+                                                            <td width="18%" style="border-right: 1px solid #d2d2d2">
+                                                                <div style="text-align: right">
+
+                                                                    {{ totalRNG.Poids }}
+                                                                </div>
+                                                            </td>
+                                                            <td width="37%" style="border-right: 1px solid #d2d2d2">
+
+                                                                <div style="text-align: right">
+
+                                                                    {% if totalRNG.Montant|length > 6 %}
+                                                                        {{ totalRNG.Montant|striptags|slice(0, totalRNG.Montant|length-6)|raw }}
+
+                                                                        {{ totalRNG.Montant|striptags|slice(totalRNG.Montant|length-6, 3)|raw }}
+
+                                                                        {{ totalRNG.Montant|striptags|slice(totalRNG.Montant|length-3, 3)|raw }}
+
+                                                                    {% elseif(totalRNG.Montant|length > 3) %}
+                                                                        {{ totalRNG.Montant|striptags|slice(0, totalRNG.Montant|length-3)|raw }}
+
+                                                                        {{ totalRNG.Montant|striptags|slice(totalRNG.Montant|length-3, 3)|raw }}
+
+                                                                    {% else %}
+                                                                        {{ totalRNG.Montant }}
+                                                                    {% endif %}</div>
+
+                                                            </td>
+                                                            <td width="27%">
+                                                                <div style="text-align: right">
+                                                                    {% if totalRNG.TVA|length > 6 %}
+                                                                        {{ totalRNG.TVA|striptags|slice(0, totalRNG.TVA|length-6)|raw }}
+
+                                                                        {{ totalRNG.TVA|striptags|slice(totalRNG.TVA|length-6, 3)|raw }}
+
+                                                                        {{ totalRNG.TVA|striptags|slice(totalRNG.TVA|length-3, 3)|raw }}
+
+                                                                    {% elseif(totalRNG.TVA|length > 3) %}
+                                                                        {{ totalRNG.TVA|striptags|slice(0, totalRNG.TVA|length-3)|raw }}
+
+                                                                        {{ totalRNG.TVA|striptags|slice(totalRNG.TVA|length-3, 3)|raw }}
+
+                                                                    {% else %}
+                                                                        {{ totalRNG.TVA }}
+                                                                    {% endif %}</div>
+
+                                                            </td>
+
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="18%" style="border-right: 1px solid #d2d2d2">
+                                                                <div style="text-align: right">
+                                                                    {% if totalONG.Nbr|length > 3 %}
+                                                                        {{ totalONG.Nbr|striptags|slice(0, totalONG.Nbr|length-3)|raw }}
+                                                                        &nbsp;
+                                                                        {{ totalONG.Nbr|striptags|slice(totalONG.Nbr|length-3, 3)|raw }}
+                                                                    {% else %}
+                                                                        {{ totalONG.Nbr }}
+                                                                    {% endif %}</div>
+                                                            </td>
+                                                            <td width="18%" style="border-right: 1px solid #d2d2d2">
+                                                                <div style="text-align: right">
+
+                                                                    {{ totalONG.Poids }}
+                                                                </div>
+                                                            </td>
+                                                            <td width="37%" style="border-right: 1px solid #d2d2d2">
+                                                                <div style="text-align: right">
+
+                                                                    {% if totalONG.Montant|length > 6 %}
+                                                                        {{ totalONG.Montant|striptags|slice(0, totalONG.Montant|length-6)|raw }}
+
+                                                                        {{ totalONG.Montant|striptags|slice(totalONG.Montant|length-6, 3)|raw }}
+
+                                                                        {{ totalONG.Montant|striptags|slice(totalONG.Montant|length-3, 3)|raw }}
+
+                                                                    {% elseif(totalONG.Montant|length > 3) %}
+                                                                        {{ totalONG.Montant|striptags|slice(0, totalONG.Montant|length-3)|raw }}
+
+                                                                        {{ totalONG.Montant|striptags|slice(totalONG.Montant|length-3, 3)|raw }}
+
+                                                                    {% else %}
+                                                                        {{ totalONG.Montant }}
+                                                                    {% endif %}</div>
+
+                                                            </td>
+                                                            <td width="27%">
+                                                                <div style="text-align: right">
+                                                                    {% if totalONG.TVA|length > 6 %}
+                                                                        {{ totalONG.TVA|striptags|slice(0, totalONG.TVA|length-6)|raw }}
+
+                                                                        {{ totalONG.TVA|striptags|slice(totalONG.TVA|length-6, 3)|raw }}
+
+                                                                        {{ totalONG.TVA|striptags|slice(totalONG.TVA|length-3, 3)|raw }}
+
+                                                                    {% elseif(totalONG.TVA|length > 3) %}
+                                                                        {{ totalONG.TVA|striptags|slice(0, totalONG.TVA|length-3)|raw }}
+
+                                                                        {{ totalONG.TVA|striptags|slice(totalONG.TVA|length-3, 3)|raw }}
+
+                                                                    {% else %}
+                                                                        {{ totalONG.TVA }}
+                                                                    {% endif %}</div>
+                                                            </td>
+
+
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="18%" style="border-right: 1px solid #d2d2d2">
+                                                                <div style="text-align: right">
+                                                                    {% if totalNG.Nbr|length > 3 %}
+                                                                        {{ totalNG.Nbr|striptags|slice(0, totalNG.Nbr|length-3)|raw }}
+                                                                        &nbsp
+                                                                        {{ totalNG.Nbr|striptags|slice(totalNG.Nbr|length-3, 3)|raw }}
+                                                                    {% else %}
+                                                                        {{ totalNG.Nbr }}
+                                                                    {% endif %}</div>
+                                                            </td>
+                                                            <td width="18%" style="border-right: 1px solid #d2d2d2">
+                                                                <div style="text-align: right">
+                                                                    {{ totalNG.Poids }}
+                                                                </div>
+                                                            </td>
+                                                            <td width="37%" style="border-right: 1px solid #d2d2d2">
+
+                                                                <div style="text-align: right">
+
+                                                                    {% if totalNG.Montant|length > 6 %}
+                                                                        {{ totalNG.Montant|striptags|slice(0, totalNG.Montant|length-6)|raw }}
+
+                                                                        {{ totalNG.Montant|striptags|slice(totalNG.Montant|length-6, 3)|raw }}
+
+                                                                        {{ totalNG.Montant|striptags|slice(totalNG.Montant|length-3, 3)|raw }}
+
+                                                                    {% elseif(totalNG.Montant|length > 3) %}
+                                                                        {{ totalNG.Montant|striptags|slice(0, totalNG.Montant|length-3)|raw }}
+
+                                                                        {{ totalNG.Montant|striptags|slice(totalNG.Montant|length-3, 3)|raw }}
+
+                                                                    {% else %}
+                                                                        {{ totalNG.Montant }}
+                                                                    {% endif %}</div>
+                                                            </td>
+                                                            <td width="27%">
+
+
+                                                                <div style="text-align: right">
+
+                                                                    {% if totalNG.TVA|length > 6 %}
+                                                                        {{ totalNG.TVA|striptags|slice(0, totalNG.TVA|length-6)|raw }}
+
+                                                                        {{ totalNG.TVA|striptags|slice(totalNG.TVA|length-6, 3)|raw }}
+
+                                                                        {{ totalNG.TVA|striptags|slice(totalNG.TVA|length-3, 3)|raw }}
+
+                                                                    {% elseif(totalNG.TVA|length > 3) %}
+                                                                        {{ totalNG.TVA|striptags|slice(0, totalNG.TVA|length-3)|raw }}
+
+                                                                        {{ totalNG.TVA|striptags|slice(totalNG.TVA|length-3, 3)|raw }}
+
+                                                                    {% else %}
+                                                                        {{ totalNG.TVA }}
+                                                                    {% endif %}</div>
+                                                            </td>
+
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                              
+
+                                        </td>
+
+                                        <td width="31%" style="border-right: 2px solid #d2d2d2;padding: 0px">
+
+                                          
+                                                    <table  class="table">
+                                                        <tbody>
+                                                        <tr>
+                                                            <td width="19.5%" style="border-right: 1px solid #d2d2d2">
+                                                                 <div style="line-height: 9px;height: 20px">
+                                                                <span style="font-size: 12px;font-weight: bold"> Nbr</span>
+                                                             </div>
+                                                                 </td>
+                                                            <td width="19.5%" style="border-right: 1px solid #d2d2d2">
+                                                                  <div style="line-height: 9px;">
+                                                                <span style="font-size: 12px;font-weight: bold">Poids</span>
+                                                             </div>
+                                                                  </td>
+                                                            <td width="33%" style="border-right: 1px solid #d2d2d2">
+                                                                  <div style="line-height: 9px;">
+                                                                <span style="font-size: 12px;font-weight: bold"> Montant HT</span>
+                                                              </div>
+                                                                  </td>
+                                                            <td width="28%">
+                                                                  <div style="line-height: 9px;">
+                                                                <span style="font-size: 12px;font-weight: bold">TVA</span>
+                                                              </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="19.5%" style="border-right: 1px solid #d2d2d2">
+                                                                <div style="text-align: right">
+                                                                    {% if totalRG.Nbr|length > 3 %}
+                                                                        {{ totalRG.Nbr|striptags|slice(0, totalRG.Nbr|length-3)|raw }}
+                                                                    
+                                                                        {{ totalRG.Nbr|striptags|slice(totalRG.Nbr|length-3, 3)|raw }}
+                                                                    {% else %}
+                                                                        {{ totalRG.Nbr }}
+                                                                    {% endif %}</div>
+                                                            </td>
+                                                            <td width="19.5%" style="border-right: 1px solid #d2d2d2">
+                                                                <div style="text-align: right">
+                                                                    {{ totalRG.Poids }}
+                                                                </div>
+                                                            </td>
+                                                            <td width="33%" style="border-right: 1px solid #d2d2d2">
+                                                                <div style="text-align: right">
+
+                                                                    {% if totalRG.Montant|length > 6 %}
+                                                                        {{ totalRG.Montant|striptags|slice(0, totalRG.Montant|length-6)|raw }}
+
+                                                                        {{ totalRG.Montant|striptags|slice(totalRG.Montant|length-6, 3)|raw }}
+
+                                                                        {{ totalRG.Montant|striptags|slice(totalRG.Montant|length-3, 3)|raw }}
+
+                                                                    {% elseif(totalRG.Montant|length > 3) %}
+                                                                        {{ totalRG.Montant|striptags|slice(0, totalRG.Montant|length-3)|raw }}
+
+                                                                        {{ totalRG.Montant|striptags|slice(totalRG.Montant|length-3, 3)|raw }}
+
+                                                                    {% else %}
+                                                                        {{ totalRG.Montant }}
+                                                                    {% endif %}</div>
+                                                            </td>
+                                                            <td width="28%">
+                                                                <div style="text-align: right">
+
+                                                                    {% if totalRG.TVA|length > 6 %}
+                                                                        {{ totalRG.TVA|striptags|slice(0, totalRG.TVA|length-6)|raw }}
+
+                                                                        {{ totalRG.TVA|striptags|slice(totalRG.TVA|length-6, 3)|raw }}
+
+                                                                        {{ totalRG.TVA|striptags|slice(totalRG.TVA|length-3, 3)|raw }}
+
+                                                                    {% elseif(totalRG.TVA|length > 3) %}
+                                                                        {{ totalRG.TVA|striptags|slice(0, totalRG.TVA|length-3)|raw }}
+
+                                                                        {{ totalRG.TVA|striptags|slice(totalRG.TVA|length-3, 3)|raw }}
+
+                                                                    {% else %}
+                                                                        {{ totalRG.TVA }}
+                                                                    {% endif %}</div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="19.5%" style="border-right: 1px solid #d2d2d2">
+                                                                <div style="text-align: right">
+                                                                    {% if totalOG.Nbr|length > 3 %}
+                                                                        {{ totalOG.Nbr|striptags|slice(0, totalOG.Nbr|length-3)|raw }}
+
+                                                                        {{ totalOG.Nbr|striptags|slice(totalOG.Nbr|length-3, 3)|raw }}
+                                                                    {% else %}
+                                                                        {{ totalOG.Nbr }}
+                                                                    {% endif %}</div>
+                                                            </td>
+                                                            <td width="19.5%" style="border-right: 1px solid #d2d2d2">
+                                                                <div style="text-align: right">
+                                                                    {{ totalOG.Poids }}
+                                                                </div>
+                                                            </td>
+                                                            <td width="34%" style="border-right: 1px solid #d2d2d2">
+                                                                <div style="text-align: right">
+
+                                                                    {% if totalOG.Montant|length > 6 %}
+                                                                        {{ totalOG.Montant|striptags|slice(0, totalOG.Montant|length-6)|raw }}
+
+                                                                        {{ totalOG.Montant|striptags|slice(totalOG.Montant|length-6, 3)|raw }}
+
+                                                                        {{ totalOG.Montant|striptags|slice(totalOG.Montant|length-3, 3)|raw }}
+
+                                                                    {% elseif(totalOG.Montant|length > 3) %}
+                                                                        {{ totalOG.Montant|striptags|slice(0, totalOG.Montant|length-3)|raw }}
+
+                                                                        {{ totalOG.Montant|striptags|slice(totalOG.Montant|length-3, 3)|raw }}
+
+                                                                    {% else %}
+                                                                        {{ totalOG.Montant }}
+                                                                    {% endif %}</div>
+                                                            </td>
+                                                            <td width="27%">
+                                                                <div style="text-align: right">
+
+                                                                    {% if totalOG.TVA|length > 6 %}
+                                                                        {{ totalOG.TVA|striptags|slice(0, totalOG.TVA|length-6)|raw }}
+
+                                                                        {{ totalOG.TVA|striptags|slice(totalOG.TVA|length-6, 3)|raw }}
+
+                                                                        {{ totalOG.TVA|striptags|slice(totalOG.TVA|length-3, 3)|raw }}
+
+                                                                    {% elseif(totalOG.TVA|length > 3) %}
+                                                                        {{ totalOG.TVA|striptags|slice(0, totalOG.TVA|length-3)|raw }}
+
+                                                                        {{ totalOG.TVA|striptags|slice(totalOG.TVA|length-3, 3)|raw }}
+
+                                                                    {% else %}
+                                                                        {{ totalOG.TVA }}
+                                                                    {% endif %}</div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="19.5%" style="border-right: 1px solid #d2d2d2">
+                                                                <div style="text-align: right">
+                                                                    {% if totalROG.Nbr|length > 3 %}
+                                                                        {{ totalROG.Nbr|striptags|slice(0, totalROG.Nbr|length-3)|raw }}
+
+                                                                        {{ totalROG.Nbr|striptags|slice(totalROG.Nbr|length-3, 3)|raw }}
+                                                                    {% else %}
+                                                                        {{ totalROG.Nbr }}
+                                                                    {% endif %}</div>
+                                                            </td>
+                                                            <td width="19.5%" style="border-right: 1px solid #d2d2d2">
+                                                                <div style="text-align: right">
+                                                                    {{ totalROG.Poids }}
+                                                                </div>
+                                                            </td>
+                                                            <td width="34%" style="border-right: 1px solid #d2d2d2">
+                                                                <div style="text-align: right">
+
+                                                                    {% if totalROG.Montant|length > 6 %}
+                                                                        {{ totalROG.Montant|striptags|slice(0, totalROG.Montant|length-6)|raw }}
+
+                                                                        {{ totalROG.Montant|striptags|slice(totalROG.Montant|length-6, 3)|raw }}
+
+                                                                        {{ totalROG.Montant|striptags|slice(totalROG.Montant|length-3, 3)|raw }}
+
+                                                                    {% elseif(totalROG.Montant|length > 3) %}
+                                                                        {{ totalROG.Montant|striptags|slice(0, totalROG.Montant|length-3)|raw }}
+
+                                                                        {{ totalROG.Montant|striptags|slice(totalROG.Montant|length-3, 3)|raw }}
+
+                                                                    {% else %}
+                                                                        {{ totalROG.Montant }}
+                                                                    {% endif %}</div>
+                                                            </td>
+                                                            <td width="27%">
+                                                                <div style="text-align: right">
+
+                                                                    {% if totalROG.TVA|length > 6 %}
+                                                                        {{ totalROG.TVA|striptags|slice(0, totalROG.TVA|length-6)|raw }}
+
+                                                                        {{ totalROG.TVA|striptags|slice(totalROG.TVA|length-6, 3)|raw }}
+
+                                                                        {{ totalROG.TVA|striptags|slice(totalROG.TVA|length-3, 3)|raw }}
+
+                                                                    {% elseif(totalROG.TVA|length > 3) %}
+                                                                        {{ totalROG.TVA|striptags|slice(0, totalROG.TVA|length-3)|raw }}
+
+                                                                        {{ totalROG.TVA|striptags|slice(totalROG.TVA|length-3, 3)|raw }}
+
+                                                                    {% else %}
+                                                                        {{ totalROG.TVA }}
+                                                                    {% endif %}</div>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                              
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                      
+                         
+                                                            
+                        {% for agence in agences %}
+
+                            {% if agence.sroagence.Nbr!=0 %}
+                                <div style="border-top: 2px solid #337ab7;">
+
+
+                                    <table style="width: 100%" class="table table-bordered">
+                                        <tbody>
+                                        <tr>
+                                            <td width="12%" style="border-right: 2px solid #d2d2d2;padding: 0px">
+
+                                                
+                                                        <table class="table">
+                                                            <tbody>
+                                                            <tr>
+                                                                <td height="37px">
+                                                                    <div style="line-height: 9px;height: 20px">
+
+                                                                <span style="font-size: 12px;font-weight: bold;color: red">
+                                                                    {{  agence.agence.nom}}
+                                                                </span> </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <span style="font-size: 12px;color: #777">Réguliers</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <span style="font-size: 12px;color: #777">Occasionnels</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <span style="font-size: 12px;font-weight: bold;color: #777">Total</span>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                  
+                                            </td>
+                                            <td width="27%" style="border-right: 2px solid #d2d2d2;padding: 0px">
+                                               
+                                                        <table  class="table">
+                                                            <tbody>
+                                                            <tr>
+                                                                <td width="18%" style="border-right: 1px solid #d2d2d2">
+                                                                     <div style="line-height: 9px;height: 20px">
+                                                                    <span style="font-size: 12px;font-weight: bold"> Nbr</span>
+                                                                    </div>
+                                                                </td>
+                                                                <td width="18%" style="border-right: 1px solid #d2d2d2">
+                                                                     <div style="line-height: 9px;">
+                                                                    <span style="font-size: 12px;font-weight: bold">Poids</span>
+                                                                    </div>
+                                                                </td>
+                                                                <td width="37%" style="border-right: 1px solid #d2d2d2">
+                                                                      <div style="line-height: 9px;">
+                                                                    <span style="font-size: 12px;font-weight: bold"> Montant HT</span>
+                                                                    </div>
+                                                                </td>
+                                                                <td width="27%">
+                                                                      <div style="line-height: 9px;">
+                                                                    <span style="font-size: 12px;font-weight: bold">TVA</span>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="18%" style="border-right: 1px solid #d2d2d2">
+
+                                                                    <div style="text-align: right">
+                                                                        {% if agence.siragence.Nbr|length > 3 %}
+                                                                            {{ agence.siragence.Nbr|striptags|slice(0, agence.siragence.Nbr|length-3)|raw }}
+                                                                            &nbsp
+                                                                            {{ agence.siragence.Nbr|striptags|slice(agence.siragence.Nbr|length-3, 3)|raw }}
+                                                                        {% else %}
+                                                                            {{ agence.siragence.Nbr }}
+                                                                        {% endif %}</div>
+                                                                </td>
+                                                                <td width="18%" style="border-right: 1px solid #d2d2d2">
+                                                                    <div style="text-align: right">
+                                                                        {{ agence.siragence.Poids }}
+                                                                    </div>
+                                                                </td>
+                                                                <td width="37%" style="border-right: 1px solid #d2d2d2">
+                                                                    <div style="text-align: right">
+
+                                                                        {% if agence.siragence.Montant|length > 6 %}
+                                                                            {{ agence.siragence.Montant|striptags|slice(0, agence.siragence.Montant|length-6)|raw }}
+
+                                                                            {{ agence.siragence.Montant|striptags|slice(agence.siragence.Montant|length-6, 3)|raw }}
+
+                                                                            {{ agence.siragence.Montant|striptags|slice(agence.siragence.Montant|length-3, 3)|raw }}
+
+                                                                        {% elseif(agence.siragence.Montant|length > 3) %}
+                                                                            {{ agence.siragence.Montant|striptags|slice(0, agence.siragence.Montant|length-3)|raw }}
+
+                                                                            {{ agence.siragence.Montant|striptags|slice(agence.siragence.Montant|length-3, 3)|raw }}
+
+                                                                        {% else %}
+                                                                            {{ agence.siragence.Montant }}
+                                                                        {% endif %}</div>
+                                                                </td>
+                                                                <td width="27%">
+                                                                    <div style="text-align: right">
+
+                                                                        {% if agence.siragence.TVA|length > 6 %}
+                                                                            {{ agence.siragence.TVA|striptags|slice(0, agence.siragence.TVA|length-6)|raw }}
+
+                                                                            {{ agence.siragence.TVA|striptags|slice(agence.siragence.TVA|length-6, 3)|raw }}
+
+                                                                            {{ agence.siragence.TVA|striptags|slice(agence.siragence.TVA|length-3, 3)|raw }}
+
+                                                                        {% elseif(agence.siragence.TVA|length > 3) %}
+                                                                            {{ agence.siragence.TVA|striptags|slice(0, agence.siragence.TVA|length-3)|raw }}
+
+                                                                            {{ agence.siragence.TVA|striptags|slice(agence.siragence.TVA|length-3, 3)|raw }}
+
+                                                                        {% else %}
+                                                                            {{ agence.siragence.TVA }}
+                                                                        {% endif %}</div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="18%" style="border-right: 1px solid #d2d2d2">
+                                                                    <div style="float:right;">
+                                                                        {% if agence.sioagence.Nbr|length > 3 %}
+                                                                            {{ agence.sioagence.Nbr|striptags|slice(0, agence.sioagence.Nbr|length-3)|raw }}
+                                                                            &nbsp
+                                                                            {{ agence.sioagence.Nbr|striptags|slice(agence.sioagence.Nbr|length-3, 3)|raw }}
+                                                                        {% else %}
+                                                                            {{ agence.sioagence.Nbr }}
+                                                                        {% endif %}
+                                                                    </div>
+                                                                </td>
+                                                                <td width="18%" style="border-right: 1px solid #d2d2d2">
+                                                                    <div style="float:right;">
+                                                                        {{ agence.sioagence.Poids }}
+                                                                    </div>
+                                                                </td>
+                                                                <td width="37%" style="border-right: 1px solid #d2d2d2">
+                                                                    <div style="text-align: right">
+
+                                                                        {% if agence.sioagence.Montant|length > 6 %}
+                                                                            {{ agence.sioagence.Montant|striptags|slice(0, agence.sioagence.Montant|length-6)|raw }}
+
+                                                                            {{ agence.sioagence.Montant|striptags|slice(agence.sioagence.Montant|length-6, 3)|raw }}
+
+                                                                            {{ agence.sioagence.Montant|striptags|slice(agence.sioagence.Montant|length-3, 3)|raw }}
+
+                                                                        {% elseif(agence.sioagence.Montant|length > 3) %}
+                                                                            {{ agence.sioagence.Montant|striptags|slice(0, agence.sioagence.Montant|length-3)|raw }}
+
+                                                                            {{ agence.sioagence.Montant|striptags|slice(agence.sioagence.Montant|length-3, 3)|raw }}
+
+                                                                        {% else %}
+                                                                            {{ agence.sioagence.Montant }}
+                                                                        {% endif %}</div>
+                                                                </td>
+                                                                <td width="27%">
+                                                                    <div style="text-align: right">
+
+                                                                        {% if agence.sioagence.TVA|length > 6 %}
+                                                                            {{ agence.sioagence.TVA|striptags|slice(0, agence.sioagence.TVA|length-6)|raw }}
+
+                                                                            {{ agence.sioagence.TVA|striptags|slice(agence.sioagence.TVA|length-6, 3)|raw }}
+
+                                                                            {{ agence.sioagence.TVA|striptags|slice(agence.sioagence.TVA|length-3, 3)|raw }}
+
+                                                                        {% elseif(agence.sioagence.TVA|length > 3) %}
+                                                                            {{ agence.sioagence.TVA|striptags|slice(0, agence.sioagence.TVA|length-3)|raw }}
+
+                                                                            {{ agence.sioagence.TVA|striptags|slice(agence.sioagence.TVA|length-3, 3)|raw }}
+
+                                                                        {% else %}
+                                                                            {{ agence.sioagence.TVA }}
+                                                                        {% endif %}</div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="18%" style="border-right: 1px solid #d2d2d2">
+                                                                    <div style="float:right;">
+
+                                                                        {% if agence.siroagence.Nbr|length > 3 %}
+                                                                            {{ agence.siroagence.Nbr|striptags|slice(0, agence.siroagence.Nbr|length-3)|raw }}
+                                                                            &nbsp
+                                                                            {{ agence.siroagence.Nbr|striptags|slice(agence.siroagence.Nbr|length-3, 3)|raw }}
+                                                                        {% else %}
+                                                                            {{ agence.siroagence.Nbr }}
+                                                                        {% endif %}
+                                                                    </div>
+                                                                </td>
+                                                                <td width="18%" style="border-right: 1px solid #d2d2d2">
+                                                                    <div style="float:right;">
+                                                                        {{ agence.siroagence.Poids }}
+                                                                    </div>
+                                                                </td>
+                                                                <td width="37%" style="border-right: 1px solid #d2d2d2">
+                                                                    <div style="text-align: right">
+
+                                                                        {% if agence.siroagence.Montant|length > 6 %}
+                                                                            {{ agence.siroagence.Montant|striptags|slice(0, agence.siroagence.Montant|length-6)|raw }}
+
+                                                                            {{ agence.siroagence.Montant|striptags|slice(agence.siroagence.Montant|length-6, 3)|raw }}
+
+                                                                            {{ agence.siroagence.Montant|striptags|slice(agence.siroagence.Montant|length-3, 3)|raw }}
+
+                                                                        {% elseif(agence.siroagence.Montant|length > 3) %}
+                                                                            {{ agence.siroagence.Montant|striptags|slice(0, agence.siroagence.Montant|length-3)|raw }}
+
+                                                                            {{ agence.siroagence.Montant|striptags|slice(agence.siroagence.Montant|length-3, 3)|raw }}
+
+                                                                        {% else %}
+                                                                            {{ agence.siroagence.Montant }}
+                                                                        {% endif %}</div>
+                                                                </td>
+                                                                <td width="27%">
+                                                                    <div style="text-align: right">
+
+                                                                        {% if agence.siroagence.TVA|length > 6 %}
+                                                                            {{ agence.siroagence.TVA|striptags|slice(0, agence.siroagence.TVA|length-6)|raw }}
+
+                                                                            {{ agence.siroagence.TVA|striptags|slice(agence.siroagence.TVA|length-6, 3)|raw }}
+
+                                                                            {{ agence.siroagence.TVA|striptags|slice(agence.siroagence.TVA|length-3, 3)|raw }}
+
+                                                                        {% elseif(agence.siroagence.TVA|length > 3) %}
+                                                                            {{ agence.siroagence.TVA|striptags|slice(0, agence.siroagence.TVA|length-3)|raw }}
+
+                                                                            {{ agence.siroagence.TVA|striptags|slice(agence.siroagence.TVA|length-3, 3)|raw }}
+
+                                                                        {% else %}
+                                                                            {{ agence.siroagence.TVA }}
+                                                                        {% endif %}</div>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                            </td>
+                                            <td width="31%" style="border-right: 2px solid #d2d2d2;padding: 0px">
+
+                                               
+                                                        <table class="table">
+                                                            <tbody>
+                                                            <tr>
+                                                                <td width="18%" style="border-right: 1px solid #d2d2d2">
+                                                                    <div style="line-height: 9px;height: 20px">
+                                                                    <span style="font-size: 12px;font-weight: bold"> Nbr</span>
+                                                                    </div>
+                                                                </td>
+                                                                <td width="18%" style="border-right: 1px solid #d2d2d2">
+                                                                      <div style="line-height: 9px;">
+                                                                    <span style="font-size: 12px;font-weight: bold">Poids</span>
+                                                                    </div>
+                                                                </td>
+                                                                <td width="37%" style="border-right: 1px solid #d2d2d2">
+                                                                     <div style="line-height: 9px;">
+                                                                    <span style="font-size: 12px;font-weight: bold"> Montant HT</span>
+                                                                    </div>
+                                                                </td>
+                                                                <td width="27%">
+                                                                     <div style="line-height: 9px;">
+                                                                    <span style="font-size: 12px;font-weight: bold">TVA</span>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="18%" style="border-right: 1px solid #d2d2d2">
+                                                                    <div style="text-align: right">
+                                                                        {% if agence.snragence.Nbr|length > 3 %}
+                                                                            {{ agence.snragence.Nbr|striptags|slice(0, agence.snragence.Nbr|length-3)|raw }}
+                                                                            &nbsp
+                                                                            {{ agence.snragence.Nbr|striptags|slice(agence.snragence.Nbr|length-3, 3)|raw }}
+                                                                        {% else %}
+                                                                            {{ agence.snragence.Nbr }}
+                                                                        {% endif %}
+                                                                    </div>
+                                                                </td>
+                                                                <td width="18%" style="border-right: 1px solid #d2d2d2">
+                                                                    <div style="text-align: right">
+
+                                                                        {{ agence.snragence.Poids }}
+
+                                                                    </div>
+                                                                </td>
+                                                                <td width="37%" style="border-right: 1px solid #d2d2d2">
+                                                                    <div style="text-align: right">
+
+                                                                        {% if agence.snragence.Montant|length > 6 %}
+                                                                            {{ agence.snragence.Montant|striptags|slice(0, agence.snragence.Montant|length-6)|raw }}
+
+                                                                            {{ agence.snragence.Montant|striptags|slice(agence.snragence.Montant|length-6, 3)|raw }}
+
+                                                                            {{ agence.snragence.Montant|striptags|slice(agence.snragence.Montant|length-3, 3)|raw }}
+
+                                                                        {% elseif(agence.snragence.Montant|length > 3) %}
+                                                                            {{ agence.snragence.Montant|striptags|slice(0, agence.snragence.Montant|length-3)|raw }}
+
+                                                                            {{ agence.snragence.Montant|striptags|slice(agence.snragence.Montant|length-3, 3)|raw }}
+
+                                                                        {% else %}
+                                                                            {{ agence.snragence.Montant }}
+                                                                        {% endif %}</div>
+                                                                </td>
+                                                                <td width="27%">
+                                                                    <div style="text-align: right">
+
+                                                                        {% if agence.snragence.TVA|length > 6 %}
+                                                                            {{ agence.snragence.TVA|striptags|slice(0, agence.snragence.TVA|length-6)|raw }}
+
+                                                                            {{ agence.snragence.TVA|striptags|slice(agence.snragence.TVA|length-6, 3)|raw }}
+
+                                                                            {{ agence.snragence.TVA|striptags|slice(agence.snragence.TVA|length-3, 3)|raw }}
+
+                                                                        {% elseif(agence.snragence.TVA|length > 3) %}
+                                                                            {{ agence.snragence.TVA|striptags|slice(0, agence.snragence.TVA|length-3)|raw }}
+
+                                                                            {{ agence.snragence.TVA|striptags|slice(agence.snragence.TVA|length-3, 3)|raw }}
+
+                                                                        {% else %}
+                                                                            {{ agence.snragence.TVA }}
+                                                                        {% endif %}</div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="18%" style="border-right: 1px solid #d2d2d2">
+                                                                    <div style="text-align: right">
+                                                                        {% if agence.snoagence.Nbr|length > 3 %}
+                                                                            {{ agence.snoagence.Nbr|striptags|slice(0, agence.snoagence.Nbr|length-3)|raw }}
+                                                                            &nbsp
+                                                                            {{ agence.snoagence.Nbr|striptags|slice(agence.snoagence.Nbr|length-3, 3)|raw }}
+                                                                        {% else %}
+                                                                            {{ agence.snoagence.Nbr }}
+                                                                        {% endif %}
+                                                                    </div>
+                                                                </td>
+                                                                <td width="18%" style="border-right: 1px solid #d2d2d2">
+                                                                    <div style="text-align: right">
+
+                                                                        {{ agence.snoagence.Poids }}
+
+                                                                    </div>
+                                                                </td>
+                                                                <td width="37%" style="border-right: 1px solid #d2d2d2">
+                                                                    <div style="text-align: right">
+
+                                                                        {% if agence.snoagence.Montant|length > 6 %}
+                                                                            {{ agence.snoagence.Montant|striptags|slice(0, agence.snoagence.Montant|length-6)|raw }}
+
+                                                                            {{ agence.snoagence.Montant|striptags|slice(agence.snoagence.Montant|length-6, 3)|raw }}
+
+                                                                            {{ agence.snoagence.Montant|striptags|slice(agence.snoagence.Montant|length-3, 3)|raw }}
+
+                                                                        {% elseif(agence.snoagence.Montant|length > 3) %}
+                                                                            {{ agence.snoagence.Montant|striptags|slice(0, agence.snoagence.Montant|length-3)|raw }}
+
+                                                                            {{ agence.snoagence.Montant|striptags|slice(agence.snoagence.Montant|length-3, 3)|raw }}
+
+                                                                        {% else %}
+                                                                            {{ agence.snoagence.Montant }}
+                                                                        {% endif %}</div>
+                                                                </td>
+                                                                <td width="27%">
+                                                                    <div style="text-align: right">
+
+                                                                        {% if agence.snoagence.TVA|length > 6 %}
+                                                                            {{ agence.snoagence.TVA|striptags|slice(0, agence.snoagence.TVA|length-6)|raw }}
+
+                                                                            {{ agence.snoagence.TVA|striptags|slice(agence.snoagence.TVA|length-6, 3)|raw }}
+
+                                                                            {{ agence.snoagence.TVA|striptags|slice(agence.snoagence.TVA|length-3, 3)|raw }}
+
+                                                                        {% elseif(agence.snoagence.TVA|length > 3) %}
+                                                                            {{ agence.snoagence.TVA|striptags|slice(0, agence.snoagence.TVA|length-3)|raw }}
+
+                                                                            {{ agence.snoagence.TVA|striptags|slice(agence.snoagence.TVA|length-3, 3)|raw }}
+
+                                                                        {% else %}
+                                                                            {{ agence.snoagence.TVA }}
+                                                                        {% endif %}</div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="18%" style="border-right: 1px solid #d2d2d2">
+                                                                    <div style="text-align: right">
+                                                                        {% if agence.snroagence.Nbr|length > 3 %}
+                                                                            {{ agence.snroagence.Nbr|striptags|slice(0, agence.snroagence.Nbr|length-3)|raw }}
+                                                                            &nbsp
+                                                                            {{ agence.snroagence.Nbr|striptags|slice(agence.snroagence.Nbr|length-3, 3)|raw }}
+                                                                        {% else %}
+                                                                            {{ agence.snroagence.Nbr }}
+                                                                        {% endif %}
+                                                                    </div>
+                                                                </td>
+                                                                <td width="18%" style="border-right: 1px solid #d2d2d2">
+                                                                    <div style="text-align: right">
+
+                                                                        {{ agence.snroagence.Poids }}
+                                                                    </div>
+                                                                </td>
+                                                                <td width="37%" style="border-right: 1px solid #d2d2d2">
+                                                                    <div style="text-align: right">
+
+                                                                        {% if agence.snroagence.Montant|length > 6 %}
+                                                                            {{ agence.snroagence.Montant|striptags|slice(0, agence.snroagence.Montant|length-6)|raw }}
+
+                                                                            {{ agence.snroagence.Montant|striptags|slice(agence.snroagence.Montant|length-6, 3)|raw }}
+
+                                                                            {{ agence.snroagence.Montant|striptags|slice(agence.snroagence.Montant|length-3, 3)|raw }}
+
+                                                                        {% elseif(agence.snroagence.Montant|length > 3) %}
+                                                                            {{ agence.snroagence.Montant|striptags|slice(0, agence.snroagence.Montant|length-3)|raw }}
+
+                                                                            {{ agence.snroagence.Montant|striptags|slice(agence.snroagence.Montant|length-3, 3)|raw }}
+
+                                                                        {% else %}
+                                                                            {{ agence.snroagence.Montant }}
+                                                                        {% endif %}</div>
+                                                                </td>
+                                                                <td width="27%">
+                                                                    <div style="text-align: right">
+
+                                                                        {% if agence.snroagence.TVA|length > 6 %}
+                                                                            {{ agence.snroagence.TVA|striptags|slice(0, agence.snroagence.TVA|length-6)|raw }}
+
+                                                                            {{ agence.snroagence.TVA|striptags|slice(agence.snroagence.TVA|length-6, 3)|raw }}
+
+                                                                            {{ agence.snroagence.TVA|striptags|slice(agence.snroagence.TVA|length-3, 3)|raw }}
+
+                                                                        {% elseif(agence.snroagence.TVA|length > 3) %}
+                                                                            {{ agence.snroagence.TVA|striptags|slice(0, agence.snroagence.TVA|length-3)|raw }}
+
+                                                                            {{ agence.snroagence.TVA|striptags|slice(agence.snroagence.TVA|length-3, 3)|raw }}
+
+                                                                        {% else %}
+                                                                            {{ agence.snroagence.TVA }}
+                                                                        {% endif %}</div>
+                                                                </td>
+                                                            </tr>
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+
+                                            </td>
+                                            <td width="31%" style="border-right: 2px solid #d2d2d2;padding: 0px">
+                                                
+                                                        <table class="table">
+                                                            <tbody>
+                                                            <tr>
+                                                                <td width="18%" style="border-right: 1px solid #d2d2d2">
+                                                                    <div style="line-height: 9px;height: 20px">
+                                                                        <span style="font-size: 12px;font-weight: bold"> Nbr</span>
+                                                                     </div>
+                                                                </td>
+                                                                <td width="18%" style="border-right: 1px solid #d2d2d2">
+                                                                     <div style="line-height: 9px;">
+                                                                        <span style="font-size: 12px;font-weight: bold">Poids</span>
+                                                                     </div>
+                                                                </td>
+                                                                <td width="37%" style="border-right: 1px solid #d2d2d2">
+                                                                     <div style="line-height: 9px;">
+                                                                        <span style="font-size: 12px;font-weight: bold"> Montant HT</span>
+                                                                     </div>
+                                                                </td>
+                                                                <td width="27%">
+                                                                     <div style="line-height: 9px;">
+                                                                        <span style="font-size: 12px;font-weight: bold">TVA</span>
+                                                                     </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="18%" style="border-right: 1px solid #d2d2d2">
+                                                                    <div style="text-align: right">
+                                                                        {% if agence.sragence.Nbr|length > 3 %}
+                                                                            {{ agence.sragence.Nbr|striptags|slice(0, agence.sragence.Nbr|length-3)|raw }}
+                                                                            &nbsp
+                                                                            {{ agence.sragence.Nbr|striptags|slice(agence.sragence.Nbr|length-3, 3)|raw }}
+                                                                        {% else %}
+                                                                            {{ agence.sragence.Nbr }}
+                                                                        {% endif %}
+                                                                    </div>
+                                                                </td>
+                                                                <td width="18%" style="border-right: 1px solid #d2d2d2">
+                                                                    <div style="text-align: right">
+                                                                        {{ agence.sragence.Poids }}
+                                                                    </div>
+                                                                </td>
+                                                                <td width="37%" style="border-right: 1px solid #d2d2d2">
+                                                                    <div style="text-align: right">
+
+                                                                        {% if agence.sragence.Montant|length > 6 %}
+                                                                            {{ agence.sragence.Montant|striptags|slice(0, agence.sragence.Montant|length-6)|raw }}
+
+                                                                            {{ agence.sragence.Montant|striptags|slice(agence.sragence.Montant|length-6, 3)|raw }}
+
+                                                                            {{ agence.sragence.Montant|striptags|slice(agence.sragence.Montant|length-3, 3)|raw }}
+
+                                                                        {% elseif(agence.sragence.Montant|length > 3) %}
+                                                                            {{ agence.sragence.Montant|striptags|slice(0, agence.sragence.Montant|length-3)|raw }}
+
+                                                                            {{ agence.sragence.Montant|striptags|slice(agence.sragence.Montant|length-3, 3)|raw }}
+
+                                                                        {% else %}
+                                                                            {{ agence.sragence.Montant }}
+                                                                        {% endif %}</div>
+                                                                </td>
+                                                                <td width="27%">
+                                                                    <div style="text-align: right">
+
+                                                                        {% if agence.sragence.TVA|length > 6 %}
+                                                                            {{ agence.sragence.TVA|striptags|slice(0, agence.sragence.TVA|length-6)|raw }}
+
+                                                                            {{ agence.sragence.TVA|striptags|slice(agence.sragence.TVA|length-6, 3)|raw }}
+
+                                                                            {{ agence.sragence.TVA|striptags|slice(agence.sragence.TVA|length-3, 3)|raw }}
+
+                                                                        {% elseif(agence.sragence.TVA|length > 3) %}
+                                                                            {{ agence.sragence.TVA|striptags|slice(0, agence.sragence.TVA|length-3)|raw }}
+
+                                                                            {{ agence.sragence.TVA|striptags|slice(agence.sragence.TVA|length-3, 3)|raw }}
+
+                                                                        {% else %}
+                                                                            {{ agence.sragence.TVA }}
+                                                                        {% endif %}</div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="18%" style="border-right: 1px solid #d2d2d2">
+                                                                    <div style="text-align: right">
+                                                                        {% if agence.soagence.Nbr|length > 3 %}
+                                                                            {{ agence.soagence.Nbr|striptags|slice(0, agence.soagence.Nbr|length-3)|raw }}
+                                                                            &nbsp
+                                                                            {{ agence.soagence.Nbr|striptags|slice(agence.soagence.Nbr|length-3, 3)|raw }}
+                                                                        {% else %}
+                                                                            {{ agence.soagence.Nbr }}
+                                                                        {% endif %}</div>
+                                                                </td>
+                                                                <td width="18%" style="border-right: 1px solid #d2d2d2">
+                                                                    <div style="text-align: right">
+                                                                        {{ agence.soagence.Poids }}
+                                                                    </div>
+                                                                </td>
+                                                                <td width="37%" style="border-right: 1px solid #d2d2d2">
+                                                                    <div style="text-align: right">
+
+                                                                        {% if agence.soagence.Montant|length > 6 %}
+                                                                            {{ agence.soagence.Montant|striptags|slice(0, agence.soagence.Montant|length-6)|raw }}
+
+                                                                            {{ agence.soagence.Montant|striptags|slice(agence.soagence.Montant|length-6, 3)|raw }}
+
+                                                                            {{ agence.soagence.Montant|striptags|slice(agence.soagence.Montant|length-3, 3)|raw }}
+
+                                                                        {% elseif(agence.soagence.Montant|length > 3) %}
+                                                                            {{ agence.soagence.Montant|striptags|slice(0, agence.soagence.Montant|length-3)|raw }}
+
+                                                                            {{ agence.soagence.Montant|striptags|slice(agence.soagence.Montant|length-3, 3)|raw }}
+
+                                                                        {% else %}
+                                                                            {{ agence.soagence.Montant }}
+                                                                        {% endif %}</div>
+                                                                </td>
+                                                                <td width="27%">
+                                                                    <div style="text-align: right">
+
+                                                                        {% if agence.soagence.TVA|length > 6 %}
+                                                                            {{ agence.soagence.TVA|striptags|slice(0, agence.soagence.TVA|length-6)|raw }}
+
+                                                                            {{ agence.soagence.TVA|striptags|slice(agence.soagence.TVA|length-6, 3)|raw }}
+
+                                                                            {{ agence.soagence.TVA|striptags|slice(agence.soagence.TVA|length-3, 3)|raw }}
+
+                                                                        {% elseif(agence.soagence.TVA|length > 3) %}
+                                                                            {{ agence.soagence.TVA|striptags|slice(0, agence.soagence.TVA|length-3)|raw }}
+
+                                                                            {{ agence.soagence.TVA|striptags|slice(agence.soagence.TVA|length-3, 3)|raw }}
+
+                                                                        {% else %}
+                                                                            {{ agence.soagence.TVA }}
+                                                                        {% endif %}</div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="18%" style="border-right: 1px solid #d2d2d2">
+                                                                    <div style="text-align:right;">
+
+                                                                        {% if agence.sroagence.Nbr|length > 3 %}
+                                                                            {{ agence.sroagence.Nbr|striptags|slice(0, agence.sroagence.Nbr|length-3)|raw }}
+                                                                            &nbsp
+                                                                            {{ agence.sroagence.Nbr|striptags|slice(agence.sroagence.Nbr|length-3, 3)|raw }}
+                                                                        {% else %}
+                                                                            {{ agence.sroagence.Nbr }}
+                                                                        {% endif %}
+                                                                    </div>
+                                                                </td>
+                                                                <td width="18%" style="border-right: 1px solid #d2d2d2">
+                                                                    <div style="text-align: right">
+                                                                        {{ agence.sroagence.Poids }}
+                                                                    </div>
+                                                                </td>
+                                                                <td width="37%" style="border-right: 1px solid #d2d2d2">
+                                                                    <div style="text-align: right">
+
+                                                                        {% if agence.sroagence.Montant|length > 6 %}
+                                                                            {{ agence.sroagence.Montant|striptags|slice(0, agence.sroagence.Montant|length-6)|raw }}
+
+                                                                            {{ agence.sroagence.Montant|striptags|slice(agence.sroagence.Montant|length-6, 3)|raw }}
+
+                                                                            {{ agence.sroagence.Montant|striptags|slice(agence.sroagence.Montant|length-3, 3)|raw }}
+
+                                                                        {% elseif(agence.sroagence.Montant|length > 3) %}
+                                                                            {{ agence.sroagence.Montant|striptags|slice(0, agence.sroagence.Montant|length-3)|raw }}
+
+                                                                            {{ agence.sroagence.Montant|striptags|slice(agence.sroagence.Montant|length-3, 3)|raw }}
+
+                                                                        {% else %}
+                                                                            {{ agence.sroagence.Montant }}
+                                                                        {% endif %}</div>
+                                                                </td>
+                                                                <td width="27%">
+                                                                    <div style="text-align: right">
+
+                                                                        {% if agence.sroagence.TVA|length > 6 %}
+                                                                            {{ agence.sroagence.TVA|striptags|slice(0, agence.sroagence.TVA|length-6)|raw }}
+
+                                                                            {{ agence.sroagence.TVA|striptags|slice(agence.sroagence.TVA|length-6, 3)|raw }}
+
+                                                                            {{ agence.sroagence.TVA|striptags|slice(agence.sroagence.TVA|length-3, 3)|raw }}
+
+                                                                        {% elseif(agence.sroagence.TVA|length > 3) %}
+                                                                            {{ agence.sroagence.TVA|striptags|slice(0, agence.sroagence.TVA|length-3)|raw }}
+
+                                                                            {{ agence.sroagence.TVA|striptags|slice(agence.sroagence.TVA|length-3, 3)|raw }}
+
+                                                                        {% else %}
+                                                                            {{ agence.sroagence.TVA }}
+                                                                        {% endif %}</div>
+                                                                </td>
+                                                            </tr>
+
+
+                                                            </tbody>
+                                                        </table>
+                                                   
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            {% endif %}
+
+                        {% endfor %}
+                   
+                </div> 
+            </div>
+        </div>
+     </div>
+
+
+
+
+
+{% endblock %}

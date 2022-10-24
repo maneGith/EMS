@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Vacation</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ vacation.id }}</td>
+            </tr>
+            <tr>
+                <th>Journee</th>
+                <td>{{ vacation.journee }}</td>
+            </tr>
+            <tr>
+                <th>Debut</th>
+                <td>{{ vacation.debut }}</td>
+            </tr>
+            <tr>
+                <th>Fin</th>
+                <td>{{ vacation.fin }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('vacation_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('vacation_edit', { 'id': vacation.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

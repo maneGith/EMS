@@ -1,0 +1,150 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete.html.twig') }}
+    
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                <div class="titre lien-titre" id="titre">
+                   <span style="font-weight: bold">Liste des utilisateurs</span>           
+                </div> 
+
+                <div class="content container" id="content">       
+                   <div style="position: relative;" >
+                                <div class="sous-titre">
+                                    <table style="width: 100%" class="table table-bordered">
+                                        <tbody>
+                                        <tr>
+                                            <td style="border-right: 2px solid #d2d2d2;width: 20%">
+                                                <div>
+                                                    <span style="font-size: 12px;font-weight: bold">
+                                                      Profil-user
+                                                    </span>
+                                                    <span style="float:right">
+                                                        <a href="{{ path('user_new') }}" class="btn  btn-ems  r-ems">
+                                                            Créer
+                                                        </a>
+                                                      </span>
+                                                </div>
+                                            </td>
+                                            <td  style="border-right: 2px solid #d2d2d2;width: 240px">
+
+                                                <table style="width: 100%">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td style="width: 40px">
+
+                                                            <span style="font-size: 12px;font-weight: bold">S.agence</span>
+
+                                                        </td>
+                                                        <td style="width: 150px">
+                                                            <div>
+                                                                <span style="font-size: 12px;font-weight: bold">Agence</span>
+                                                            </div>
+
+                                                        </td>
+                                                        <td style="width: 100px">
+                                                            <div>
+                                                                <span style="font-size: 12px;font-weight: bold">Username</span>
+                                                            </div>
+                                                        </td>
+                                                        <td style="width: 150px">
+                                                            <div>
+                                                                <span style="font-size: 12px;font-weight: bold">Nom</span>
+
+                                                                
+                                                            </div>
+
+                                                        </td>
+
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                                                                         
+                             {% for user in utilisateurs %}
+
+                            <div style="border-bottom: 1px solid #337ab7;">
+                                <table style="width: 100%" class="table table-bordered">
+                                    <tbody>
+                                    <tr>
+                                        <td style="border-right: 2px solid #d2d2d2;width: 20%">
+                                            <div>
+                                                    <span style="font-size: 12px;font-weight: bold;color: red">
+                                                      {{ user.profil }}
+                                                    </span>
+                                            </div>
+                                        </td>
+                                        <td  style="border-right: 2px solid #d2d2d2;width: 240px">
+
+                                            <table style="width: 100%">
+                                                <tbody>
+
+                                                {% for utilisateur in user.users %}
+                                                    <tr>
+                                                        <td style="width: 40px">
+                                                            {{ utilisateur.agence.statut }}
+                                                        </td>
+                                                        <td style="width: 150px">
+                                                            <div>
+                                                                {{ utilisateur.agence.nom }}
+                                                            </div>
+                                                        </td>
+                                                        <td style="width: 100px">
+                                                            <div>
+                                                                {{ utilisateur.username }}
+                                                            </div>
+                                                        </td>
+                                                        <td style="width: 150px">
+                                                            <div>
+                                                                {{ utilisateur.nom }}
+                                                                <span style="float: right">
+                                                                    <a href="{{ path('user_edit', { 'id': utilisateur.id }) }}" style="float: right;font-weight: bold">
+                                                                        <span class="rs-e">Paramètres</span>
+                                                                    </a>
+                                                                </span>
+
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        {% endfor %}                                            
+                                                                         
+                                                                         
+                </div> 
+                        
+                        
+                        
+                        
+                        
+                        
+            </div>
+        </div>
+     </div>
+
+
+
+
+
+{% endblock %}

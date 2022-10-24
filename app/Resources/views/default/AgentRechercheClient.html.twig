@@ -1,0 +1,186 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/header.html.twig') }}
+
+    <div id="container" style="border: solid 1px #d2d2d2;overflow-x: hidden;overflow-y:hidden ">
+        <div class="row">
+
+
+            <div  class="column column-left menu">
+                <div class="menu-action">
+                    {{ include('includes/agent.html.twig') }}
+                </div>
+            </div>
+            <div class="column column-middle"  style="background: #8E998F">
+
+                <div id="wrapper">
+                    <div class="titre-action">
+                        <div style="border-top: solid 2px #337ab7;"></div>
+                           <span style="font-weight: bold">Expédition -
+                            <span style="color: red;font-weight: bold">
+                                     {{ client }} /   {{ envoi }}
+                            </span>
+                        </span>
+                    </div>
+
+
+                    <div class="content-action">
+                        <div>
+
+                            <div style="max-width: 435px" class="alert-danger">
+                                                 <span style="font-weight: bold">
+                                                  {{ app.session.get('msg') }}
+                                                </span>
+                            </div>
+                        <form action="{{ path('abonneenvoi_new') }}" method="post">
+
+                            <input type="hidden"  name="typeenvoi"  value="{{envoi }}"/>
+                            <table style="width: 100%">
+                                <tbody>
+                                <tr>
+                                    <td width="15%">
+                                        <div style="padding-top: 15px;padding-right: 5px;padding-left: 5px;">
+                                            <span style="font-weight: bold">
+                                                Destination &nbsp;&nbsp;&nbsp;&nbsp;:
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td width="85%">
+                                        <div style="padding-top: 15px;padding-right: 5px;">
+                                            <input type="hidden"  name="pays"  value="{{id_paysdes }}"/>
+                                            <span style="color: red;font-weight: bold"> {{ nom_paysdes }}</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="15%">
+                                        <div style="padding-top: 5px;padding-right: 5px;padding-left: 5px;">
+                                            <span style="font-weight: bold">
+                                               Poids(Kg) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td width="85%">
+                                        <div style="padding-top: 5px;padding-right: 5px;">
+                                            <input type="hidden"  name="poids"  value="{{ poids }}"/>
+                                            <span style="font-weight: bold;color: red">{{ poids }}</span>&nbsp;<span style="font-weight: bold;">Kg</span>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="15%">
+                                        <div style="padding-top: 5px;padding-right: 5px;padding-left: 5px;">
+                                            <span style="font-weight: bold">Tarif HT &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</span>
+                                        </div>
+                                    </td>
+                                    <td width="85%">
+                                        <div style="padding-top: 5px;padding-right: 5px;max-width: 85px;text-align: right">
+                                                             <span style="font-weight: bold;color: red">
+                                                                {% if tarif|length > 3 %}
+                                                                    {{ tarif|striptags|slice(0, tarif|length-3)|raw }}
+                                                                    &nbsp
+                                                                    {{ tarif|striptags|slice(tarif|length-3, 3)|raw }}
+                                                                {% else %}
+                                                                    {{ tarif }}
+                                                                {% endif %}
+                                                                 </span><span style="font-weight: bold">F</span>
+                                            <input type="hidden"  name="tarif"  value="{{ tarif }}"/>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="15%">
+                                        <div style="padding-top: 5px;padding-right: 5px;padding-left: 5px;">
+                                            <span style="font-weight: bold">TVA &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</span>
+                                        </div>
+                                    </td>
+                                    <td width="85%">
+                                        <div style="padding-top: 5px;padding-right: 5px;max-width: 85px;text-align: right">
+                                                             <span style="font-weight: bold;color: red">
+                                                                {% if tva|length > 3 %}
+                                                                    {{ tva|striptags|slice(0, tva|length-3)|raw }}
+                                                                    &nbsp
+                                                                    {{ tva|striptags|slice(tva|length-3, 3)|raw }}
+                                                                {% else %}
+                                                                    {{ tva }}
+                                                                {% endif %}
+                                                                 </span><span style="font-weight: bold">F</span>
+                                            <input type="hidden"  name="tva"  value="{{ tva }}"/>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td width="15%">
+                                        <div style="padding-top: 5px;padding-right: 5px;padding-left: 5px;">
+                                            <span style="font-weight: bold;">Tarif TTC &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</span>
+                                        </div>
+                                    </td>
+                                    <td width="85%">
+                                        <div style="padding-top: 5px;padding-right: 5px;max-width: 85px;text-align: right">
+                                                              <span style="font-weight: bold;color: red">
+                                                                {% if ttc|length > 3 %}
+                                                                    {{ ttc|striptags|slice(0, ttc|length-3)|raw }}
+                                                                    &nbsp
+                                                                    {{ ttc|striptags|slice(ttc|length-3, 3)|raw }}
+                                                                {% else %}
+                                                                    {{ ttc }}
+                                                                {% endif %}
+                                                                  </span><span style="font-weight: bold">F</span>
+                                            <input type="hidden"  name="ttc"  value="{{ ttc }}"/>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td width="15%">
+                                        <div style="padding-top: 5px;padding-right: 5px;padding-left: 5px;">
+                                            <span style="font-weight: bold;">Nom du client :</span>
+                                        </div>
+                                    </td>
+                                    <td width="85%">
+                                        <div style="padding-top: 5px;padding-right: 5px;max-width: 300px" class="autocomplete">
+                                            <input type="text"  id="code_abonne"  name="code_abonne" class="form-control" style="width: 180px;border:solid 1px #337ab7;" autocomplete="off" placeholder="Nom de l'abonné"/>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td width="15%">
+
+                                    </td>
+                                    <td width="85%">
+                                        <div style="padding-top: 5px;padding-right: 5px;">
+                                            <input type="submit" value="Suivant" class="btn  btn-ems" />
+                                            <a href="{{ path('homepage') }}" class="btn btn-ems">Annuler</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </form>
+                        </div>
+
+
+                        <script>
+                                $( function() {
+                                    var availableTags = [
+                                        {% for abonne in abonnes %}
+                                        "{{ abonne.nom }}",
+                                        {% endfor %}
+                                    ];
+                                    $( "#code_abonne" ).autocomplete({
+                                        source: availableTags
+                                    });
+                                } );
+                        </script>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

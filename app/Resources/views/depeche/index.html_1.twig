@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Depeches list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for depeche in depeches %}
+            <tr>
+                <td><a href="{{ path('depeche_show', { 'id': depeche.id }) }}">{{ depeche.id }}</a></td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('depeche_show', { 'id': depeche.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('depeche_edit', { 'id': depeche.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('depeche_new') }}">Create a new depeche</a>
+        </li>
+    </ul>
+{% endblock %}

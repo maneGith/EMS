@@ -1,0 +1,119 @@
+  {% if(is_granted('ROLE_AGENTGUICHET')) %}
+
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <td>
+                    <div>
+                        <img  src="{{ asset('img/courrier-national.jpg') }}" width="195" height="120"/>
+                    </div>
+                    <div style="height: 40px;margin-top: 20px;font-size: 13px;text-align: left">
+                        <span style="font-weight: bold">
+                            <a href="" class="btn btn-ems">
+                                REGULIER &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NATIONAL
+                            </a>
+                        </span>
+                    </div>
+                    <div style="height: 40px;font-size: 13px;text-align: left">
+                        <span style="font-weight: bold">
+                            <a href="" class="btn btn-ems" style="color: white">
+                                OCCASIONNEL NATIONAL
+                            </a>
+                        </span>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <img  src="{{ asset('img/courrier-international.jpg') }}" width="235" height="120"/>
+                    </div>
+                    <div style="height: 40px;margin-top: 20px;font-size: 13px;text-align: left">
+                        <span style="font-weight: bold">
+                            <a href="" class="btn btn-ems">
+                                REGULIER &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTERNATIONAL
+                            </a>
+                        </span>
+                    </div>
+                    <div style="height: 40px;font-size: 13px;text-align: left">
+                        <span style="font-weight: bold">
+                            <a href="" class="btn btn-ems" style="color: white">
+                                OCCASIONNEL INTERNATIONAL
+                            </a>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div style="height: 40px;font-size: 13px;text-align: center">
+                        <span style="font-weight: bold">
+                            <a href="{{ path('agent_depot_differe') }}" class="btn btn-ems" style="color: darkred;font-weight: bold">
+                               Dépot différé national et international
+                            </a>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div> 
+{% elseif(is_granted('ROLE_ADMIN')) %}  
+    
+   <div class="table-responsive">
+
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td width="50%">
+                                        <a href="{{ path('agence_index') }}">
+                                           <img  src="{{ asset('img/agences-ems.jpg') }}" width="100" height="100"/>
+                                           <div style="color:#337ab7;font-size: 11px;width: 120px">
+                                               Administration des agences
+                                           </div>
+                                        </a>
+                                    </td>
+                                    <td  width="50%">
+                                        <a href="{{ path('user_index') }}">
+                                        <img  src="{{ asset('img/users-ems.jpg') }}" width="100" height="100"/>
+                                        <div style="color:#337ab7;font-size: 11px;width: 120px">
+                                            Administration des utilisateurs
+                                        </div>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="{{ path('zone_index') }}">
+                                        <img  src="{{ asset('img/tarif-ems-bareme.jpg') }}" width="100" height="100"/>
+                                        <div style="color:#337ab7;font-size: 11px;width: 120px">
+                                                Paramétrages des tarifs en fonction des poids et des destinations
+                                        </div>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <div style="padding: 5px;text-align: justify">
+                                         <span style="color:#777;">
+                                             EMS-Sénégal est une filiale du Groupe la Poste. Son principale activité est la collecte,
+                                        l'expédition et la distribution du courrier accéléré à l'intérieur du pays et partout dans le monde.
+                                        </span>
+                                        </div>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div style="color:#777;font-size: 20px;text-align: center;">
+                            <p>
+                                La rentabilité de notre entreprise, notre fierté
+                            </p>
+
+                        </div>
+                        </div>
+   {% elseif(is_granted('ROLE_CONTROLE')) %}
+   {% elseif(is_granted('ROLE_RECOUVREMENT')) %}
+   {% else %}
+   {% endif %}
+   
+   
+                               
+                               
